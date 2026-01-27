@@ -1,0 +1,445 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Testimonials from "../components/landing/Testimonials.astro";
+---
+
+<Layout>
+    <main class="min-h-screen pt-36 pb-12 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h1
+                    class="text-5xl md:text-7xl font-display font-black leading-tight mb-6"
+                >
+                    Results <span class="text-gradient-main">Speak Louder</span>
+                </h1>
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+                    We don't hide behind vanity metrics. Here is the raw data
+                    from our Growth Ecosystems.
+                </p>
+            </div>
+
+            <!-- Case Study 1: The Pet Brand -->
+            <div
+                class="glass-panel p-8 md:p-12 rounded-3xl mb-12 transform hover:scale-[1.01] transition-all duration-500 border-l-4 border-l-brand-purple"
+            >
+                <div
+                    class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+                >
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <span
+                                class="bg-brand-purple/20 text-brand-purple px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider"
+                                >E-Commerce</span
+                            >
+                            <span
+                                class="bg-white/10 text-gray-300 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider"
+                                >$20M+ Revenue</span
+                            >
+                        </div>
+                        <h2 class="text-3xl font-display font-bold mb-4">
+                            Scaling a Pet Brand from 0.8 to 3.2 ROAS in 14 Days
+                        </h2>
+                        <div class="space-y-6 text-gray-300 mb-8">
+                            <div>
+                                <h3 class="text-white font-bold mb-1">
+                                    The Problem
+                                </h3>
+                                <p>
+                                    The brand was burning $20k/month on
+                                    high-production "cinema efficiency" ads that
+                                    looked beautiful but failed to convert on
+                                    TikTok and Reels. They were suffering from
+                                    "Ad Blindness".
+                                </p>
+                            </div>
+                            <div>
+                                <h3 class="text-white font-bold mb-1">
+                                    The Ecosystem Fix
+                                </h3>
+                                <p>
+                                    We replaced the studio shoots with our <strong
+                                        >High-Volume UGC Engine</strong
+                                    >. We produced 50 "lo-fi", authentic videos
+                                    using real customers, focusing on
+                                    direct-response hooks rather than cinematic
+                                    aesthetics.
+                                </p>
+                            </div>
+                        </div>
+                        <a
+                            href="/audit"
+                            class="inline-flex items-center gap-2 text-brand-purple hover:text-white font-bold transition-colors"
+                        >
+                            See How We Did It <span aria-hidden="true"
+                                >&rarr;</span
+                            >
+                        </a>
+                    </div>
+
+                    <!-- Visualization of Results -->
+                    <div
+                        class="bg-black/40 rounded-xl p-6 border border-white/5 relative overflow-hidden"
+                    >
+                        <div class="absolute inset-0 bg-brand-purple/5"></div>
+                        <!-- Mock Chart or Stats -->
+                        <div class="grid grid-cols-2 gap-4 relative z-10">
+                            <div class="bg-white/5 p-4 rounded-lg">
+                                <p
+                                    class="text-gray-400 text-xs uppercase tracking-wider mb-1"
+                                >
+                                    Before ROAS
+                                </p>
+                                <p
+                                    class="text-3xl font-mono font-bold text-red-400"
+                                >
+                                    0.8x
+                                </p>
+                            </div>
+                            <div
+                                class="bg-brand-purple/20 p-4 rounded-lg border border-brand-purple/30"
+                            >
+                                <p
+                                    class="text-brand-purple text-xs uppercase tracking-wider mb-1"
+                                >
+                                    After ROAS
+                                </p>
+                                <p
+                                    class="text-3xl font-mono font-bold text-white"
+                                >
+                                    3.2x
+                                </p>
+                            </div>
+                            <div class="bg-white/5 p-4 rounded-lg col-span-2">
+                                <p
+                                    class="text-gray-400 text-xs uppercase tracking-wider mb-1"
+                                >
+                                    Creative Output
+                                </p>
+                                <p class="text-xl font-bold text-white">
+                                    50+ Variations / Month
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Case Study 2: Tech/SaaS -->
+            <div
+                class="glass-panel p-8 md:p-12 rounded-3xl mb-12 transform hover:scale-[1.01] transition-all duration-500 border-l-4 border-l-brand-blue"
+            >
+                <div
+                    class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+                >
+                    <!-- Swap order for visual interest on desktop -->
+                    <div
+                        class="order-2 lg:order-1 bg-black/40 rounded-xl p-6 border border-white/5 relative overflow-hidden"
+                    >
+                        <div class="absolute inset-0 bg-brand-blue/5"></div>
+                        <div class="grid grid-cols-2 gap-4 relative z-10">
+                            <div class="bg-white/5 p-4 rounded-lg">
+                                <p
+                                    class="text-gray-400 text-xs uppercase tracking-wider mb-1"
+                                >
+                                    Old CPA
+                                </p>
+                                <p
+                                    class="text-3xl font-mono font-bold text-red-400"
+                                >
+                                    $145
+                                </p>
+                            </div>
+                            <div
+                                class="bg-brand-blue/20 p-4 rounded-lg border border-brand-blue/30"
+                            >
+                                <p
+                                    class="text-brand-blue text-xs uppercase tracking-wider mb-1"
+                                >
+                                    New CPA
+                                </p>
+                                <p
+                                    class="text-3xl font-mono font-bold text-white"
+                                >
+                                    $62
+                                </p>
+                            </div>
+                            <div class="bg-white/5 p-4 rounded-lg col-span-2">
+                                <p
+                                    class="text-gray-400 text-xs uppercase tracking-wider mb-1"
+                                >
+                                    Conversion Rate Lift
+                                </p>
+                                <p class="text-xl font-bold text-white">
+                                    +48% via Landing Page Optimization
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="order-1 lg:order-2">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span
+                                class="bg-brand-blue/20 text-brand-blue px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider"
+                                >SaaS</span
+                            >
+                            <span
+                                class="bg-white/10 text-gray-300 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider"
+                                >$15M ARR</span
+                            >
+                        </div>
+                        <h2 class="text-3xl font-display font-bold mb-4">
+                            Halving Customer Acquisition Costs with Landing Page
+                            Architecture
+                        </h2>
+                        <div class="space-y-6 text-gray-300 mb-8">
+                            <div>
+                                <h3 class="text-white font-bold mb-1">
+                                    The Problem
+                                </h3>
+                                <p>
+                                    Traffic was healthy, but valid leads were
+                                    expensive. The generic homepage was leaking
+                                    96% of paid traffic.
+                                </p>
+                            </div>
+                            <div>
+                                <h3 class="text-white font-bold mb-1">
+                                    The Ecosystem Fix
+                                </h3>
+                                <p>
+                                    We deployed dedicated <strong
+                                        >Conversion Infrastructure</strong
+                                    >. Not just a page, but a segmented funnel
+                                    that qualified leads before they ever booked
+                                    a demo, using our "Doctor Frame" diagnosis
+                                    mechanism.
+                                </p>
+                            </div>
+                        </div>
+                        <a
+                            href="/audit"
+                            class="inline-flex items-center gap-2 text-brand-blue hover:text-white font-bold transition-colors"
+                        >
+                            Analyze Your Funnel <span aria-hidden="true"
+                                >&rarr;</span
+                            >
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Case Study 3: Health & Wellness (New) -->
+
+            <div class="mb-20">
+                <Testimonials />
+            </div>
+
+            <div
+                class="glass-panel p-8 md:p-12 rounded-3xl mb-12 transform hover:scale-[1.01] transition-all duration-500 border-l-4 border-l-brand-green"
+            >
+                <div
+                    class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+                >
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <span
+                                class="bg-brand-green/20 text-brand-green px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider"
+                                >Health & Wellness</span
+                            >
+                            <span
+                                class="bg-white/10 text-gray-300 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider"
+                                >Subscription</span
+                            >
+                        </div>
+                        <h2 class="text-3xl font-display font-bold mb-4">
+                            Stabilizing LTV for a Supplement Brand
+                        </h2>
+                        <div class="space-y-6 text-gray-300 mb-8">
+                            <div>
+                                <h3 class="text-white font-bold mb-1">
+                                    The Problem
+                                </h3>
+                                <p>
+                                    Churn was killing growth. Customers bought
+                                    once and vanished. Meta ads were bringing in
+                                    one-time purchasers, but the <strong
+                                        class="text-red-400"
+                                        >LTV:CAC ratio</strong
+                                    > was upside down (0.9).
+                                </p>
+                            </div>
+                            <div>
+                                <h3 class="text-white font-bold mb-1">
+                                    The Ecosystem Fix
+                                </h3>
+                                <p>
+                                    We overhauled the post-purchase email flows
+                                    and implemented a "Subscription-First" offer
+                                    on the landing page. We shifted ad messaging
+                                    from "Try it" to "Transform your health (90
+                                    days)".
+                                </p>
+                            </div>
+                        </div>
+                        <a
+                            href="/audit"
+                            class="inline-flex items-center gap-2 text-brand-green hover:text-white font-bold transition-colors"
+                        >
+                            Fix Your Retention <span aria-hidden="true"
+                                >&rarr;</span
+                            >
+                        </a>
+                    </div>
+
+                    <!-- Visualization -->
+                    <div
+                        class="bg-black/40 rounded-xl p-6 border border-white/5 relative overflow-hidden"
+                    >
+                        <div class="absolute inset-0 bg-brand-green/5"></div>
+                        <div class="grid grid-cols-2 gap-4 relative z-10">
+                            <div class="bg-white/5 p-4 rounded-lg">
+                                <p
+                                    class="text-gray-400 text-xs uppercase tracking-wider mb-1"
+                                >
+                                    Day 1 Churn
+                                </p>
+                                <p
+                                    class="text-3xl font-mono font-bold text-red-400"
+                                >
+                                    65%
+                                </p>
+                            </div>
+                            <div
+                                class="bg-brand-green/20 p-4 rounded-lg border border-brand-green/30"
+                            >
+                                <p
+                                    class="text-brand-green text-xs uppercase tracking-wider mb-1"
+                                >
+                                    Retention Rate
+                                </p>
+                                <p
+                                    class="text-3xl font-mono font-bold text-white"
+                                >
+                                    +40%
+                                </p>
+                            </div>
+                            <div class="bg-white/5 p-4 rounded-lg col-span-2">
+                                <p
+                                    class="text-gray-400 text-xs uppercase tracking-wider mb-1"
+                                >
+                                    LTV Increase
+                                </p>
+                                <p class="text-xl font-bold text-white">
+                                    $45 &rarr; $112 (90 Days)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Case Study 4: High Ticket Info (New) -->
+            <div
+                class="glass-panel p-8 md:p-12 rounded-3xl transform hover:scale-[1.01] transition-all duration-500 border-l-4 border-l-brand-gold"
+            >
+                <div
+                    class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+                >
+                    <!-- Swap order -->
+                    <div
+                        class="order-2 lg:order-1 bg-black/40 rounded-xl p-6 border border-white/5 relative overflow-hidden"
+                    >
+                        <div class="absolute inset-0 bg-brand-gold/5"></div>
+                        <div class="grid grid-cols-2 gap-4 relative z-10">
+                            <div class="bg-white/5 p-4 rounded-lg">
+                                <p
+                                    class="text-gray-400 text-xs uppercase tracking-wider mb-1"
+                                >
+                                    Lead Cost
+                                </p>
+                                <p
+                                    class="text-3xl font-mono font-bold text-red-400"
+                                >
+                                    $350
+                                </p>
+                            </div>
+                            <div
+                                class="bg-brand-gold/20 p-4 rounded-lg border border-brand-gold/30"
+                            >
+                                <p
+                                    class="text-brand-gold text-xs uppercase tracking-wider mb-1"
+                                >
+                                    Lead Cost
+                                </p>
+                                <p
+                                    class="text-3xl font-mono font-bold text-white"
+                                >
+                                    $45
+                                </p>
+                            </div>
+                            <div class="bg-white/5 p-4 rounded-lg col-span-2">
+                                <p
+                                    class="text-gray-400 text-xs uppercase tracking-wider mb-1"
+                                >
+                                    Total Revenue
+                                </p>
+                                <p class="text-xl font-bold text-white">
+                                    $1.2M Launch
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="order-1 lg:order-2">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span
+                                class="bg-brand-gold/20 text-brand-gold px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider"
+                                >Coaching</span
+                            >
+                            <span
+                                class="bg-white/10 text-gray-300 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider"
+                                >High Ticket</span
+                            >
+                        </div>
+                        <h2 class="text-3xl font-display font-bold mb-4">
+                            $1.2M Launch for a Leadership Coach
+                        </h2>
+                        <div class="space-y-6 text-gray-300 mb-8">
+                            <div>
+                                <h3 class="text-white font-bold mb-1">
+                                    The Problem
+                                </h3>
+                                <p>
+                                    Reliance on referrals. The founder was
+                                    famous in niche circles but invisible to
+                                    "cold" traffic. Paid ads were attracting
+                                    "freebie seekers," not buyers.
+                                </p>
+                            </div>
+                            <div>
+                                <h3 class="text-white font-bold mb-1">
+                                    The Ecosystem Fix
+                                </h3>
+                                <p>
+                                    We skipped the low-ticket "tripwire" funnel
+                                    and built a <strong
+                                        >Direct-to-Offer VSL Funnel</strong
+                                    >. We used long-form YouTube ads to filter
+                                    out non-buyers, sending only the most
+                                    committed leads to the sales team.
+                                </p>
+                            </div>
+                        </div>
+                        <a
+                            href="/audit"
+                            class="inline-flex items-center gap-2 text-brand-gold hover:text-white font-bold transition-colors"
+                        >
+                            Scale Your Offer <span aria-hidden="true"
+                                >&rarr;</span
+                            >
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</Layout>

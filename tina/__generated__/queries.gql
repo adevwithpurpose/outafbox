@@ -1,5 +1,5 @@
-query landing($relativePath: String!) {
-  landing(relativePath: $relativePath) {
+query page($relativePath: String!) {
+  page(relativePath: $relativePath) {
     ... on Document {
       _sys {
         filename
@@ -12,12 +12,12 @@ query landing($relativePath: String!) {
       }
       id
     }
-    ...LandingParts
+    ...PageParts
   }
 }
 
-query landingConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: LandingFilter) {
-  landingConnection(
+query pageConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PageFilter) {
+  pageConnection(
     before: $before
     after: $after
     first: $first
@@ -47,7 +47,7 @@ query landingConnection($before: String, $after: String, $first: Float, $last: F
           }
           id
         }
-        ...LandingParts
+        ...PageParts
       }
     }
   }

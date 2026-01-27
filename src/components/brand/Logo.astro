@@ -1,0 +1,44 @@
+---
+interface Props {
+    class?: string;
+    dark?: boolean;
+}
+
+const { class: className, dark = false } = Astro.props;
+---
+
+<div
+    class={`flex items-center gap-1 font-display tracking-widest font-black select-none ${className}`}
+>
+    <span class={dark ? "text-black" : "text-white"}>OUT</span>
+
+    <!-- The Stylized 'A' / Growth Arrow -->
+    <div class="relative flex items-center justify-center w-[0.8em] h-[1em]">
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-full h-full transform -translate-y-[5%]"
+        >
+            <path
+                d="M12 2L2 22H7L12 12L17 22H22L12 2Z"
+                class="fill-brand-purple"
+                style="filter: drop-shadow(0 0 8px rgba(124, 58, 237, 0.5));"
+            >
+                <animate
+                    attributeName="d"
+                    dur="5s"
+                    repeatCount="indefinite"
+                    values="M12 2L2 22H7L12 12L17 22H22L12 2Z; M12 0L2 22H7L12 10L17 22H22L12 0Z; M12 2L2 22H7L12 12L17 22H22L12 2Z"
+                ></animate>
+            </path>
+        </svg>
+        <!-- Overlay Gradient for shimmer -->
+        <div
+            class="absolute inset-0 bg-gradient-to-t from-brand-blue/50 to-transparent mix-blend-overlay pointer-events-none"
+        >
+        </div>
+    </div>
+
+    <span class={dark ? "text-black" : "text-white"}>FBOX</span>
+</div>

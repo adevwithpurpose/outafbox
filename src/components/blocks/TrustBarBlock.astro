@@ -1,0 +1,10 @@
+---
+import TrustBar from "../landing/TrustBar.astro";
+
+const { data } = Astro.props;
+const mappedData = {
+    trustLabel: data.label,
+};
+---
+
+<TrustBar data={mappedData} />

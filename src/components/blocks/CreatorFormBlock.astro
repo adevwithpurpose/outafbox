@@ -1,0 +1,122 @@
+---
+const { data } = Astro.props;
+---
+
+<section id="apply" class="py-20 px-6 relative">
+    <!-- Background Gradient -->
+    <div
+        class="absolute bottom-0 right-0 w-[600px] h-[600px] bg-brand-purple/10 blur-[100px] rounded-full pointer-events-none"
+    >
+    </div>
+
+    <div class="container mx-auto max-w-4xl">
+        <div
+            class="glass-panel p-8 md:p-12 rounded-3xl border border-white/10 relative overflow-hidden"
+        >
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h2 class="text-3xl font-display font-black mb-4">
+                        {data.headline || "Join the Network"}
+                    </h2>
+                    <p class="text-gray-400 mb-8">
+                        Ready to work with the best? Fill out the form or email
+                        us directly at <a
+                            href="mailto:creatives@outafbox.com"
+                            class="text-brand-pink hover:underline font-bold"
+                            >creatives@outafbox.com</a
+                        >.
+                    </p>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center shrink-0"
+                            >
+                                <span class="text-xl">🎬</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white">
+                                    Show Us Your Best
+                                </h4>
+                                <p class="text-xs text-gray-500 mt-1">
+                                    We care about your Portfolio/UGC examples
+                                    more than your follower count.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center shrink-0"
+                            >
+                                <span class="text-xl">⚡</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white">
+                                    Speed Matters
+                                </h4>
+                                <p class="text-xs text-gray-500 mt-1">
+                                    Our brands move fast. We prioritize creators
+                                    with reliable turnaround times.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <form class="space-y-4">
+                    <div>
+                        <label
+                            class="block text-sm font-medium text-gray-400 mb-1"
+                            >Full Name</label
+                        >
+                        <input
+                            type="text"
+                            placeholder="Jane Doe"
+                            class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none text-white transition-all"
+                        />
+                    </div>
+                    <div>
+                        <label
+                            class="block text-sm font-medium text-gray-400 mb-1"
+                            >Email Address</label
+                        >
+                        <input
+                            type="email"
+                            placeholder="jane@example.com"
+                            class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none text-white transition-all"
+                        />
+                    </div>
+                    <div>
+                        <label
+                            class="block text-sm font-medium text-gray-400 mb-1"
+                            >Portfolio Link (Google Drive / Website)</label
+                        >
+                        <input
+                            type="url"
+                            placeholder="https://"
+                            class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none text-white transition-all"
+                        />
+                    </div>
+                    <div>
+                        <label
+                            class="block text-sm font-medium text-gray-400 mb-1"
+                            >Social Handle (IG/TikTok)</label
+                        >
+                        <input
+                            type="text"
+                            placeholder="@username"
+                            class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none text-white transition-all"
+                        />
+                    </div>
+
+                    <button
+                        class="w-full bg-white text-black font-bold py-4 rounded-lg hover:scale-[1.02] transition-transform mt-2 shadow-lg hover:shadow-white/20"
+                    >
+                        Submit Application
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

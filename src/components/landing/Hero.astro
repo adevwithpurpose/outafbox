@@ -1,0 +1,103 @@
+---
+const { data } = Astro.props;
+import HeroCalculator from './HeroCalculator.astro';
+
+// Determine if this is a "full" homepage hero (with calculator) or a smaller subpage hero
+const isFullHero = data.showCalculator || data.image;
+---
+
+{
+  !data ? (
+    <section class="min-h-screen flex items-center justify-center text-red-500">
+      Error: No data provided to Hero
+    </section>
+  ) : isFullHero ? (
+    /* --- FULL HERO (Homepage with Calculator or Image) --- */
+    <section class="relative min-h-screen flex items-center pt-36 pb-20 overflow-hidden">
+      <!-- Background Glows -->
+      <div class="absolute top-0 left-1/4 w-96 h-96 bg-brand-purple/30 rounded-full blur-3xl opacity-50 animate-pulse"></div>
+      <div class="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-brand-blue/20 rounded-full blur-3xl opacity-40"></div>
+
+      <div class="container mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Text Content -->
+        <div class="space-y-8">
+          <h1 class="text-5xl md:text-7xl font-black tracking-tight leading-tight">
+            {data.heroHeadline}
+          </h1>
+          <p class="text-xl text-gray-300 max-w-lg leading-relaxed">
+            {data.heroSubhead}
+          </p>
+          
+          <div class="flex flex-wrap gap-4 pt-4">
+            {data.ctaText && (
+                <a href={data.ctaLink || "#"} class="relative px-8 py-4 bg-brand-purple hover:bg-brand-purple/90 text-white font-bold rounded-lg transition-all glow-purple group overflow-hidden">
+                <span class="relative z-10">{data.ctaText}</span>
+                <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                </a>
+            )}
+            
+            {data.secondaryCtaText && (
+                <a href={data.secondaryCtaLink || "#"} class="px-8 py-4 border border-white/20 hover:bg-white/5 text-white font-semibold rounded-lg transition-all backdrop-blur-sm">
+                {data.secondaryCtaText}
+                </a>
+            )}
+          </div>
+        </div>
+
+        {/* Visual Side: Calculator OR Image */}
+        {data.showCalculator ? (
+            <div class="relative perspective-1000 group">
+                <!-- Floating Orb behind -->
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-brand-purple/40 rounded-full blur-[100px]"></div>
+                <HeroCalculator />
+            </div>
+        ) : data.image ? (
+             <div class="relative group">
+                 <div class="absolute inset-0 bg-brand-purple/20 blur-3xl rounded-full opacity-50 -z-10"></div>
+                 <img src={data.image} alt={data.heroHeadline} class="relative w-full h-auto rounded-3xl border border-white/10 shadow-2xl transform group-hover:scale-105 transition-transform duration-500" />
+            </div>
+        ) : null}
+      </div>
+    </section>
+  ) : (
+    /* --- COMPACT HERO (Subpages: text only, no full screen) --- */
+    <section class="relative pt-36 pb-16 overflow-hidden">
+      <!-- Subtle Background Glow -->
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-brand-purple/20 rounded-full blur-[100px] opacity-50"></div>
+
+      <div class="container mx-auto px-6 relative z-10 text-center max-w-3xl">
+        <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-tight mb-6">
+          {data.heroHeadline}
+        </h1>
+        {data.heroSubhead && (
+            <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed mb-8">
+              {data.heroSubhead}
+            </p>
+        )}
+        
+        {(data.ctaText || data.secondaryCtaText) && (
+            <div class="flex flex-wrap gap-4 justify-center">
+            {data.ctaText && (
+                <a href={data.ctaLink || "#"} class="relative px-8 py-4 bg-brand-purple hover:bg-brand-purple/90 text-white font-bold rounded-lg transition-all glow-purple group overflow-hidden">
+                <span class="relative z-10">{data.ctaText}</span>
+                <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                </a>
+            )}
+            
+            {data.secondaryCtaText && (
+                <a href={data.secondaryCtaLink || "#"} class="px-8 py-4 border border-white/20 hover:bg-white/5 text-white font-semibold rounded-lg transition-all backdrop-blur-sm">
+                {data.secondaryCtaText}
+                </a>
+            )}
+            </div>
+        )}
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+</style>

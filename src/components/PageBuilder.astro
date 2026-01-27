@@ -1,0 +1,66 @@
+---
+import HeroBlock from "./blocks/HeroBlock.astro";
+import FeatureGridBlock from "./blocks/FeatureGridBlock.astro";
+import ContentBlock from "./blocks/ContentBlock.astro";
+import TestimonialsBlock from "./blocks/TestimonialsBlock.astro";
+import TrustBarBlock from "./blocks/TrustBarBlock.astro";
+import AuditFormBlock from "./blocks/AuditFormBlock.astro";
+import CreatorFormBlock from "./blocks/CreatorFormBlock.astro";
+import TeamGridBlock from "./blocks/TeamGridBlock.astro";
+import JobsListBlock from "./blocks/JobsListBlock.astro";
+import FAQBlock from "./blocks/FAQBlock.astro";
+import VSLBlock from "./blocks/VSLBlock.astro";
+import ComparisonBlock from "./blocks/ComparisonBlock.astro";
+import FounderBlock from "./blocks/FounderBlock.astro";
+import ResultsTeaserBlock from "./blocks/ResultsTeaserBlock.astro";
+import GuaranteeBlock from "./blocks/GuaranteeBlock.astro";
+
+const { blocks } = Astro.props;
+---
+
+{
+    blocks &&
+        blocks.map((block) => {
+            // TinaCMS GraphQ typename convention: [Collection][Field][Template]
+            // Collection: Page, Field: Blocks, Template: Hero -> PageBlocksHero
+            switch (block.__typename) {
+                case "PageBlocksHero":
+                    return <HeroBlock data={block} />;
+                case "PageBlocksFeatures":
+                    return <FeatureGridBlock data={block} />;
+                case "PageBlocksContent":
+                    return <ContentBlock data={block} />;
+                case "PageBlocksTestimonials":
+                    return <TestimonialsBlock data={block} />;
+                case "PageBlocksTrustBar":
+                    return <TrustBarBlock data={block} />;
+                case "PageBlocksAuditForm":
+                    return <AuditFormBlock data={block} />;
+                case "PageBlocksCreatorForm":
+                    return <CreatorFormBlock data={block} />;
+                case "PageBlocksTeam":
+                    return <TeamGridBlock data={block} />;
+                case "PageBlocksJobs":
+                    return <JobsListBlock data={block} />;
+                case "PageBlocksFaq":
+                    return <FAQBlock data={block} />;
+                case "PageBlocksVsl":
+                    return <VSLBlock data={block} />;
+                case "PageBlocksComparison":
+                    return <ComparisonBlock data={block} />;
+                case "PageBlocksFounder":
+                    return <FounderBlock data={block} />;
+                case "PageBlocksResultsTeaser":
+                    return <ResultsTeaserBlock data={block} />;
+                case "PageBlocksGuarantee":
+                    return <GuaranteeBlock data={block} />;
+                default:
+                    // Fallback for debugging unknown blocks
+                    return (
+                        <div class="bg-red-500 text-white p-4">
+                            Unknown Block: {block.__typename}
+                        </div>
+                    );
+            }
+        })
+}

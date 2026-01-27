@@ -1,0 +1,56 @@
+---
+import founder from "../../assets/founder.png";
+import { Image } from "astro:assets";
+
+const { data } = Astro.props;
+---
+
+<section class="py-24 border-t border-white/5 bg-black/30">
+    <div class="container mx-auto px-6 max-w-5xl">
+        <div class="grid md:grid-cols-[300px_1fr] gap-12 items-center">
+            <!-- Image -->
+            <div class="relative group">
+                <div
+                    class="absolute inset-0 bg-brand-purple/20 rounded-2xl transform rotate-3 group-hover:rotate-0 transition-all duration-500"
+                >
+                </div>
+                <Image
+                    src={founder}
+                    alt="Founder"
+                    class="relative rounded-2xl w-full grayscale group-hover:grayscale-0 transition-all duration-500 border border-white/10"
+                />
+
+                <div
+                    class="absolute -bottom-4 -right-4 bg-white text-black px-4 py-2 font-bold font-display uppercase tracking-widest text-sm transform -rotate-2"
+                >
+                    Founder
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="space-y-6">
+                <h2 class="text-3xl md:text-5xl font-black">
+                    "Stop renting your growth."
+                </h2>
+                <div class="h-1 w-20 bg-brand-purple"></div>
+                <p class="text-lg text-gray-300 leading-relaxed font-light">
+                    Agencies love the "Confusion Monopoly". They hide behind
+                    confusing dashboards and jargon so you keep paying the
+                    retainer.
+                    <br /><br />
+                    We built OutAfBox to kill the retainer model. We are a small,
+                    elite strike team that builds the infrastructure you own.
+                </p>
+
+                <div class="pt-4">
+                    <div class="text-xl font-bold font-display">Alex V.</div>
+                    <div
+                        class="text-sm text-gray-500 uppercase tracking-widest"
+                    >
+                        Growth Architect @ OutAfBox
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

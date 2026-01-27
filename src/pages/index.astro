@@ -1,11 +1,15 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import "../styles/global.css";
+import Layout from "../layouts/Layout.astro";
+import PageBuilder from "../components/PageBuilder.astro";
+import { client } from "../../tina/__generated__/client";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const response = await client.queries.page({ relativePath: "home.md" });
+const { data } = response;
 ---
 
 <Layout>
-	<Welcome />
+	<main class="min-h-screen overflow-hidden">
+		<PageBuilder blocks={data.page.blocks} />
+	</main>
 </Layout>

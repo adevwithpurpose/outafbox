@@ -1,0 +1,24 @@
+---
+import Solution from "../landing/Solution.astro";
+import Problem from "../landing/Problem.astro";
+
+const { data } = Astro.props;
+
+// Determine if we should render the "Problem" style (Red) or "Solution" style (Green/Purple)
+// This is a naive heuristic based on ID or Headline content, but works for the migration.
+const isProblem =
+    data.id === "problem" ||
+    (data.headline && data.headline.toLowerCase().includes("why"));
+
+const mappedData = {
+    // Problem component expects: problemHeadline, problemCards
+    problemHeadline: data.headline,
+    problemCards: data.items,
+
+    // Solution component expects: solutionHeadline, solutionCards
+    solutionHeadline: data.headline,
+    solutionCards: data.items,
+};
+---
+
+{isProblem ? <Problem data={mappedData} /> : <Solution data={mappedData} />}

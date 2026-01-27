@@ -82,8 +82,8 @@ export type Query = {
   collections: Array<Collection>;
   node: Node;
   document: DocumentNode;
-  landing: Landing;
-  landingConnection: LandingConnection;
+  page: Page;
+  pageConnection: PageConnection;
 };
 
 
@@ -108,22 +108,22 @@ export type QueryDocumentArgs = {
 };
 
 
-export type QueryLandingArgs = {
+export type QueryPageArgs = {
   relativePath?: InputMaybe<Scalars['String']['input']>;
 };
 
 
-export type QueryLandingConnectionArgs = {
+export type QueryPageConnectionArgs = {
   before?: InputMaybe<Scalars['String']['input']>;
   after?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Float']['input']>;
   last?: InputMaybe<Scalars['Float']['input']>;
   sort?: InputMaybe<Scalars['String']['input']>;
-  filter?: InputMaybe<LandingFilter>;
+  filter?: InputMaybe<PageFilter>;
 };
 
 export type DocumentFilter = {
-  landing?: InputMaybe<LandingFilter>;
+  page?: InputMaybe<PageFilter>;
 };
 
 export type DocumentConnectionEdges = {
@@ -163,13 +163,123 @@ export type CollectionDocumentsArgs = {
   folder?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type DocumentNode = Landing | Folder;
+export type DocumentNode = Page | Folder;
 
-export type Landing = Node & Document & {
-  __typename?: 'Landing';
-  heroTitle?: Maybe<Scalars['String']['output']>;
-  subtext?: Maybe<Scalars['String']['output']>;
-  heroImage?: Maybe<Scalars['String']['output']>;
+export type PageBlocksHero = {
+  __typename?: 'PageBlocksHero';
+  headline?: Maybe<Scalars['String']['output']>;
+  subhead?: Maybe<Scalars['String']['output']>;
+  ctaText?: Maybe<Scalars['String']['output']>;
+  ctaLink?: Maybe<Scalars['String']['output']>;
+  secondaryCtaText?: Maybe<Scalars['String']['output']>;
+  secondaryCtaLink?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageBlocksFeaturesItems = {
+  __typename?: 'PageBlocksFeaturesItems';
+  title?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  icon?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageBlocksFeatures = {
+  __typename?: 'PageBlocksFeatures';
+  headline?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  items?: Maybe<Array<Maybe<PageBlocksFeaturesItems>>>;
+};
+
+export type PageBlocksContent = {
+  __typename?: 'PageBlocksContent';
+  body?: Maybe<Scalars['JSON']['output']>;
+  centered?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type PageBlocksTestimonials = {
+  __typename?: 'PageBlocksTestimonials';
+  headline?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageBlocksTrustBar = {
+  __typename?: 'PageBlocksTrustBar';
+  label?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageBlocksAuditForm = {
+  __typename?: 'PageBlocksAuditForm';
+  headline?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageBlocksCreatorForm = {
+  __typename?: 'PageBlocksCreatorForm';
+  headline?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageBlocksTeam = {
+  __typename?: 'PageBlocksTeam';
+  headline?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageBlocksJobsListings = {
+  __typename?: 'PageBlocksJobsListings';
+  title?: Maybe<Scalars['String']['output']>;
+  type?: Maybe<Scalars['String']['output']>;
+  location?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageBlocksJobs = {
+  __typename?: 'PageBlocksJobs';
+  headline?: Maybe<Scalars['String']['output']>;
+  listings?: Maybe<Array<Maybe<PageBlocksJobsListings>>>;
+};
+
+export type PageBlocksFaqQuestions = {
+  __typename?: 'PageBlocksFaqQuestions';
+  question?: Maybe<Scalars['String']['output']>;
+  answer?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageBlocksFaq = {
+  __typename?: 'PageBlocksFaq';
+  questions?: Maybe<Array<Maybe<PageBlocksFaqQuestions>>>;
+};
+
+export type PageBlocksVsl = {
+  __typename?: 'PageBlocksVsl';
+  headline?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageBlocksComparison = {
+  __typename?: 'PageBlocksComparison';
+  headline?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageBlocksFounder = {
+  __typename?: 'PageBlocksFounder';
+  headline?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageBlocksResultsTeaser = {
+  __typename?: 'PageBlocksResultsTeaser';
+  headline?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageBlocksGuarantee = {
+  __typename?: 'PageBlocksGuarantee';
+  headline?: Maybe<Scalars['String']['output']>;
+  subhead?: Maybe<Scalars['String']['output']>;
+  ctaText?: Maybe<Scalars['String']['output']>;
+  ctaLink?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageBlocks = PageBlocksHero | PageBlocksFeatures | PageBlocksContent | PageBlocksTestimonials | PageBlocksTrustBar | PageBlocksAuditForm | PageBlocksCreatorForm | PageBlocksTeam | PageBlocksJobs | PageBlocksFaq | PageBlocksVsl | PageBlocksComparison | PageBlocksFounder | PageBlocksResultsTeaser | PageBlocksGuarantee;
+
+export type Page = Node & Document & {
+  __typename?: 'Page';
+  title: Scalars['String']['output'];
+  blocks?: Maybe<Array<Maybe<PageBlocks>>>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
@@ -189,23 +299,142 @@ export type ImageFilter = {
   in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type LandingFilter = {
-  heroTitle?: InputMaybe<StringFilter>;
-  subtext?: InputMaybe<StringFilter>;
-  heroImage?: InputMaybe<ImageFilter>;
+export type PageBlocksHeroFilter = {
+  headline?: InputMaybe<StringFilter>;
+  subhead?: InputMaybe<StringFilter>;
+  ctaText?: InputMaybe<StringFilter>;
+  ctaLink?: InputMaybe<StringFilter>;
+  secondaryCtaText?: InputMaybe<StringFilter>;
+  secondaryCtaLink?: InputMaybe<StringFilter>;
+  image?: InputMaybe<ImageFilter>;
 };
 
-export type LandingConnectionEdges = {
-  __typename?: 'LandingConnectionEdges';
+export type PageBlocksFeaturesItemsFilter = {
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  icon?: InputMaybe<StringFilter>;
+};
+
+export type PageBlocksFeaturesFilter = {
+  headline?: InputMaybe<StringFilter>;
+  id?: InputMaybe<StringFilter>;
+  items?: InputMaybe<PageBlocksFeaturesItemsFilter>;
+};
+
+export type RichTextFilter = {
+  startsWith?: InputMaybe<Scalars['String']['input']>;
+  eq?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type BooleanFilter = {
+  eq?: InputMaybe<Scalars['Boolean']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type PageBlocksContentFilter = {
+  body?: InputMaybe<RichTextFilter>;
+  centered?: InputMaybe<BooleanFilter>;
+};
+
+export type PageBlocksTestimonialsFilter = {
+  headline?: InputMaybe<StringFilter>;
+};
+
+export type PageBlocksTrustBarFilter = {
+  label?: InputMaybe<StringFilter>;
+};
+
+export type PageBlocksAuditFormFilter = {
+  headline?: InputMaybe<StringFilter>;
+};
+
+export type PageBlocksCreatorFormFilter = {
+  headline?: InputMaybe<StringFilter>;
+};
+
+export type PageBlocksTeamFilter = {
+  headline?: InputMaybe<StringFilter>;
+};
+
+export type PageBlocksJobsListingsFilter = {
+  title?: InputMaybe<StringFilter>;
+  type?: InputMaybe<StringFilter>;
+  location?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+};
+
+export type PageBlocksJobsFilter = {
+  headline?: InputMaybe<StringFilter>;
+  listings?: InputMaybe<PageBlocksJobsListingsFilter>;
+};
+
+export type PageBlocksFaqQuestionsFilter = {
+  question?: InputMaybe<StringFilter>;
+  answer?: InputMaybe<StringFilter>;
+};
+
+export type PageBlocksFaqFilter = {
+  questions?: InputMaybe<PageBlocksFaqQuestionsFilter>;
+};
+
+export type PageBlocksVslFilter = {
+  headline?: InputMaybe<StringFilter>;
+};
+
+export type PageBlocksComparisonFilter = {
+  headline?: InputMaybe<StringFilter>;
+};
+
+export type PageBlocksFounderFilter = {
+  headline?: InputMaybe<StringFilter>;
+};
+
+export type PageBlocksResultsTeaserFilter = {
+  headline?: InputMaybe<StringFilter>;
+};
+
+export type PageBlocksGuaranteeFilter = {
+  headline?: InputMaybe<StringFilter>;
+  subhead?: InputMaybe<StringFilter>;
+  ctaText?: InputMaybe<StringFilter>;
+  ctaLink?: InputMaybe<StringFilter>;
+};
+
+export type PageBlocksFilter = {
+  hero?: InputMaybe<PageBlocksHeroFilter>;
+  features?: InputMaybe<PageBlocksFeaturesFilter>;
+  content?: InputMaybe<PageBlocksContentFilter>;
+  testimonials?: InputMaybe<PageBlocksTestimonialsFilter>;
+  trustBar?: InputMaybe<PageBlocksTrustBarFilter>;
+  auditForm?: InputMaybe<PageBlocksAuditFormFilter>;
+  creatorForm?: InputMaybe<PageBlocksCreatorFormFilter>;
+  team?: InputMaybe<PageBlocksTeamFilter>;
+  jobs?: InputMaybe<PageBlocksJobsFilter>;
+  faq?: InputMaybe<PageBlocksFaqFilter>;
+  vsl?: InputMaybe<PageBlocksVslFilter>;
+  comparison?: InputMaybe<PageBlocksComparisonFilter>;
+  founder?: InputMaybe<PageBlocksFounderFilter>;
+  resultsTeaser?: InputMaybe<PageBlocksResultsTeaserFilter>;
+  guarantee?: InputMaybe<PageBlocksGuaranteeFilter>;
+};
+
+export type PageFilter = {
+  title?: InputMaybe<StringFilter>;
+  blocks?: InputMaybe<PageBlocksFilter>;
+};
+
+export type PageConnectionEdges = {
+  __typename?: 'PageConnectionEdges';
   cursor: Scalars['String']['output'];
-  node?: Maybe<Landing>;
+  node?: Maybe<Page>;
 };
 
-export type LandingConnection = Connection & {
-  __typename?: 'LandingConnection';
+export type PageConnection = Connection & {
+  __typename?: 'PageConnection';
   pageInfo: PageInfo;
   totalCount: Scalars['Float']['output'];
-  edges?: Maybe<Array<Maybe<LandingConnectionEdges>>>;
+  edges?: Maybe<Array<Maybe<PageConnectionEdges>>>;
 };
 
 export type Mutation = {
@@ -215,8 +444,8 @@ export type Mutation = {
   deleteDocument: DocumentNode;
   createDocument: DocumentNode;
   createFolder: DocumentNode;
-  updateLanding: Landing;
-  createLanding: Landing;
+  updatePage: Page;
+  createPage: Page;
 };
 
 
@@ -253,64 +482,246 @@ export type MutationCreateFolderArgs = {
 };
 
 
-export type MutationUpdateLandingArgs = {
+export type MutationUpdatePageArgs = {
   relativePath: Scalars['String']['input'];
-  params: LandingMutation;
+  params: PageMutation;
 };
 
 
-export type MutationCreateLandingArgs = {
+export type MutationCreatePageArgs = {
   relativePath: Scalars['String']['input'];
-  params: LandingMutation;
+  params: PageMutation;
 };
 
 export type DocumentUpdateMutation = {
-  landing?: InputMaybe<LandingMutation>;
+  page?: InputMaybe<PageMutation>;
   relativePath?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type DocumentMutation = {
-  landing?: InputMaybe<LandingMutation>;
+  page?: InputMaybe<PageMutation>;
 };
 
-export type LandingMutation = {
-  heroTitle?: InputMaybe<Scalars['String']['input']>;
-  subtext?: InputMaybe<Scalars['String']['input']>;
-  heroImage?: InputMaybe<Scalars['String']['input']>;
+export type PageBlocksHeroMutation = {
+  headline?: InputMaybe<Scalars['String']['input']>;
+  subhead?: InputMaybe<Scalars['String']['input']>;
+  ctaText?: InputMaybe<Scalars['String']['input']>;
+  ctaLink?: InputMaybe<Scalars['String']['input']>;
+  secondaryCtaText?: InputMaybe<Scalars['String']['input']>;
+  secondaryCtaLink?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type LandingPartsFragment = { __typename: 'Landing', heroTitle?: string | null, subtext?: string | null, heroImage?: string | null };
+export type PageBlocksFeaturesItemsMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<Scalars['String']['input']>;
+};
 
-export type LandingQueryVariables = Exact<{
+export type PageBlocksFeaturesMutation = {
+  headline?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<InputMaybe<PageBlocksFeaturesItemsMutation>>>;
+};
+
+export type PageBlocksContentMutation = {
+  body?: InputMaybe<Scalars['JSON']['input']>;
+  centered?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type PageBlocksTestimonialsMutation = {
+  headline?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageBlocksTrustBarMutation = {
+  label?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageBlocksAuditFormMutation = {
+  headline?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageBlocksCreatorFormMutation = {
+  headline?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageBlocksTeamMutation = {
+  headline?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageBlocksJobsListingsMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<Scalars['String']['input']>;
+  location?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageBlocksJobsMutation = {
+  headline?: InputMaybe<Scalars['String']['input']>;
+  listings?: InputMaybe<Array<InputMaybe<PageBlocksJobsListingsMutation>>>;
+};
+
+export type PageBlocksFaqQuestionsMutation = {
+  question?: InputMaybe<Scalars['String']['input']>;
+  answer?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageBlocksFaqMutation = {
+  questions?: InputMaybe<Array<InputMaybe<PageBlocksFaqQuestionsMutation>>>;
+};
+
+export type PageBlocksVslMutation = {
+  headline?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageBlocksComparisonMutation = {
+  headline?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageBlocksFounderMutation = {
+  headline?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageBlocksResultsTeaserMutation = {
+  headline?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageBlocksGuaranteeMutation = {
+  headline?: InputMaybe<Scalars['String']['input']>;
+  subhead?: InputMaybe<Scalars['String']['input']>;
+  ctaText?: InputMaybe<Scalars['String']['input']>;
+  ctaLink?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageBlocksMutation = {
+  hero?: InputMaybe<PageBlocksHeroMutation>;
+  features?: InputMaybe<PageBlocksFeaturesMutation>;
+  content?: InputMaybe<PageBlocksContentMutation>;
+  testimonials?: InputMaybe<PageBlocksTestimonialsMutation>;
+  trustBar?: InputMaybe<PageBlocksTrustBarMutation>;
+  auditForm?: InputMaybe<PageBlocksAuditFormMutation>;
+  creatorForm?: InputMaybe<PageBlocksCreatorFormMutation>;
+  team?: InputMaybe<PageBlocksTeamMutation>;
+  jobs?: InputMaybe<PageBlocksJobsMutation>;
+  faq?: InputMaybe<PageBlocksFaqMutation>;
+  vsl?: InputMaybe<PageBlocksVslMutation>;
+  comparison?: InputMaybe<PageBlocksComparisonMutation>;
+  founder?: InputMaybe<PageBlocksFounderMutation>;
+  resultsTeaser?: InputMaybe<PageBlocksResultsTeaserMutation>;
+  guarantee?: InputMaybe<PageBlocksGuaranteeMutation>;
+};
+
+export type PageMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  blocks?: InputMaybe<Array<InputMaybe<PageBlocksMutation>>>;
+};
+
+export type PagePartsFragment = { __typename: 'Page', title: string, blocks?: Array<{ __typename: 'PageBlocksHero', headline?: string | null, subhead?: string | null, ctaText?: string | null, ctaLink?: string | null, secondaryCtaText?: string | null, secondaryCtaLink?: string | null, image?: string | null } | { __typename: 'PageBlocksFeatures', headline?: string | null, id?: string | null, items?: Array<{ __typename: 'PageBlocksFeaturesItems', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksContent', body?: any | null, centered?: boolean | null } | { __typename: 'PageBlocksTestimonials', headline?: string | null } | { __typename: 'PageBlocksTrustBar', label?: string | null } | { __typename: 'PageBlocksAuditForm', headline?: string | null } | { __typename: 'PageBlocksCreatorForm', headline?: string | null } | { __typename: 'PageBlocksTeam', headline?: string | null } | { __typename: 'PageBlocksJobs', headline?: string | null, listings?: Array<{ __typename: 'PageBlocksJobsListings', title?: string | null, type?: string | null, location?: string | null, description?: string | null } | null> | null } | { __typename: 'PageBlocksFaq', questions?: Array<{ __typename: 'PageBlocksFaqQuestions', question?: string | null, answer?: string | null } | null> | null } | { __typename: 'PageBlocksVsl', headline?: string | null } | { __typename: 'PageBlocksComparison', headline?: string | null } | { __typename: 'PageBlocksFounder', headline?: string | null } | { __typename: 'PageBlocksResultsTeaser', headline?: string | null } | { __typename: 'PageBlocksGuarantee', headline?: string | null, subhead?: string | null, ctaText?: string | null, ctaLink?: string | null } | null> | null };
+
+export type PageQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
 }>;
 
 
-export type LandingQuery = { __typename?: 'Query', landing: { __typename: 'Landing', id: string, heroTitle?: string | null, subtext?: string | null, heroImage?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type PageQuery = { __typename?: 'Query', page: { __typename: 'Page', id: string, title: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'PageBlocksHero', headline?: string | null, subhead?: string | null, ctaText?: string | null, ctaLink?: string | null, secondaryCtaText?: string | null, secondaryCtaLink?: string | null, image?: string | null } | { __typename: 'PageBlocksFeatures', headline?: string | null, id?: string | null, items?: Array<{ __typename: 'PageBlocksFeaturesItems', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksContent', body?: any | null, centered?: boolean | null } | { __typename: 'PageBlocksTestimonials', headline?: string | null } | { __typename: 'PageBlocksTrustBar', label?: string | null } | { __typename: 'PageBlocksAuditForm', headline?: string | null } | { __typename: 'PageBlocksCreatorForm', headline?: string | null } | { __typename: 'PageBlocksTeam', headline?: string | null } | { __typename: 'PageBlocksJobs', headline?: string | null, listings?: Array<{ __typename: 'PageBlocksJobsListings', title?: string | null, type?: string | null, location?: string | null, description?: string | null } | null> | null } | { __typename: 'PageBlocksFaq', questions?: Array<{ __typename: 'PageBlocksFaqQuestions', question?: string | null, answer?: string | null } | null> | null } | { __typename: 'PageBlocksVsl', headline?: string | null } | { __typename: 'PageBlocksComparison', headline?: string | null } | { __typename: 'PageBlocksFounder', headline?: string | null } | { __typename: 'PageBlocksResultsTeaser', headline?: string | null } | { __typename: 'PageBlocksGuarantee', headline?: string | null, subhead?: string | null, ctaText?: string | null, ctaLink?: string | null } | null> | null } };
 
-export type LandingConnectionQueryVariables = Exact<{
+export type PageConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
   after?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Float']['input']>;
   last?: InputMaybe<Scalars['Float']['input']>;
   sort?: InputMaybe<Scalars['String']['input']>;
-  filter?: InputMaybe<LandingFilter>;
+  filter?: InputMaybe<PageFilter>;
 }>;
 
 
-export type LandingConnectionQuery = { __typename?: 'Query', landingConnection: { __typename?: 'LandingConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'LandingConnectionEdges', cursor: string, node?: { __typename: 'Landing', id: string, heroTitle?: string | null, subtext?: string | null, heroImage?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type PageConnectionQuery = { __typename?: 'Query', pageConnection: { __typename?: 'PageConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PageConnectionEdges', cursor: string, node?: { __typename: 'Page', id: string, title: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'PageBlocksHero', headline?: string | null, subhead?: string | null, ctaText?: string | null, ctaLink?: string | null, secondaryCtaText?: string | null, secondaryCtaLink?: string | null, image?: string | null } | { __typename: 'PageBlocksFeatures', headline?: string | null, id?: string | null, items?: Array<{ __typename: 'PageBlocksFeaturesItems', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksContent', body?: any | null, centered?: boolean | null } | { __typename: 'PageBlocksTestimonials', headline?: string | null } | { __typename: 'PageBlocksTrustBar', label?: string | null } | { __typename: 'PageBlocksAuditForm', headline?: string | null } | { __typename: 'PageBlocksCreatorForm', headline?: string | null } | { __typename: 'PageBlocksTeam', headline?: string | null } | { __typename: 'PageBlocksJobs', headline?: string | null, listings?: Array<{ __typename: 'PageBlocksJobsListings', title?: string | null, type?: string | null, location?: string | null, description?: string | null } | null> | null } | { __typename: 'PageBlocksFaq', questions?: Array<{ __typename: 'PageBlocksFaqQuestions', question?: string | null, answer?: string | null } | null> | null } | { __typename: 'PageBlocksVsl', headline?: string | null } | { __typename: 'PageBlocksComparison', headline?: string | null } | { __typename: 'PageBlocksFounder', headline?: string | null } | { __typename: 'PageBlocksResultsTeaser', headline?: string | null } | { __typename: 'PageBlocksGuarantee', headline?: string | null, subhead?: string | null, ctaText?: string | null, ctaLink?: string | null } | null> | null } | null } | null> | null } };
 
-export const LandingPartsFragmentDoc = gql`
-    fragment LandingParts on Landing {
+export const PagePartsFragmentDoc = gql`
+    fragment PageParts on Page {
   __typename
-  heroTitle
-  subtext
-  heroImage
+  title
+  blocks {
+    __typename
+    ... on PageBlocksHero {
+      headline
+      subhead
+      ctaText
+      ctaLink
+      secondaryCtaText
+      secondaryCtaLink
+      image
+    }
+    ... on PageBlocksFeatures {
+      headline
+      id
+      items {
+        __typename
+        title
+        description
+        icon
+      }
+    }
+    ... on PageBlocksContent {
+      body
+      centered
+    }
+    ... on PageBlocksTestimonials {
+      headline
+    }
+    ... on PageBlocksTrustBar {
+      label
+    }
+    ... on PageBlocksAuditForm {
+      headline
+    }
+    ... on PageBlocksCreatorForm {
+      headline
+    }
+    ... on PageBlocksTeam {
+      headline
+    }
+    ... on PageBlocksJobs {
+      headline
+      listings {
+        __typename
+        title
+        type
+        location
+        description
+      }
+    }
+    ... on PageBlocksFaq {
+      questions {
+        __typename
+        question
+        answer
+      }
+    }
+    ... on PageBlocksVsl {
+      headline
+    }
+    ... on PageBlocksComparison {
+      headline
+    }
+    ... on PageBlocksFounder {
+      headline
+    }
+    ... on PageBlocksResultsTeaser {
+      headline
+    }
+    ... on PageBlocksGuarantee {
+      headline
+      subhead
+      ctaText
+      ctaLink
+    }
+  }
 }
     `;
-export const LandingDocument = gql`
-    query landing($relativePath: String!) {
-  landing(relativePath: $relativePath) {
+export const PageDocument = gql`
+    query page($relativePath: String!) {
+  page(relativePath: $relativePath) {
     ... on Document {
       _sys {
         filename
@@ -323,13 +734,13 @@ export const LandingDocument = gql`
       }
       id
     }
-    ...LandingParts
+    ...PageParts
   }
 }
-    ${LandingPartsFragmentDoc}`;
-export const LandingConnectionDocument = gql`
-    query landingConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: LandingFilter) {
-  landingConnection(
+    ${PagePartsFragmentDoc}`;
+export const PageConnectionDocument = gql`
+    query pageConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PageFilter) {
+  pageConnection(
     before: $before
     after: $after
     first: $first
@@ -359,20 +770,20 @@ export const LandingConnectionDocument = gql`
           }
           id
         }
-        ...LandingParts
+        ...PageParts
       }
     }
   }
 }
-    ${LandingPartsFragmentDoc}`;
+    ${PagePartsFragmentDoc}`;
 export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R>
   export function getSdk<C>(requester: Requester<C>) {
     return {
-      landing(variables: LandingQueryVariables, options?: C): Promise<{data: LandingQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: LandingQueryVariables, query: string}> {
-        return requester<{data: LandingQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: LandingQueryVariables, query: string}, LandingQueryVariables>(LandingDocument, variables, options);
+      page(variables: PageQueryVariables, options?: C): Promise<{data: PageQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageQueryVariables, query: string}> {
+        return requester<{data: PageQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageQueryVariables, query: string}, PageQueryVariables>(PageDocument, variables, options);
       },
-    landingConnection(variables?: LandingConnectionQueryVariables, options?: C): Promise<{data: LandingConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: LandingConnectionQueryVariables, query: string}> {
-        return requester<{data: LandingConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: LandingConnectionQueryVariables, query: string}, LandingConnectionQueryVariables>(LandingConnectionDocument, variables, options);
+    pageConnection(variables?: PageConnectionQueryVariables, options?: C): Promise<{data: PageConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageConnectionQueryVariables, query: string}> {
+        return requester<{data: PageConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageConnectionQueryVariables, query: string}, PageConnectionQueryVariables>(PageConnectionDocument, variables, options);
       }
     };
   }

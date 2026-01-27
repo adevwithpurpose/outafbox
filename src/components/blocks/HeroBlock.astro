@@ -1,0 +1,20 @@
+---
+import Hero from "../landing/Hero.astro";
+
+const { data } = Astro.props;
+
+// Map generic 'hero' block fields to the specific expected fields of the Hero component
+const heroData = {
+    heroHeadline: data.headline,
+    heroSubhead: data.subhead,
+    ctaText: data.ctaText, // Don't force a default - let Hero handle showing/hiding
+    ctaLink: data.ctaLink || "/audit",
+    secondaryCtaText: data.secondaryCtaText,
+    secondaryCtaLink: data.secondaryCtaLink,
+    image: data.image,
+    // Only show calculator on the main homepage hero
+    showCalculator: data.headline && data.headline.includes("Scale Your DTC"),
+};
+---
+
+<Hero data={heroData} />

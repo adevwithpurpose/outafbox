@@ -1,0 +1,51 @@
+---
+const { data } = Astro.props;
+---
+{
+  !data ? (
+    <div class="text-red-500">Error: No data in TrustBar</div>
+  ) : (
+    <section class="py-10 border-y border-white/5 bg-black/20 backdrop-blur-sm">
+      <div class="container mx-auto px-6 text-center">
+        <p class="text-sm text-gray-400 mb-8 uppercase tracking-widest font-semibold">
+          {data.trustLabel}
+        </p>
+
+        <div class="flex flex-wrap justify-center items-center gap-12 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+          <!-- Logo Placeholders using simple text/shapes for now -->
+          <!-- Logo 1: Nexus (Geometric) -->
+          <svg class="h-8 w-auto opacity-50 hover:opacity-100 transition-opacity duration-300" viewBox="0 0 120 30" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 15L25 5H5L15 15Z" fill="white"/>
+            <path d="M15 15L25 25H5L15 15Z" fill="white"/>
+            <text x="35" y="20" font-family="sans-serif" font-weight="900" font-size="18" fill="white" letter-spacing="1">NEXUS</text>
+          </svg>
+
+          <!-- Logo 2: Vortex (Circular) -->
+          <svg class="h-8 w-auto opacity-50 hover:opacity-100 transition-opacity duration-300" viewBox="0 0 130 30" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="15" cy="15" r="10" stroke="white" stroke-width="4"/>
+            <text x="35" y="20" font-family="sans-serif" font-weight="900" font-size="18" fill="white" letter-spacing="1">VORTEX</text>
+          </svg>
+
+          <!-- Logo 3: Apex (Triangle/Mountain) -->
+          <svg class="h-8 w-auto opacity-50 hover:opacity-100 transition-opacity duration-300" viewBox="0 0 100 30" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 5L25 25H5L15 5Z" fill="white"/>
+            <text x="35" y="20" font-family="sans-serif" font-weight="900" font-size="18" fill="white" letter-spacing="1">APEX</text>
+          </svg>
+
+          <!-- Logo 4: Cipher (Tech/Code) -->
+          <svg class="h-8 w-auto opacity-50 hover:opacity-100 transition-opacity duration-300" viewBox="0 0 120 30" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <rect x="5" y="5" width="20" height="20" rx="4" stroke="white" stroke-width="3" fill="none"/>
+            <circle cx="15" cy="15" r="3" fill="white"/>
+            <text x="35" y="20" font-family="sans-serif" font-weight="900" font-size="18" fill="white" letter-spacing="1">CIPHER</text>
+          </svg>
+
+          <!-- Logo 5: Velocity (Italic/Fast) -->
+          <svg class="h-8 w-auto opacity-50 hover:opacity-100 transition-opacity duration-300" viewBox="0 0 140 30" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+             <path d="M10 5H30L20 25H0L10 5Z" fill="white"/>
+             <text x="40" y="20" font-family="sans-serif" font-weight="900" font-size="18" fill="white" letter-spacing="1" font-style="italic">VELOCITY</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+  )
+}

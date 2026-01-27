@@ -1,0 +1,167 @@
+---
+const { data } = Astro.props;
+---
+
+<section class="py-24 relative overflow-hidden" id="calculator">
+    <!-- Bg elements -->
+    <div
+        class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-brand-blue/5 to-transparent pointer-events-none"
+    >
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+            <!-- Text Side -->
+            <div>
+                <h2 class="text-4xl md:text-5xl font-black mb-6 leading-tight">
+                    Calculate Your <span class="text-red-500">Revenue Leak</span
+                    >.
+                </h2>
+                <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                    Most brands are leaving 30-40% of their revenue on the table
+                    due to ad fatigue and unoptimized landing pages.
+                    <br /><br />
+                    Plug in your numbers to see what the "OutAfBox Ecosystem" could
+                    unlock for you.
+                </p>
+
+                <div
+                    class="flex items-center gap-4 text-sm text-gray-500 font-mono"
+                >
+                    <span
+                        class="w-2 h-2 rounded-full bg-green-500 animate-pulse"
+                    ></span>
+                    LIVE CALCULATOR
+                </div>
+            </div>
+
+            <!-- Calculator Side -->
+            <div
+                class="glass-panel p-8 md:p-10 rounded-3xl border border-white/10 shadow-2xl relative"
+            >
+                <div
+                    class="absolute inset-0 bg-white/5 rounded-3xl backdrop-blur-3xl -z-10"
+                >
+                </div>
+
+                <form id="roi-form" class="space-y-6">
+                    <div>
+                        <label
+                            class="block text-sm font-bold text-gray-400 mb-2"
+                            >Monthly Ad Spend ($)</label
+                        >
+                        <input
+                            type="number"
+                            id="ad-spend"
+                            class="w-full bg-black/40 border border-white/10 rounded-lg p-4 text-white text-xl focus:border-brand-purple focus:outline-none focus:ring-1 focus:ring-brand-purple transition-all"
+                            placeholder="50000"
+                            value="50000"
+                        />
+                    </div>
+
+                    <div>
+                        <label
+                            class="block text-sm font-bold text-gray-400 mb-2"
+                            >Current ROAS (x)</label
+                        >
+                        <input
+                            type="number"
+                            id="current-roas"
+                            step="0.1"
+                            class="w-full bg-black/40 border border-white/10 rounded-lg p-4 text-white text-xl focus:border-brand-purple focus:outline-none focus:ring-1 focus:ring-brand-purple transition-all"
+                            placeholder="2.1"
+                            value="2.1"
+                        />
+                    </div>
+
+                    <div class="pt-6 border-t border-white/10">
+                        <div class="flex justify-between items-end mb-2">
+                            <span class="text-gray-400">Current Revenue</span>
+                            <span
+                                class="text-2xl font-bold text-gray-500"
+                                id="current-rev">$105,000</span
+                            >
+                        </div>
+                        <div class="flex justify-between items-end">
+                            <span class="text-brand-purple font-bold"
+                                >Projected Revenue (3.2x ROAS)</span
+                            >
+                            <span
+                                class="text-4xl font-black text-brand-purple"
+                                id="projected-rev">$160,000</span
+                            >
+                        </div>
+                        <div
+                            class="mt-4 bg-green-500/10 border border-green-500/20 p-4 rounded-lg flex justify-between items-center"
+                        >
+                            <div class="text-green-400 font-bold">
+                                Unclaimed Profit
+                            </div>
+                            <div
+                                class="text-2xl font-bold text-green-400"
+                                id="leak-amount"
+                            >
+                                +$55,000/mo
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    const spendInput = document.getElementById("ad-spend") as HTMLInputElement;
+    const roasInput = document.getElementById(
+        "current-roas",
+    ) as HTMLInputElement;
+    const currentRevDisplay = document.getElementById("current-rev");
+    const projectedRevDisplay = document.getElementById("projected-rev");
+    const leakDisplay = document.getElementById("leak-amount");
+
+    // Target ROAS for the 'Dream State' (e.g., 3.2 is a healthy target for ecosystem)
+    const TARGET_ROAS = 3.2;
+
+    function calculate() {
+        if (!spendInput || !roasInput) return;
+
+        const spend = parseFloat(spendInput.value) || 0;
+        const currentRoas = parseFloat(roasInput.value) || 0;
+
+        const currentRevenue = spend * currentRoas;
+        // Logic: The ecosystem usually lifts ROAS to ~3.2 or +30%. Let's use a fixed Target for simplicity in this demo logic
+        // Or if current is high, add a 20% kicker.
+        const targetRoasCalc = Math.max(TARGET_ROAS, currentRoas * 1.2);
+        const projectedRevenue = spend * targetRoasCalc;
+        const leak = projectedRevenue - currentRevenue;
+
+        if (currentRevDisplay)
+            currentRevDisplay.textContent = new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+                maximumFractionDigits: 0,
+            }).format(currentRevenue);
+        if (projectedRevDisplay)
+            projectedRevDisplay.textContent = new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+                maximumFractionDigits: 0,
+            }).format(projectedRevenue);
+        if (leakDisplay)
+            leakDisplay.textContent =
+                "+" +
+                new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                    maximumFractionDigits: 0,
+                }).format(leak) +
+                "/mo";
+    }
+
+    spendInput?.addEventListener("input", calculate);
+    roasInput?.addEventListener("input", calculate);
+
+    // Init
+    calculate();
+</script>

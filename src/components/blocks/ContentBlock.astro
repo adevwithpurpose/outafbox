@@ -1,0 +1,16 @@
+---
+import { marked } from "marked";
+
+const { data } = Astro.props;
+
+// Convert Markdown string to HTML using the 'marked' library
+const bodyContent =
+    typeof data.body === "string" ? await marked.parse(data.body) : "";
+---
+
+<section class="py-20 px-6 relative">
+    <div
+        class={`container mx-auto max-w-4xl prose prose-invert prose-lg ${data.centered ? "text-center" : ""}`}
+        set:html={bodyContent}
+    />
+</section>

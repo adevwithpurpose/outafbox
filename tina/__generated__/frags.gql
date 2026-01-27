@@ -1,6 +1,80 @@
-fragment LandingParts on Landing {
+fragment PageParts on Page {
   __typename
-  heroTitle
-  subtext
-  heroImage
+  title
+  blocks {
+    __typename
+    ... on PageBlocksHero {
+      headline
+      subhead
+      ctaText
+      ctaLink
+      secondaryCtaText
+      secondaryCtaLink
+      image
+    }
+    ... on PageBlocksFeatures {
+      headline
+      id
+      items {
+        __typename
+        title
+        description
+        icon
+      }
+    }
+    ... on PageBlocksContent {
+      body
+      centered
+    }
+    ... on PageBlocksTestimonials {
+      headline
+    }
+    ... on PageBlocksTrustBar {
+      label
+    }
+    ... on PageBlocksAuditForm {
+      headline
+    }
+    ... on PageBlocksCreatorForm {
+      headline
+    }
+    ... on PageBlocksTeam {
+      headline
+    }
+    ... on PageBlocksJobs {
+      headline
+      listings {
+        __typename
+        title
+        type
+        location
+        description
+      }
+    }
+    ... on PageBlocksFaq {
+      questions {
+        __typename
+        question
+        answer
+      }
+    }
+    ... on PageBlocksVsl {
+      headline
+    }
+    ... on PageBlocksComparison {
+      headline
+    }
+    ... on PageBlocksFounder {
+      headline
+    }
+    ... on PageBlocksResultsTeaser {
+      headline
+    }
+    ... on PageBlocksGuarantee {
+      headline
+      subhead
+      ctaText
+      ctaLink
+    }
+  }
 }

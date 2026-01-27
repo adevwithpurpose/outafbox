@@ -1,9 +1,73 @@
+/* Fonts loaded in Layout.astro for performance */
 @import "tailwindcss";
 
+@theme {
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Saira', sans-serif;
+
+  --color-brand-purple: #7c3aed;
+  --color-brand-blue: #2563eb;
+  --color-brand-pink: #db2777;
+  --color-brand-gold: #fbbf24;
+  --color-brand-green: #10b981;
+}
+
+body {
+  background-color: #0a0a0a;
+  color: #ffffff;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+}
+
 .glass-panel {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  @apply backdrop-blur-xl bg-white/5 border border-white/10;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.text-gradient-main {
+  @apply bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500 bg-clip-text text-transparent;
+}
+
+.glow-purple {
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.5);
+}
+
+.glow-blue {
+  box-shadow: 0 0 20px rgba(37, 99, 235, 0.5);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Hide number input spinners for cleaner UX */
+.hide-spinners::-webkit-outer-spin-button,
+.hide-spinners::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.hide-spinners {
+  -moz-appearance: textfield;
 }

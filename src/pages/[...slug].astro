@@ -1,0 +1,24 @@
+---
+import { client } from "../../tina/__generated__/client";
+import Layout from "../layouts/Layout.astro";
+import PageBuilder from "../components/PageBuilder.astro";
+
+export async function getStaticPaths() {
+    const pages = await client.queries.pageConnection();
+    return pages.data.pageConnection.edges.map((edge) => {
+        return {
+            params: { slug: edge.node._sys.filename },
+        };
+    });
+}
+
+const { slug } = Astro.params;
+const response = await client.queries.page({ relativePath: `${slug}.md` });
+const { data } = response;
+---
+
+<Layout title={data.page.title}>
+    <main class="min-h-screen">
+        <PageBuilder blocks={data.page.blocks} />
+    </main>
+</Layout>

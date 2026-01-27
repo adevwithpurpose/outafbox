@@ -1,0 +1,92 @@
+---
+import thumb from "../../assets/vsl-thumb.png";
+
+const { data } = Astro.props;
+---
+
+<section
+    class="py-16 md:py-24 bg-black/40 border-y border-white/5 relative overflow-hidden"
+>
+    <div class="container mx-auto px-6 max-w-6xl relative z-10">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <!-- Content Side -->
+            <div class="order-2 md:order-1">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="w-12 h-[1px] bg-brand-purple"></span>
+                    <span
+                        class="text-brand-purple uppercase tracking-widest text-xs font-bold"
+                        >The Mechanism</span
+                    >
+                </div>
+                <h2 class="text-3xl md:text-5xl font-black mb-6 leading-tight">
+                    It's not Magic.<br />It's <span class="text-white"
+                        >Engineering</span
+                    >.
+                </h2>
+                <p class="text-gray-400 text-lg leading-relaxed mb-8">
+                    Stop guessing with your ad creative. We use a 4-step "Trojan
+                    Horse" framework to systematically validate potential
+                    winners and scale them without burning cash.
+                </p>
+
+                <div class="flex items-center gap-4">
+                    <div class="flex -space-x-3">
+                        <div
+                            class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-purple to-brand-blue border-2 border-black flex items-center justify-center text-xs font-bold text-white"
+                        >
+                            JK
+                        </div>
+                        <div
+                            class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-pink to-brand-purple border-2 border-black flex items-center justify-center text-xs font-bold text-white"
+                        >
+                            SM
+                        </div>
+                        <div
+                            class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-blue to-brand-green border-2 border-black flex items-center justify-center text-xs font-bold text-white"
+                        >
+                            AR
+                        </div>
+                    </div>
+                    <div class="text-sm text-gray-400">
+                        Watched by <span class="text-white font-bold">400+</span
+                        > Founders
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video Side (Compact) -->
+            <div
+                class="order-1 md:order-2 relative group cursor-pointer max-w-xl ml-auto"
+            >
+                <!-- Glow -->
+                <div
+                    class="absolute inset-0 bg-brand-purple/20 blur-[50px] opacity-40 group-hover:opacity-60 transition-opacity duration-500"
+                >
+                </div>
+
+                <div
+                    class="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl transform group-hover:scale-[1.02] transition-transform duration-300"
+                >
+                    <img
+                        src={thumb.src}
+                        alt=" The Mechanism Video"
+                        class="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition-opacity"
+                    />
+
+                    <div
+                        class="absolute inset-0 flex items-center justify-center"
+                    >
+                        <div
+                            class="w-16 h-16 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 shadow-[0_0_20px_rgba(255,255,255,0.2)] group-hover:bg-brand-purple group-hover:border-brand-purple transition-all duration-300"
+                        >
+                            <div
+                                class="w-0 h-0 border-t-[8px] border-t-transparent border-l-[16px] border-l-white border-b-[8px] border-b-transparent ml-1"
+                            >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

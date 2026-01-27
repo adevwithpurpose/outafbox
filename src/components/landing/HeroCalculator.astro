@@ -1,0 +1,178 @@
+---
+
+---
+
+<div
+    class="glass-panel p-6 rounded-2xl border border-white/10 shadow-2xl relative max-w-md mx-auto transform hover:scale-[1.02] transition-transform duration-500"
+>
+    <!-- Subtle inner glow, no heavy blur -->
+    <div class="absolute inset-0 bg-brand-purple/5 rounded-2xl -z-10"></div>
+
+    <div class="mb-6 flex justify-between items-center">
+        <h3 class="font-bold text-white text-lg">Revenue Leak Audit</h3>
+        <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"
+            ></span>
+            <span class="text-xs text-green-400 font-mono tracking-wider"
+                >LIVE</span
+            >
+        </div>
+    </div>
+
+    <div class="space-y-4">
+        <div>
+            <label
+                class="block text-xs font-bold text-gray-400 mb-1.5 uppercase tracking-wide"
+            >
+                Monthly Ad Spend ($)
+            </label>
+            <input
+                type="text"
+                id="hero-ad-spend"
+                class="w-full bg-black/60 border border-white/10 rounded-lg p-3 text-white font-mono text-lg focus:border-brand-purple focus:outline-none focus:ring-1 focus:ring-brand-purple transition-all"
+                placeholder="50,000"
+                value="50,000"
+                inputmode="numeric"
+            />
+        </div>
+
+        <div>
+            <label
+                class="block text-xs font-bold text-gray-400 mb-1.5 uppercase tracking-wide"
+            >
+                Current ROAS (x)
+            </label>
+            <input
+                type="text"
+                id="hero-current-roas"
+                class="w-full bg-black/60 border border-white/10 rounded-lg p-3 text-white font-mono text-lg focus:border-brand-purple focus:outline-none focus:ring-1 focus:ring-brand-purple transition-all"
+                placeholder="2.1"
+                value="2.1"
+                inputmode="decimal"
+            />
+        </div>
+
+        <div class="pt-4 border-t border-white/10 mt-2">
+            <div class="flex justify-between items-end mb-1">
+                <span class="text-xs text-gray-500 uppercase tracking-wider"
+                    >Current Revenue</span
+                >
+                <span
+                    class="text-lg font-bold text-gray-500 font-mono"
+                    id="hero-current-rev">$105,000</span
+                >
+            </div>
+
+            <div class="flex justify-between items-end mb-4">
+                <span class="text-sm font-bold text-white"
+                    >Projected (3.2x ROAS)</span
+                >
+                <span
+                    class="text-2xl font-black text-brand-purple font-mono"
+                    id="hero-projected-rev">$160,000</span
+                >
+            </div>
+
+            <div
+                class="bg-gradient-to-r from-green-500/10 to-transparent border border-green-500/20 p-3 rounded-lg"
+            >
+                <div class="flex justify-between items-center">
+                    <div
+                        class="text-xs text-green-400 font-bold uppercase tracking-wider"
+                    >
+                        Missed Profit
+                    </div>
+                    <div
+                        class="text-xl font-bold text-green-400 font-mono"
+                        id="hero-leak-amount"
+                    >
+                        +$55,000
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const heroSpendInput = document.getElementById(
+        "hero-ad-spend",
+    ) as HTMLInputElement;
+    const heroRoasInput = document.getElementById(
+        "hero-current-roas",
+    ) as HTMLInputElement;
+    const heroCurrentRevDisplay = document.getElementById("hero-current-rev");
+    const heroProjectedRevDisplay =
+        document.getElementById("hero-projected-rev");
+    const heroLeakDisplay = document.getElementById("hero-leak-amount");
+
+    const HERO_TARGET_ROAS = 3.2;
+
+    function formatNumber(num: number): string {
+        return new Intl.NumberFormat("en-US").format(num);
+    }
+
+    function parseNumber(str: string): number {
+        return parseFloat(str.replace(/,/g, "")) || 0;
+    }
+
+    function calculateHero() {
+        if (!heroSpendInput || !heroRoasInput) return;
+
+        const spend = parseNumber(heroSpendInput.value);
+        const currentRoas = parseFloat(heroRoasInput.value) || 0;
+
+        const currentRevenue = spend * currentRoas;
+        const targetRoasCalc = Math.max(HERO_TARGET_ROAS, currentRoas * 1.2);
+        const projectedRevenue = spend * targetRoasCalc;
+        const leak = projectedRevenue - currentRevenue;
+
+        const formatCurrency = (num: number) =>
+            new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+                maximumFractionDigits: 0,
+            }).format(num);
+
+        if (heroCurrentRevDisplay)
+            heroCurrentRevDisplay.textContent = formatCurrency(currentRevenue);
+        if (heroProjectedRevDisplay)
+            heroProjectedRevDisplay.textContent =
+                formatCurrency(projectedRevenue);
+        if (heroLeakDisplay)
+            heroLeakDisplay.textContent = "+" + formatCurrency(leak);
+    }
+
+    // Format spend input with commas as user types
+    heroSpendInput?.addEventListener("input", () => {
+        const cursorPos = heroSpendInput.selectionStart;
+        const oldLen = heroSpendInput.value.length;
+        const rawValue = parseNumber(heroSpendInput.value);
+        heroSpendInput.value = formatNumber(rawValue);
+        const newLen = heroSpendInput.value.length;
+        // Adjust cursor position
+        const newPos = Math.max(0, cursorPos + (newLen - oldLen));
+        heroSpendInput.setSelectionRange(newPos, newPos);
+        calculateHero();
+    });
+
+    heroRoasInput?.addEventListener("input", calculateHero);
+
+    // Init
+    calculateHero();
+</script>
+
+<style>
+    /* Remove default browser number input spinners */
+    input[type="text"]::-webkit-outer-spin-button,
+    input[type="text"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type="text"],
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+</style>

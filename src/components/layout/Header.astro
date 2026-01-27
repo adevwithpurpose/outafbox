@@ -1,0 +1,110 @@
+---
+import Logo from "../brand/Logo.astro";
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+    <div
+      class="glass-panel rounded-full px-6 py-3 flex items-center justify-between border border-white/10 bg-black/60 backdrop-blur-xl shadow-2xl"
+    >
+      <!-- Logo -->
+      <a
+        href="/"
+        class="hover:scale-105 transition-transform duration-300 shrink-0"
+      >
+        <Logo class="text-xl md:text-2xl" />
+      </a>
+
+      <!-- Navigation -->
+      <nav
+        class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300"
+      >
+        <a href="/ecosystem" class="hover:text-white transition-colors"
+          >Ecosystem</a
+        >
+        <a href="/case-studies" class="hover:text-white transition-colors"
+          >Results</a
+        >
+        <a href="/creators" class="hover:text-white transition-colors"
+          >Creators</a
+        >
+        <a href="/about" class="hover:text-white transition-colors"
+          >Philosophy</a
+        >
+      </nav>
+
+      <!-- CTA -->
+      <div class="hidden md:flex items-center gap-4">
+        <a
+          href="/audit"
+          class="px-5 py-2.5 bg-brand-purple hover:bg-brand-purple/90 rounded-full text-white font-bold text-xs uppercase tracking-wide transition-all hover:scale-105 glow-purple"
+        >
+          Get Audit
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button
+        id="mobile-menu-btn"
+        class="md:hidden text-white p-2"
+        aria-label="Menu"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Dropdown -->
+  <div
+    id="mobile-menu"
+    class="hidden absolute top-24 left-4 right-4 glass-panel rounded-2xl p-6 flex flex-col gap-4 md:hidden bg-black/95 backdrop-blur-xl border border-white/10 shadow-2xl transform origin-top transition-all z-50"
+  >
+    <a
+      href="/ecosystem"
+      class="text-lg font-medium text-gray-300 hover:text-white py-2 border-b border-white/5"
+      >Ecosystem</a
+    >
+    <a
+      href="/case-studies"
+      class="text-lg font-medium text-gray-300 hover:text-white py-2 border-b border-white/5"
+      >Results</a
+    >
+    <a
+      href="/creators"
+      class="text-lg font-medium text-gray-300 hover:text-white py-2 border-b border-white/5"
+      >For Creators</a
+    >
+    <a
+      href="/about"
+      class="text-lg font-medium text-gray-300 hover:text-white py-2 border-b border-white/5"
+      >Philosophy</a
+    >
+    <a
+      href="/audit"
+      class="mt-4 w-full text-center px-6 py-3 bg-brand-purple rounded-lg text-white font-bold hover:bg-brand-purple/90"
+      >Get Growth Audit</a
+    >
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById("mobile-menu-btn");
+  const menu = document.getElementById("mobile-menu");
+
+  btn?.addEventListener("click", () => {
+    menu?.classList.toggle("hidden");
+    menu?.classList.toggle("flex");
+  });
+</script>

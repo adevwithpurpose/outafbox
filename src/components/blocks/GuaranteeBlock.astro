@@ -1,0 +1,17 @@
+---
+import Guarantee from "../landing/Guarantee.astro";
+
+const { data } = Astro.props;
+
+// Map the generic block fields to what the Guarantee component expects
+const guaranteeData = {
+    guaranteeHeadline: data.headline,
+    guaranteeBody: data.subhead,
+    guaranteeCtaText: data.ctaText || "APPLY FOR PARTNERSHIP",
+    guaranteeCtaLink: data.ctaLink || "/audit",
+};
+---
+
+<div id="guarantee">
+    <Guarantee data={guaranteeData} />
+</div>

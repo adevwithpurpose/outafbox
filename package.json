@@ -12,6 +12,7 @@
     "@tailwindcss/vite": "^4.1.18",
     "@tinacms/cli": "^2.1.2",
     "astro": "^5.16.15",
+    "marked": "^17.0.1",
     "tailwindcss": "^4.1.18",
     "tinacms": "^3.3.2"
   }

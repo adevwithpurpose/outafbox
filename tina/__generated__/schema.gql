@@ -54,12 +54,12 @@ type Query {
   collections: [Collection!]!
   node(id: String): Node!
   document(collection: String, relativePath: String): DocumentNode!
-  landing(relativePath: String): Landing!
-  landingConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: LandingFilter): LandingConnection!
+  page(relativePath: String): Page!
+  pageConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PageFilter): PageConnection!
 }
 
 input DocumentFilter {
-  landing: LandingFilter
+  page: PageFilter
 }
 
 type DocumentConnectionEdges {
@@ -85,12 +85,104 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter, folder: String): DocumentConnection!
 }
 
-union DocumentNode = Landing | Folder
+union DocumentNode = Page | Folder
 
-type Landing implements Node & Document {
-  heroTitle: String
-  subtext: String
-  heroImage: String
+type PageBlocksHero {
+  headline: String
+  subhead: String
+  ctaText: String
+  ctaLink: String
+  secondaryCtaText: String
+  secondaryCtaLink: String
+  image: String
+}
+
+type PageBlocksFeaturesItems {
+  title: String
+  description: String
+  icon: String
+}
+
+type PageBlocksFeatures {
+  headline: String
+  id: String
+  items: [PageBlocksFeaturesItems]
+}
+
+type PageBlocksContent {
+  body: JSON
+  centered: Boolean
+}
+
+type PageBlocksTestimonials {
+  headline: String
+}
+
+type PageBlocksTrustBar {
+  label: String
+}
+
+type PageBlocksAuditForm {
+  headline: String
+}
+
+type PageBlocksCreatorForm {
+  headline: String
+}
+
+type PageBlocksTeam {
+  headline: String
+}
+
+type PageBlocksJobsListings {
+  title: String
+  type: String
+  location: String
+  description: String
+}
+
+type PageBlocksJobs {
+  headline: String
+  listings: [PageBlocksJobsListings]
+}
+
+type PageBlocksFaqQuestions {
+  question: String
+  answer: String
+}
+
+type PageBlocksFaq {
+  questions: [PageBlocksFaqQuestions]
+}
+
+type PageBlocksVsl {
+  headline: String
+}
+
+type PageBlocksComparison {
+  headline: String
+}
+
+type PageBlocksFounder {
+  headline: String
+}
+
+type PageBlocksResultsTeaser {
+  headline: String
+}
+
+type PageBlocksGuarantee {
+  headline: String
+  subhead: String
+  ctaText: String
+  ctaLink: String
+}
+
+union PageBlocks = PageBlocksHero | PageBlocksFeatures | PageBlocksContent | PageBlocksTestimonials | PageBlocksTrustBar | PageBlocksAuditForm | PageBlocksCreatorForm | PageBlocksTeam | PageBlocksJobs | PageBlocksFaq | PageBlocksVsl | PageBlocksComparison | PageBlocksFounder | PageBlocksResultsTeaser | PageBlocksGuarantee
+
+type Page implements Node & Document {
+  title: String!
+  blocks: [PageBlocks]
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
@@ -110,21 +202,140 @@ input ImageFilter {
   in: [String]
 }
 
-input LandingFilter {
-  heroTitle: StringFilter
-  subtext: StringFilter
-  heroImage: ImageFilter
+input PageBlocksHeroFilter {
+  headline: StringFilter
+  subhead: StringFilter
+  ctaText: StringFilter
+  ctaLink: StringFilter
+  secondaryCtaText: StringFilter
+  secondaryCtaLink: StringFilter
+  image: ImageFilter
 }
 
-type LandingConnectionEdges {
+input PageBlocksFeaturesItemsFilter {
+  title: StringFilter
+  description: StringFilter
+  icon: StringFilter
+}
+
+input PageBlocksFeaturesFilter {
+  headline: StringFilter
+  id: StringFilter
+  items: PageBlocksFeaturesItemsFilter
+}
+
+input RichTextFilter {
+  startsWith: String
+  eq: String
+  exists: Boolean
+}
+
+input BooleanFilter {
+  eq: Boolean
+  exists: Boolean
+}
+
+input PageBlocksContentFilter {
+  body: RichTextFilter
+  centered: BooleanFilter
+}
+
+input PageBlocksTestimonialsFilter {
+  headline: StringFilter
+}
+
+input PageBlocksTrustBarFilter {
+  label: StringFilter
+}
+
+input PageBlocksAuditFormFilter {
+  headline: StringFilter
+}
+
+input PageBlocksCreatorFormFilter {
+  headline: StringFilter
+}
+
+input PageBlocksTeamFilter {
+  headline: StringFilter
+}
+
+input PageBlocksJobsListingsFilter {
+  title: StringFilter
+  type: StringFilter
+  location: StringFilter
+  description: StringFilter
+}
+
+input PageBlocksJobsFilter {
+  headline: StringFilter
+  listings: PageBlocksJobsListingsFilter
+}
+
+input PageBlocksFaqQuestionsFilter {
+  question: StringFilter
+  answer: StringFilter
+}
+
+input PageBlocksFaqFilter {
+  questions: PageBlocksFaqQuestionsFilter
+}
+
+input PageBlocksVslFilter {
+  headline: StringFilter
+}
+
+input PageBlocksComparisonFilter {
+  headline: StringFilter
+}
+
+input PageBlocksFounderFilter {
+  headline: StringFilter
+}
+
+input PageBlocksResultsTeaserFilter {
+  headline: StringFilter
+}
+
+input PageBlocksGuaranteeFilter {
+  headline: StringFilter
+  subhead: StringFilter
+  ctaText: StringFilter
+  ctaLink: StringFilter
+}
+
+input PageBlocksFilter {
+  hero: PageBlocksHeroFilter
+  features: PageBlocksFeaturesFilter
+  content: PageBlocksContentFilter
+  testimonials: PageBlocksTestimonialsFilter
+  trustBar: PageBlocksTrustBarFilter
+  auditForm: PageBlocksAuditFormFilter
+  creatorForm: PageBlocksCreatorFormFilter
+  team: PageBlocksTeamFilter
+  jobs: PageBlocksJobsFilter
+  faq: PageBlocksFaqFilter
+  vsl: PageBlocksVslFilter
+  comparison: PageBlocksComparisonFilter
+  founder: PageBlocksFounderFilter
+  resultsTeaser: PageBlocksResultsTeaserFilter
+  guarantee: PageBlocksGuaranteeFilter
+}
+
+input PageFilter {
+  title: StringFilter
+  blocks: PageBlocksFilter
+}
+
+type PageConnectionEdges {
   cursor: String!
-  node: Landing
+  node: Page
 }
 
-type LandingConnection implements Connection {
+type PageConnection implements Connection {
   pageInfo: PageInfo!
   totalCount: Float!
-  edges: [LandingConnectionEdges]
+  edges: [PageConnectionEdges]
 }
 
 type Mutation {
@@ -133,23 +344,131 @@ type Mutation {
   deleteDocument(collection: String, relativePath: String!): DocumentNode!
   createDocument(collection: String, relativePath: String!, params: DocumentMutation!): DocumentNode!
   createFolder(collection: String, relativePath: String!): DocumentNode!
-  updateLanding(relativePath: String!, params: LandingMutation!): Landing!
-  createLanding(relativePath: String!, params: LandingMutation!): Landing!
+  updatePage(relativePath: String!, params: PageMutation!): Page!
+  createPage(relativePath: String!, params: PageMutation!): Page!
 }
 
 input DocumentUpdateMutation {
-  landing: LandingMutation
+  page: PageMutation
   relativePath: String
 }
 
 input DocumentMutation {
-  landing: LandingMutation
+  page: PageMutation
 }
 
-input LandingMutation {
-  heroTitle: String
-  subtext: String
-  heroImage: String
+input PageBlocksHeroMutation {
+  headline: String
+  subhead: String
+  ctaText: String
+  ctaLink: String
+  secondaryCtaText: String
+  secondaryCtaLink: String
+  image: String
+}
+
+input PageBlocksFeaturesItemsMutation {
+  title: String
+  description: String
+  icon: String
+}
+
+input PageBlocksFeaturesMutation {
+  headline: String
+  id: String
+  items: [PageBlocksFeaturesItemsMutation]
+}
+
+input PageBlocksContentMutation {
+  body: JSON
+  centered: Boolean
+}
+
+input PageBlocksTestimonialsMutation {
+  headline: String
+}
+
+input PageBlocksTrustBarMutation {
+  label: String
+}
+
+input PageBlocksAuditFormMutation {
+  headline: String
+}
+
+input PageBlocksCreatorFormMutation {
+  headline: String
+}
+
+input PageBlocksTeamMutation {
+  headline: String
+}
+
+input PageBlocksJobsListingsMutation {
+  title: String
+  type: String
+  location: String
+  description: String
+}
+
+input PageBlocksJobsMutation {
+  headline: String
+  listings: [PageBlocksJobsListingsMutation]
+}
+
+input PageBlocksFaqQuestionsMutation {
+  question: String
+  answer: String
+}
+
+input PageBlocksFaqMutation {
+  questions: [PageBlocksFaqQuestionsMutation]
+}
+
+input PageBlocksVslMutation {
+  headline: String
+}
+
+input PageBlocksComparisonMutation {
+  headline: String
+}
+
+input PageBlocksFounderMutation {
+  headline: String
+}
+
+input PageBlocksResultsTeaserMutation {
+  headline: String
+}
+
+input PageBlocksGuaranteeMutation {
+  headline: String
+  subhead: String
+  ctaText: String
+  ctaLink: String
+}
+
+input PageBlocksMutation {
+  hero: PageBlocksHeroMutation
+  features: PageBlocksFeaturesMutation
+  content: PageBlocksContentMutation
+  testimonials: PageBlocksTestimonialsMutation
+  trustBar: PageBlocksTrustBarMutation
+  auditForm: PageBlocksAuditFormMutation
+  creatorForm: PageBlocksCreatorFormMutation
+  team: PageBlocksTeamMutation
+  jobs: PageBlocksJobsMutation
+  faq: PageBlocksFaqMutation
+  vsl: PageBlocksVslMutation
+  comparison: PageBlocksComparisonMutation
+  founder: PageBlocksFounderMutation
+  resultsTeaser: PageBlocksResultsTeaserMutation
+  guarantee: PageBlocksGuaranteeMutation
+}
+
+input PageMutation {
+  title: String
+  blocks: [PageBlocksMutation]
 }
 
 schema {
