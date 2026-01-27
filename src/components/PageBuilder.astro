@@ -14,6 +14,9 @@ import ComparisonBlock from "./blocks/ComparisonBlock.astro";
 import FounderBlock from "./blocks/FounderBlock.astro";
 import ResultsTeaserBlock from "./blocks/ResultsTeaserBlock.astro";
 import GuaranteeBlock from "./blocks/GuaranteeBlock.astro";
+import ROISimulatorBlock from "./blocks/ROISimulatorBlock.astro";
+import AdFatigueBlock from "./blocks/AdFatigueBlock.astro";
+import StrategyQuizBlock from "./blocks/StrategyQuizBlock.astro";
 
 const { blocks } = Astro.props;
 ---
@@ -54,6 +57,12 @@ const { blocks } = Astro.props;
                     return <ResultsTeaserBlock data={block} />;
                 case "PageBlocksGuarantee":
                     return <GuaranteeBlock data={block} />;
+                case "PageBlocksRoiSimulator":
+                    return <ROISimulatorBlock data={block} />;
+                case "PageBlocksAdFatigue":
+                    return <AdFatigueBlock data={block} />;
+                case "PageBlocksStrategyQuiz":
+                    return <StrategyQuizBlock data={block} />;
                 default:
                     // Fallback for debugging unknown blocks
                     return (

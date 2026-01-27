@@ -1,5 +1,5 @@
 ---
-title: Home
+title: Home 
 blocks:
   - headline: Scale Your DTC Brand Past the Revenue Ceiling.
     subhead: "The all-in-one Growth Ecosystem: High-Volume UGC, Media Buying, and Landing Pages. We take the risk, you take the profit."
@@ -42,6 +42,8 @@ blocks:
         description: "High-converting Landing Pages built for speed and persuasion. We increase AOV and CR% to maximize every click."
         icon: 🎯
     _template: features
+  - headline: ROI Delta
+    _template: roiSimulator
   - headline: Founder Note
     _template: founder
   - headline: Client Success Stories
@@ -56,7 +58,5 @@ blocks:
     _template: faq
   - headline: "We Grow Your Revenue, Or We Don't Get Paid."
     subhead: "Our Quarterly Performance Guarantee: If we don't hit our agreed KPIs, we work for free until we do. No excuses."
-    ctaText: APPLY FOR PARTNERSHIP
-    ctaLink: /audit
     _template: guarantee
 ---

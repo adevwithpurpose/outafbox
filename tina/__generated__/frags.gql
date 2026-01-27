@@ -21,6 +21,7 @@ fragment PageParts on Page {
         description
         icon
       }
+      variant
     }
     ... on PageBlocksContent {
       body
@@ -75,6 +76,15 @@ fragment PageParts on Page {
       subhead
       ctaText
       ctaLink
+    }
+    ... on PageBlocksRoiSimulator {
+      headline
+    }
+    ... on PageBlocksAdFatigue {
+      headline
+    }
+    ... on PageBlocksStrategyQuiz {
+      headline
     }
   }
 }

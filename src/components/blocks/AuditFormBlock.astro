@@ -3,62 +3,93 @@ const { data } = Astro.props;
 // data might contain headline override, etc.
 ---
 
-<section id="apply" class="max-w-4xl mx-auto py-12">
+<section id="apply" class="max-w-4xl mx-auto pt-16 pb-20 px-6">
     <!-- Primary Application Form (Centered) -->
-    <div class="max-w-2xl mx-auto mb-20">
+    <div class="max-w-2xl mx-auto mb-16 relative">
+        <!-- Dramatic Background Glow -->
         <div
-            class="glass-panel p-8 md:p-12 rounded-3xl border border-white/10 relative overflow-hidden"
+            class="absolute -inset-1 bg-gradient-to-r from-brand-purple/30 via-brand-blue/30 to-brand-purple/30 rounded-[2.5rem] blur-xl opacity-50 group-hover:opacity-100 transition duration-1000"
         >
+        </div>
+
+        <div
+            class="glass-panel p-8 md:p-12 rounded-[2.5rem] border border-white/10 relative overflow-hidden shadow-2xl bg-black/40"
+        >
+            <!-- Top Status Bar -->
             <div
-                class="absolute top-0 right-0 w-64 h-64 bg-brand-blue/10 blur-[80px] rounded-full pointer-events-none"
+                class="flex items-center justify-between mb-10 border-b border-white/5 pb-6"
             >
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-2 h-2 rounded-full bg-brand-green animate-pulse"
+                    >
+                    </div>
+                    <span
+                        class="text-[10px] font-black uppercase tracking-[0.2em] text-brand-green"
+                        >Availability: 2 Slots Open</span
+                    >
+                </div>
+                <div
+                    class="text-[10px] font-bold text-gray-500 uppercase tracking-widest"
+                >
+                    Manual Audit Request
+                </div>
             </div>
 
             <h2
-                class="text-3xl font-display font-bold mb-6 flex items-center gap-3"
+                class="text-4xl md:text-5xl font-black mb-6 text-white leading-tight tracking-tight"
             >
-                <span class="w-1.5 h-8 bg-brand-blue rounded-full"></span>
-                {data.headline || "Apply for a Growth Audit"}
+                Apply for Your <br /><span class="text-gradient-main"
+                    >Free Audit</span
+                >
             </h2>
-            <p class="text-gray-400 mb-8 leading-relaxed">
-                We only work with brands doing $10M+ (or those with the runway
-                to get there). Our team will manually review your ad account and
-                landing pages to find the leaks.
+
+            <p
+                class="text-gray-400 mb-10 leading-relaxed text-sm font-medium border-l-2 border-brand-purple/30 pl-6"
+            >
+                We only work with brands doing <b>$10M+</b> (or those with the runway
+                to get there). Our team will manually review your ad account and landing
+                pages to find the leaks.
             </p>
 
-            <form class="space-y-6 relative z-10">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div>
+            <form class="space-y-8 relative z-10">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
                         <label
-                            class="block text-sm font-medium text-gray-400 mb-2"
+                            class="block text-[11px] font-black uppercase tracking-widest text-gray-500 ml-1"
                             >Work Email</label
                         >
-                        <input
-                            type="email"
-                            placeholder="founder@brand.com"
-                            class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-4 focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue text-white placeholder-gray-600 transition-all"
-                        />
+                        <div class="relative group/input">
+                            <input
+                                type="email"
+                                placeholder="founder@brand.com"
+                                class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-5 focus:outline-none focus:border-brand-purple focus:ring-1 focus:ring-brand-purple text-white placeholder-white/20 transition-all hover:bg-white/[0.08]"
+                            />
+                        </div>
                     </div>
-                    <div>
+                    <div class="space-y-2">
                         <label
-                            class="block text-sm font-medium text-gray-400 mb-2"
+                            class="block text-[11px] font-black uppercase tracking-widest text-gray-500 ml-1"
                             >Brand URL</label
                         >
-                        <input
-                            type="text"
-                            placeholder="yourbrand.com"
-                            class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-4 focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue text-white placeholder-gray-600 transition-all"
-                        />
+                        <div class="relative group/input">
+                            <input
+                                type="text"
+                                placeholder="yourbrand.com"
+                                class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-5 focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue text-white placeholder-white/20 transition-all hover:bg-white/[0.08]"
+                            />
+                        </div>
                     </div>
                 </div>
 
-                <div>
-                    <label class="block text-sm font-medium text-gray-400 mb-2"
+                <div class="space-y-2">
+                    <label
+                        class="block text-[11px] font-black uppercase tracking-widest text-gray-500 ml-1"
                         >Monthly Revenue</label
                     >
                     <div class="relative">
                         <select
-                            class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-4 text-gray-300 appearance-none cursor-pointer focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue transition-all"
+                            class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-5 text-white appearance-none cursor-pointer focus:outline-none focus:border-brand-green focus:ring-1 focus:ring-brand-green transition-all hover:bg-white/[0.08]"
                             style="color-scheme: dark;"
                         >
                             <option value="" disabled selected
@@ -69,65 +100,110 @@ const { data } = Astro.props;
                             <option value="10M+">$10M+</option>
                         </select>
                         <div
-                            class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-gray-500"
+                            class="absolute inset-y-0 right-0 flex items-center px-6 pointer-events-none text-gray-600"
                         >
                             <svg
                                 class="w-5 h-5"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
-                                ><path
+                            >
+                                <path
                                     stroke-linecap="round"
                                     stroke-linejoin="round"
                                     stroke-width="2"
-                                    d="M19 9l-7 7-7-7"></path></svg
-                            >
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
                         </div>
                     </div>
                 </div>
 
                 <button
                     type="submit"
-                    class="w-full bg-white text-black font-bold py-4 rounded-xl text-lg hover:scale-[1.01] transition-transform shadow-[0_0_20px_rgba(255,255,255,0.2)] cursor-pointer"
+                    class="w-full relative group/btn overflow-hidden rounded-2xl p-[1px] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
                 >
-                    Request Free Audit
+                    <!-- Button Background Gradient -->
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-brand-purple via-brand-blue to-brand-purple animate-gradient-x"
+                    >
+                    </div>
+                    <!-- Content Wrapper -->
+                    <div
+                        class="relative bg-black group-hover:bg-transparent transition-colors py-5 px-8 rounded-2xl flex items-center justify-center gap-3"
+                    >
+                        <span
+                            class="text-white font-black text-lg group-hover:text-white transition-colors"
+                            >REQUEST FREE AUDIT</span
+                        >
+                        <svg
+                            class="w-5 h-5 text-white animate-bounce-x"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="3"
+                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </div>
                 </button>
+
+                <p
+                    class="text-[10px] text-center text-gray-600 font-bold uppercase tracking-widest"
+                >
+                    Response time: ~24 hours via Slack or Email
+                </p>
             </form>
         </div>
     </div>
 
     <!-- Secondary: Calculator (Value Add) -->
-    <div class="max-w-4xl mx-auto mb-20">
+    <div class="max-w-4xl mx-auto mb-20 animate-fade-in group">
         <div
-            class="glass-panel p-8 md:p-10 rounded-2xl border border-white/5 bg-white/[0.02]"
+            class="glass-panel p-8 md:p-12 rounded-[2.5rem] border border-white/5 bg-white/[0.01] hover:bg-white/[0.03] transition-all duration-700"
         >
-            <div class="flex flex-col md:flex-row gap-12 items-center">
-                <div class="flex-1">
-                    <h3 class="text-xl font-bold mb-4 text-gray-200">
-                        Not ready to apply?
-                    </h3>
-                    <p class="text-gray-400 text-sm mb-6">
-                        See exactly how much revenue you're leaking every month
-                        due to sub-optimal conversion rates.
-                    </p>
-                    <div class="space-y-4">
-                        <div>
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                <div class="flex-1 space-y-8">
+                    <div>
+                        <div
+                            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-purple/10 border border-brand-purple/20 text-brand-purple text-[10px] font-bold uppercase tracking-widest mb-4"
+                        >
+                            Diagnostic Tool
+                        </div>
+                        <h3
+                            class="text-2xl font-black mb-3 text-white tracking-tight"
+                        >
+                            Not ready to apply?
+                        </h3>
+                        <p
+                            class="text-gray-500 text-sm leading-relaxed font-medium"
+                        >
+                            See exactly how much revenue you're leaking every
+                            month due to sub-optimal conversion rates and ad
+                            creative fatigue.
+                        </p>
+                    </div>
+
+                    <div class="grid gap-6">
+                        <div class="group/field">
                             <label
-                                class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1"
+                                class="block text-[10px] font-black text-gray-600 uppercase tracking-[0.2em] mb-3 group-focus-within/field:text-brand-purple transition-colors"
                                 >Monthly Traffic</label
                             >
                             <input
                                 type="number"
                                 id="calc-traffic"
                                 placeholder="50,000"
-                                class="w-full bg-transparent border-b border-white/10 py-2 focus:outline-none focus:border-brand-purple text-white placeholder-gray-700 font-mono"
+                                class="w-full bg-transparent border-b border-white/10 pb-4 focus:outline-none focus:border-brand-purple text-2xl text-white placeholder-white/10 font-display font-bold transition-all"
                             />
                         </div>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
+                        <div class="grid grid-cols-2 gap-10">
+                            <div class="group/field">
                                 <label
-                                    class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1"
-                                    >Conv. Rate (%)</label
+                                    class="block text-[10px] font-black text-gray-600 uppercase tracking-[0.2em] mb-3 group-focus-within/field:text-brand-purple transition-colors"
+                                    >CR %</label
                                 >
                                 <input
                                     type="number"
@@ -136,13 +212,13 @@ const { data } = Astro.props;
                                     min="0.1"
                                     max="20"
                                     placeholder="1.2"
-                                    class="w-full bg-transparent border-b border-white/10 py-2 focus:outline-none focus:border-brand-purple text-white placeholder-gray-700 font-mono hide-spinners"
+                                    class="w-full bg-transparent border-b border-white/10 pb-4 focus:outline-none focus:border-brand-purple text-2xl text-white placeholder-white/10 font-display font-bold transition-all hide-spinners"
                                 />
                             </div>
-                            <div>
+                            <div class="group/field">
                                 <label
-                                    class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1"
-                                    >AOV ($)</label
+                                    class="block text-[10px] font-black text-gray-600 uppercase tracking-[0.2em] mb-3 group-focus-within/field:text-brand-purple transition-colors"
+                                    >AOV $</label
                                 >
                                 <input
                                     type="number"
@@ -150,49 +226,130 @@ const { data } = Astro.props;
                                     step="5"
                                     min="1"
                                     placeholder="85"
-                                    class="w-full bg-transparent border-b border-white/10 py-2 focus:outline-none focus:border-brand-purple text-white placeholder-gray-700 font-mono hide-spinners"
+                                    class="w-full bg-transparent border-b border-white/10 pb-4 focus:outline-none focus:border-brand-purple text-2xl text-white placeholder-white/10 font-display font-bold transition-all hide-spinners"
                                 />
                             </div>
                         </div>
                     </div>
                     <button
                         id="calc-btn"
-                        class="mt-6 text-brand-purple hover:text-white font-bold text-sm flex items-center gap-2 transition-colors"
+                        class="group/calc flex items-center gap-4 text-sm font-black text-white hover:text-brand-purple transition-all tracking-widest uppercase"
                     >
-                        Calculate Potential <span aria-hidden="true"
-                            >&rarr;</span
+                        RUN REVENUE DIAGNOSTIC
+                        <div
+                            class="p-2 rounded-full border border-white/10 group-hover/calc:border-brand-purple transition-colors"
                         >
+                            <svg
+                                class="w-4 h-4 group-hover/calc:translate-x-1 transition-transform"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                stroke-width="3"
+                            >
+                                <path d="M5 12h14m-7-7l7 7-7 7"></path>
+                            </svg>
+                        </div>
                     </button>
                 </div>
 
                 <!-- Result Side -->
-                <div
-                    class="flex-1 w-full bg-black/40 rounded-xl p-6 border border-white/5 text-center min-h-[160px] flex flex-col items-center justify-center"
-                >
-                    <div id="calc-result" class="hidden animate-fade-in">
-                        <div class="text-sm text-gray-500 mb-2">
-                            Missed Monthly Revenue
-                        </div>
-                        <div
-                            class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-purple to-white mb-2"
-                            id="calc-amount"
-                        >
-                            $0
-                        </div>
-                        <div
-                            class="text-xs text-brand-purple font-bold bg-brand-purple/10 px-3 py-1 rounded-full inline-block"
-                        >
-                            Conservative 30% Lift
-                        </div>
+                <div class="flex-1 w-full relative">
+                    <div
+                        class="absolute inset-0 bg-brand-purple/5 blur-[100px] rounded-full pointer-events-none"
+                    >
                     </div>
-                    <div id="calc-placeholder" class="text-gray-600 text-sm">
-                        Enter your metrics to see your<br />growth potential.
+                    <div
+                        class="relative bg-black/40 rounded-[2rem] p-10 border border-white/5 text-center min-h-[300px] flex flex-col items-center justify-center shadow-inner overflow-hidden"
+                    >
+                        <!-- Animated Scanner Line -->
+                        <div
+                            class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-purple to-transparent animate-scan"
+                        >
+                        </div>
+
+                        <div
+                            id="calc-result"
+                            class="hidden animate-fade-in group/res"
+                        >
+                            <div
+                                class="text-[10px] font-black text-gray-500 uppercase tracking-[0.3em] mb-4"
+                            >
+                                Projected Monthly Leakage
+                            </div>
+                            <div
+                                class="text-5xl md:text-7xl font-black text-white mb-6 tracking-tighter"
+                                id="calc-amount"
+                            >
+                                $0
+                            </div>
+                            <div
+                                class="inline-flex items-center gap-2 px-4 py-2 bg-brand-purple/10 border border-brand-purple/20 rounded-full"
+                            >
+                                <span
+                                    class="w-2 h-2 rounded-full bg-brand-purple animate-pulse"
+                                ></span>
+                                <span
+                                    class="text-[10px] font-black text-brand-purple uppercase tracking-[0.1em]"
+                                    >Conservative 30% Growth Potential</span
+                                >
+                            </div>
+                        </div>
+                        <div
+                            id="calc-placeholder"
+                            class="text-gray-700 font-display font-bold text-xl uppercase tracking-widest animate-pulse"
+                        >
+                            AWAITING INPUT...
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<style>
+    @keyframes gradient-x {
+        0%,
+        100% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+    }
+    .animate-gradient-x {
+        background-size: 200% 200%;
+        animation: gradient-x 3s ease infinite;
+    }
+    @keyframes bounce-x {
+        0%,
+        100% {
+            transform: translateX(0);
+        }
+        50% {
+            transform: translateX(5px);
+        }
+    }
+    .animate-bounce-x {
+        animation: bounce-x 1s infinite;
+    }
+    @keyframes scan {
+        0% {
+            transform: translateY(0);
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(300px);
+            opacity: 0;
+        }
+    }
+    .animate-scan {
+        animation: scan 4s linear infinite;
+    }
+</style>
 
 <script>
     const calcBtn = document.getElementById("calc-btn");

@@ -6,6 +6,8 @@ blocks:
     ctaText: Apply Now
     ctaLink: "#apply"
     _template: hero
+  - headline: Identify Your Bottleneck
+    _template: strategyQuiz
   - headline: What You'll Get
     id: benefits
     items:

@@ -2,53 +2,237 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout>
-    <main class="min-h-screen pt-36 pb-12 px-6">
-        <div class="max-w-3xl mx-auto text-gray-300">
-            <h1 class="text-4xl font-display font-bold text-white mb-8">
-                Privacy Policy
-            </h1>
-            <p class="mb-4">Last Updated: {new Date().toLocaleDateString()}</p>
+<Layout title="Privacy Policy | OutAfBox">
+    <main class="min-h-screen pt-40 pb-24 px-6 relative overflow-hidden">
+        <!-- Background Glows -->
+        <div
+            class="absolute top-0 left-1/4 w-96 h-96 bg-brand-purple/10 rounded-full blur-[120px] pointer-events-none"
+        >
+        </div>
+        <div
+            class="absolute bottom-0 right-1/4 w-96 h-96 bg-brand-blue/10 rounded-full blur-[120px] pointer-events-none"
+        >
+        </div>
 
-            <div class="space-y-6">
-                <section>
-                    <h2 class="text-xl font-bold text-white mb-2">
-                        1. Introduction
-                    </h2>
-                    <p>
-                        OutAfBox ("we", "us", or "our") respects your privacy
-                        and is committed to protecting your personal data. This
-                        privacy policy will inform you as to how we look after
-                        your personal data when you visit our website.
-                    </p>
-                </section>
+        <div class="max-w-4xl mx-auto relative z-10">
+            <div class="mb-16 text-center md:text-left">
+                <a
+                    href="/"
+                    class="text-brand-purple hover:text-white transition-colors text-sm font-bold uppercase tracking-widest mb-4 inline-block"
+                >
+                    &larr; Back to Home
+                </a>
+                <h1 class="text-4xl md:text-6xl font-black text-white mb-6">
+                    Digital <span class="text-gradient-main">Intelligence</span>
+                </h1>
+                <p class="text-gray-400 font-mono text-sm">
+                    REVENUE PROTECTION PROTOCOL • LAST UPDATED: JAN 28, 2026
+                </p>
+            </div>
 
-                <section>
-                    <h2 class="text-xl font-bold text-white mb-2">
-                        2. Data We Collect
-                    </h2>
-                    <p>
-                        We may collect, use, store and transfer different kinds
-                        of personal data about you which we have grouped
-                        together follows: Identity Data, Contact Data, Technical
-                        Data, and Usage Data.
-                    </p>
-                </section>
+            <div class="grid md:grid-cols-[200px_1fr] gap-12">
+                <!-- Quick Navigation -->
+                <nav
+                    class="hidden md:block sticky top-32 h-fit border-l border-white/5 pl-6"
+                >
+                    <ul
+                        class="space-y-4 text-xs font-bold text-gray-500 uppercase tracking-widest"
+                    >
+                        <li>
+                            <a
+                                href="#intro"
+                                class="hover:text-brand-purple transition-colors"
+                                >The Protocol</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#collection"
+                                class="hover:text-brand-purple transition-colors"
+                                >Intelligence</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#usage"
+                                class="hover:text-brand-purple transition-colors"
+                                >Deployment</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#sharing"
+                                class="hover:text-brand-purple transition-colors"
+                                >Security</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#contact"
+                                class="hover:text-brand-purple transition-colors"
+                                >Human Comms</a
+                            >
+                        </li>
+                    </ul>
+                </nav>
 
-                <section>
-                    <h2 class="text-xl font-bold text-white mb-2">
-                        3. How We Use Your Data
-                    </h2>
-                    <p>
-                        We will only use your personal data when the law allows
-                        us to. Most commonly, we will use your personal data in
-                        the following circumstances: Where we need to perform
-                        the contract we are about to enter into or have entered
-                        into with you.
-                    </p>
-                </section>
+                <div class="space-y-16 text-gray-300 leading-relaxed">
+                    <section id="intro">
+                        <h2
+                            class="text-2xl font-bold text-white mb-6 flex items-center gap-3"
+                        >
+                            <span class="text-brand-purple">01.</span> Radical Transparency
+                        </h2>
+                        <div
+                            class="glass-panel p-8 rounded-2xl border border-white/5 space-y-4 shadow-2xl"
+                        >
+                            <p>
+                                At <strong>OutAfBox</strong>, we treat your
+                                brand's data with the same engineering rigor we
+                                apply to our conversion funnels. This isn't just
+                                a legal requirement; it's a commitment to <strong
+                                    >Radical Transparency</strong
+                                >.
+                            </p>
+                            <p>
+                                Most agencies hide behind vague terms. We do the
+                                opposite. Below is the exact breakdown of how we
+                                handle your digital footprint to maximize your
+                                growth while protecting your IP.
+                            </p>
+                        </div>
+                    </section>
 
-                <!-- Add more standard placeholder sections as needed -->
+                    <section id="collection">
+                        <h2
+                            class="text-2xl font-bold text-white mb-6 flex items-center gap-3"
+                        >
+                            <span class="text-brand-purple">02.</span> Intelligence
+                            Gathering
+                        </h2>
+                        <div class="space-y-6">
+                            <p>
+                                We only collect data that directly contributes
+                                to revenue growth or site performance. No fluff.
+                                No waste.
+                            </p>
+                            <ul class="list-none space-y-4">
+                                <li class="flex gap-3">
+                                    <span class="text-brand-purple font-bold"
+                                        >»</span
+                                    >
+                                    <span
+                                        ><strong>Strategic Intent Data:</strong>
+                                        Name, professional email, and store metrics
+                                        shared during your Growth Audit application.</span
+                                    >
+                                </li>
+                                <li class="flex gap-3">
+                                    <span class="text-brand-purple font-bold"
+                                        >»</span
+                                    >
+                                    <span
+                                        ><strong>Performance Metrics:</strong>
+                                        Spend ranges, current ROAS targets, and funnel
+                                        URLs required for our diagnostic engineering.</span
+                                    >
+                                </li>
+                                <li class="flex gap-3">
+                                    <span class="text-brand-purple font-bold"
+                                        >»</span
+                                    >
+                                    <span
+                                        ><strong>Technical Footprint:</strong>
+                                        Interaction data, browser telemetry, and attribution
+                                        pings captured to optimize your experience.</span
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section id="usage">
+                        <h2
+                            class="text-2xl font-bold text-white mb-6 flex items-center gap-3"
+                        >
+                            <span class="text-brand-purple">03.</span> Deployment
+                        </h2>
+                        <div
+                            class="glass-panel p-8 rounded-2xl border border-white/5 space-y-4"
+                        >
+                            <p>
+                                Your data has one job: scale. We deploy this
+                                intelligence to:
+                            </p>
+                            <ul class="list-none space-y-3 ml-2">
+                                <li class="flex items-center gap-3">
+                                    <div class="h-1 w-4 bg-brand-purple"></div>
+                                    <span
+                                        >Engineer custom growth projections and
+                                        revenue models.</span
+                                    >
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <div class="h-1 w-4 bg-brand-purple"></div>
+                                    <span
+                                        >Filter for high-intent brand
+                                        partnerships (we don't work with
+                                        everyone).</span
+                                    >
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <div class="h-1 w-4 bg-brand-purple"></div>
+                                    <span
+                                        >Refine our internal Ecosystem
+                                        performance benchmarks.</span
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section id="sharing" class="space-y-6">
+                        <h2
+                            class="text-2xl font-bold text-white mb-6 flex items-center gap-3"
+                        >
+                            <span class="text-brand-purple">04.</span> Zero Leakage
+                            Policy
+                        </h2>
+                        <p>
+                            We don't rent, sell, or trade your intelligence. <strong
+                                >Period.</strong
+                            >
+                        </p>
+                        <p class="text-sm font-mono text-gray-500 uppercase">
+                            SECURITY STATUS: ENCRYPTED • ACCESS: RESTRICTED TO
+                            LEAD STRATEGISTS
+                        </p>
+                    </section>
+
+                    <section id="contact" class="pt-12 border-t border-white/5">
+                        <h2 class="text-2xl font-bold text-white mb-6">
+                            Data Inquiry?
+                        </h2>
+                        <div
+                            class="bg-brand-purple/10 border border-brand-purple/20 p-8 rounded-2xl group hover:bg-brand-purple/20 transition-all"
+                        >
+                            <p class="mb-4">
+                                If you need to audit the information we have on
+                                file for your brand, contact our Intelligence
+                                Ops team directly:
+                            </p>
+                            <a
+                                href="mailto:privacy@outafbox.com"
+                                class="text-xl font-bold text-white hover:text-brand-purple transition-colors flex items-center gap-2"
+                            >
+                                info@outafbox.com <span
+                                    class="group-hover:translate-x-2 transition-transform"
+                                    >&rarr;</span
+                                >
+                            </a>
+                        </div>
+                    </section>
+                </div>
             </div>
         </div>
     </main>

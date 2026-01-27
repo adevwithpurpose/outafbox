@@ -1,0 +1,199 @@
+---
+
+---
+
+<section
+    class="py-20 bg-white/[0.02] border-y border-white/5 relative overflow-hidden"
+>
+    <div class="container mx-auto px-6 max-w-4xl">
+        <div class="text-center mb-12">
+            <div
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-500 text-[10px] font-bold uppercase tracking-widest mb-4"
+            >
+                Creative Lifespan Analysis
+            </div>
+            <h2 class="text-3xl md:text-5xl font-black text-white mb-6">
+                Predict Your <span class="text-red-500">Ad Fatigue</span> Wall
+            </h2>
+            <p class="text-gray-400 font-medium max-w-2xl mx-auto">
+                Algorithm hunger is relentless. Input your monthly spend to see
+                how many unique creative assets you need to maintain peak ROAS.
+            </p>
+        </div>
+
+        <div
+            class="glass-panel p-8 rounded-3xl border border-white/10 shadow-2xl relative"
+        >
+            <div class="grid md:grid-cols-[1fr_280px] gap-10 items-center">
+                <div class="space-y-8">
+                    <div>
+                        <div class="flex justify-between mb-4">
+                            <label
+                                class="text-xs font-bold text-gray-500 uppercase tracking-widest"
+                                >Monthly Ad Spend ($)</label
+                            >
+                            <span
+                                class="text-white font-mono font-bold"
+                                id="fatigue-spend-val">$50,000</span
+                            >
+                        </div>
+                        <input
+                            type="range"
+                            min="5000"
+                            max="1000000"
+                            step="5000"
+                            value="50000"
+                            class="w-full fatigue-slider"
+                            id="fatigue-spend-input"
+                        />
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div
+                            class="p-4 bg-white/5 rounded-xl border border-white/5"
+                        >
+                            <dt
+                                class="text-[10px] text-gray-500 font-bold uppercase mb-1"
+                            >
+                                Required Assets / Mo
+                            </dt>
+                            <dd
+                                class="text-3xl font-black text-white"
+                                id="assets-needed"
+                            >
+                                12
+                            </dd>
+                        </div>
+                        <div
+                            class="p-4 bg-white/5 rounded-xl border border-white/5"
+                        >
+                            <dt
+                                class="text-[10px] text-gray-500 font-bold uppercase mb-1"
+                            >
+                                Burnout Velocity
+                            </dt>
+                            <dd
+                                class="text-3xl font-black text-red-500"
+                                id="burnout-rate"
+                            >
+                                Medium
+                            </dd>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="text-center p-6 bg-red-500/5 rounded-2xl border border-red-500/10"
+                >
+                    <div
+                        class="text-[10px] text-gray-500 font-bold uppercase mb-2"
+                    >
+                        Estimated Creative Lifespan
+                    </div>
+                    <div
+                        class="text-4xl font-black text-white mb-2"
+                        id="lifespan-val"
+                    >
+                        14 Days
+                    </div>
+                    <div
+                        class="w-full h-1 bg-white/10 rounded-full mt-4 overflow-hidden"
+                    >
+                        <div
+                            class="h-full bg-red-500"
+                            id="lifespan-bar"
+                            style="width: 45%"
+                        >
+                        </div>
+                    </div>
+                    <p
+                        class="mt-6 text-[11px] text-red-500/80 font-medium leading-tight italic"
+                    >
+                        "Your current refresh rate is likely 40% below what
+                        Meta's algorithm requires for stable scaling."
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-10 pt-8 border-t border-white/5 text-center">
+                <a
+                    href="/audit"
+                    class="px-8 py-4 bg-white text-black font-black text-sm rounded-xl hover:bg-red-500 hover:text-white transition-all uppercase tracking-widest shadow-xl"
+                >
+                    Fix Creative Bottlenecks &rarr;
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .fatigue-slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+        outline: none;
+    }
+    .fatigue-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 18px;
+        height: 18px;
+        background: #ef4444;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+    }
+</style>
+
+<script>
+    const spendInput = document.getElementById(
+        "fatigue-spend-input",
+    ) as HTMLInputElement;
+    const spendVal = document.getElementById("fatigue-spend-val");
+    const assetsVal = document.getElementById("assets-needed");
+    const burnoutVal = document.getElementById("burnout-rate");
+    const lifeVal = document.getElementById("lifespan-val");
+    const lifeBar = document.getElementById("lifespan-bar");
+
+    function updateFatigue() {
+        const spend = parseInt(spendInput.value);
+        if (spendVal) spendVal.textContent = `$${spend.toLocaleString()}`;
+
+        // Heuristic: More spend = more creative needed.
+        // Base: $5000 needs 2 assets/mo. $500k needs 80 assets/mo.
+        const assets = Math.ceil((spend / 5000) * 1.5 + 2);
+        if (assetsVal) assetsVal.textContent = assets.toString();
+
+        // Burnout velocity
+        let burnout = "Low";
+        let color = "text-green-500";
+        if (spend > 100000) {
+            burnout = "Critical";
+            color = "text-red-500";
+        } else if (spend > 30000) {
+            burnout = "High";
+            color = "text-orange-500";
+        }
+
+        if (burnoutVal) {
+            burnoutVal.textContent = burnout;
+            burnoutVal.className = `text-3xl font-black ${color}`;
+        }
+
+        // Lifespan: $5k = 30 days, $1M = 3 days
+        const lifespan = Math.max(
+            3,
+            Math.round(35 - Math.log10(spend / 1000) * 12),
+        );
+        if (lifeVal) lifeVal.textContent = `${lifespan} Days`;
+
+        // Progress bar (inverse: 30 days = 100%, 3 days = 10%)
+        const pct = (lifespan / 30) * 100;
+        if (lifeBar) lifeBar.style.width = `${pct}%`;
+    }
+
+    spendInput?.addEventListener("input", updateFatigue);
+    updateFatigue();
+</script>

@@ -5,7 +5,7 @@ const { data } = Astro.props;
   !data ? (
     <div class="text-red-500 p-4">Error: No Data for Problem Section</div>
   ) : (
-    <section class="py-24 relative overflow-hidden">
+    <section class="pt-16 pb-20 relative overflow-hidden">
       <div class="container mx-auto px-6 relative z-10">
         <h2 class="text-4xl md:text-6xl font-black text-center mb-16">
           {data.problemHeadline}
@@ -13,7 +13,7 @@ const { data } = Astro.props;
           <span class="text-red-500 text-glow-red"> 'Ad Fatigue' Wall.</span>
         </h2>
 
-        <div class="grid md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           {data.problemCards &&
             data.problemCards.map((card: any) => (
               <div class="glass-panel p-8 rounded-2xl border-l-4 border-l-red-500 hover:bg-white/10 transition-colors group">

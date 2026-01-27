@@ -5,6 +5,7 @@ import mediaImg from "../assets/media-science.png";
 import conversionImg from "../assets/conversion-portal.png";
 import { Image } from "astro:assets";
 import DashboardFeature from "../components/landing/DashboardFeature.astro";
+import AdFatigue from "../components/landing/AdFatigue.astro";
 ---
 
 <Layout>
@@ -88,10 +89,19 @@ import DashboardFeature from "../components/landing/DashboardFeature.astro";
                         <Image
                             src={creativeImg}
                             alt="Content Factory Pipeline"
+                            width={600}
+                            height={400}
+                            loading="lazy"
+                            decoding="async"
                             class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700"
                         />
                     </div>
                 </div>
+            </div>
+
+            <!-- Ad Fatigue Calculator Insert -->
+            <div class="-mt-12 mb-24">
+                <AdFatigue />
             </div>
 
             <!-- Component 2: Media -->
@@ -129,6 +139,10 @@ import DashboardFeature from "../components/landing/DashboardFeature.astro";
                         <Image
                             src={mediaImg}
                             alt="Algorithmic Media Buying"
+                            width={600}
+                            height={400}
+                            loading="lazy"
+                            decoding="async"
                             class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700"
                         />
                     </div>
@@ -171,6 +185,10 @@ import DashboardFeature from "../components/landing/DashboardFeature.astro";
                         <Image
                             src={conversionImg}
                             alt="Conversion Portal"
+                            width={600}
+                            height={400}
+                            loading="lazy"
+                            decoding="async"
                             class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700"
                         />
                     </div>
@@ -180,22 +198,5 @@ import DashboardFeature from "../components/landing/DashboardFeature.astro";
 
         <!-- Component 4: Dashboard -->
         <DashboardFeature />
-
-        <!-- Final CTA -->
-        <div class="max-w-5xl mx-auto px-6 py-24">
-            <div
-                class="text-center bg-white/5 border border-white/10 rounded-3xl p-12"
-            >
-                <h2 class="text-3xl font-display font-bold mb-6">
-                    The System Works.
-                </h2>
-                <a
-                    href="/audit"
-                    class="inline-block bg-brand-purple hover:bg-brand-purple/90 text-white font-bold px-8 py-4 rounded-lg transition-transform hover:scale-105 glow-purple"
-                >
-                    Install This Ecosystem
-                </a>
-            </div>
-        </div>
     </main>
 </Layout>

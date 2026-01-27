@@ -1,0 +1,273 @@
+---
+
+---
+
+<section class="py-20 relative overflow-hidden">
+    <div class="container mx-auto px-6 max-w-5xl">
+        <div
+            class="glass-panel p-8 md:p-12 rounded-[2.5rem] border border-white/5 relative overflow-hidden shadow-2xl"
+        >
+            <!-- Background Decoration -->
+            <div
+                class="absolute -top-24 -right-24 w-64 h-64 bg-brand-blue/10 blur-[100px] rounded-full"
+            >
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 items-center relative z-10">
+                <div>
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-[10px] font-bold uppercase tracking-widest mb-6"
+                    >
+                        Growth Simulator v1.0
+                    </div>
+                    <h2
+                        class="text-3xl md:text-5xl font-black text-white mb-6 leading-tight"
+                    >
+                        Calculate Your <span class="text-gradient-main"
+                            >Growth Delta</span
+                        >
+                    </h2>
+                    <p class="text-gray-400 mb-10 leading-relaxed font-medium">
+                        Adjust your current metrics to see how the OutAfBox
+                        Ecosystem bridges the gap between your current revenue
+                        and your maximum scale potential.
+                    </p>
+
+                    <div class="space-y-8">
+                        <!-- Traffic Slider -->
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-end">
+                                <label
+                                    class="text-xs font-bold text-gray-500 uppercase tracking-widest"
+                                    >Monthly Traffic</label
+                                >
+                                <span
+                                    class="text-white font-mono font-bold"
+                                    id="val-traffic">50,000</span
+                                >
+                            </div>
+                            <input
+                                type="range"
+                                min="10000"
+                                max="1000000"
+                                step="10000"
+                                value="50000"
+                                class="w-full scanner-slider"
+                                id="slider-traffic"
+                            />
+                        </div>
+
+                        <!-- AOV Slider -->
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-end">
+                                <label
+                                    class="text-xs font-bold text-gray-500 uppercase tracking-widest"
+                                    >Average Order Value ($)</label
+                                >
+                                <span
+                                    class="text-white font-mono font-bold"
+                                    id="val-aov">$85</span
+                                >
+                            </div>
+                            <input
+                                type="range"
+                                min="20"
+                                max="500"
+                                step="5"
+                                value="85"
+                                class="w-full scanner-slider"
+                                id="slider-aov"
+                            />
+                        </div>
+
+                        <!-- Current CR Slider -->
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-end">
+                                <label
+                                    class="text-xs font-bold text-gray-500 uppercase tracking-widest"
+                                    >Current Conv. Rate (%)</label
+                                >
+                                <span
+                                    class="text-white font-mono font-bold"
+                                    id="val-cr">1.5%</span
+                                >
+                            </div>
+                            <input
+                                type="range"
+                                min="0.5"
+                                max="5"
+                                step="0.1"
+                                value="1.5"
+                                class="w-full scanner-slider"
+                                id="slider-cr"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-black/40 rounded-3xl p-8 border border-white/5 relative flex flex-col items-center justify-center min-h-[400px]"
+                >
+                    <!-- The Visual Result -->
+                    <div class="text-center space-y-2 mb-10">
+                        <div
+                            class="text-xs font-bold text-gray-500 uppercase tracking-tighter"
+                        >
+                            Projected Monthly Revenue
+                        </div>
+                        <div
+                            class="text-5xl md:text-6xl font-black text-white tracking-tighter"
+                            id="total-revenue"
+                        >
+                            $1,125,000
+                        </div>
+                        <div
+                            class="text-xs font-bold text-brand-blue bg-brand-blue/10 px-3 py-1 rounded-full inline-block mt-2"
+                        >
+                            +32% Ecosystem Lift
+                        </div>
+                    </div>
+
+                    <!-- Comparison Bars -->
+                    <div class="w-full space-y-6 max-w-xs">
+                        <div class="space-y-2">
+                            <div
+                                class="flex justify-between text-[10px] font-bold text-gray-500 uppercase"
+                            >
+                                Current Baseline
+                            </div>
+                            <div
+                                class="h-3 w-full bg-white/5 rounded-full overflow-hidden"
+                            >
+                                <div
+                                    class="h-full bg-gray-500 transition-all duration-500"
+                                    id="bar-current"
+                                    style="width: 68%"
+                                >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div
+                                class="flex justify-between text-[10px] font-bold text-brand-blue uppercase"
+                            >
+                                Ecosystem Optimized
+                            </div>
+                            <div
+                                class="h-3 w-full bg-white/5 rounded-full overflow-hidden shadow-[0_0_15px_rgba(59,130,246,0.2)]"
+                            >
+                                <div
+                                    class="h-full bg-gradient-to-r from-brand-blue to-brand-purple transition-all duration-700"
+                                    id="bar-optimized"
+                                    style="width: 100%"
+                                >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-12 text-center">
+                        <p class="text-[10px] text-gray-500 font-mono mb-4">
+                            ESTIMATED NET GAIN: <span
+                                class="text-brand-blue"
+                                id="net-gain">+$360,000/mo</span>
+                        </p>
+                        <a
+                            href="/audit"
+                            class="inline-block text-xs font-black text-white border-b-2 border-brand-blue pb-1 hover:text-brand-blue transition-colors uppercase tracking-widest"
+                        >
+                            Claim This Revenue &rarr;
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .scanner-slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+        outline: none;
+    }
+
+    .scanner-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        background: #fff;
+        border: 4px solid #3b82f6;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        transition: all 0.2s;
+    }
+
+    .scanner-slider::-webkit-slider-thumb:hover {
+        transform: scale(1.2);
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+    }
+</style>
+
+<script>
+    const sliders = ["traffic", "aov", "cr"];
+    const elements = {
+        traffic: document.getElementById("slider-traffic") as HTMLInputElement,
+        aov: document.getElementById("slider-aov") as HTMLInputElement,
+        cr: document.getElementById("slider-cr") as HTMLInputElement,
+        valTraffic: document.getElementById("val-traffic"),
+        valAov: document.getElementById("val-aov"),
+        valCr: document.getElementById("val-cr"),
+        totalRev: document.getElementById("total-revenue"),
+        netGain: document.getElementById("net-gain"),
+        barCurrent: document.getElementById("bar-current"),
+        barOptimized: document.getElementById("bar-optimized"),
+    };
+
+    function update() {
+        const traffic = parseInt(elements.traffic.value);
+        const aov = parseInt(elements.aov.value);
+        const cr = parseFloat(elements.cr.value);
+
+        // Updates Labels
+        if (elements.valTraffic)
+            elements.valTraffic.textContent = traffic.toLocaleString();
+        if (elements.valAov) elements.valAov.textContent = `$${aov}`;
+        if (elements.valCr) elements.valCr.textContent = `${cr}%`;
+
+        // Calculate Revenue
+        const currentRevenue = traffic * (cr / 100) * aov;
+        // Optimization assumptions: +25% CR increase via Infrastructure, +10% AOV via UX
+        const optimizedCR = cr * 1.25;
+        const optimizedAOV = aov * 1.1;
+        const optimizedRevenue = traffic * (optimizedCR / 100) * optimizedAOV;
+        const gain = optimizedRevenue - currentRevenue;
+
+        const formatter = new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "USD",
+            maximumFractionDigits: 0,
+        });
+
+        if (elements.totalRev)
+            elements.totalRev.textContent = formatter.format(optimizedRevenue);
+        if (elements.netGain)
+            elements.netGain.textContent = `+${formatter.format(gain)}/mo`;
+
+        // Update Bars
+        const ratio = (currentRevenue / optimizedRevenue) * 100;
+        if (elements.barCurrent) elements.barCurrent.style.width = `${ratio}%`;
+    }
+
+    sliders.forEach((s) => {
+        elements[s]?.addEventListener("input", update);
+    });
+
+    // Initial run
+    update();
+</script>

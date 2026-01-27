@@ -69,42 +69,53 @@ import Logo from "../brand/Logo.astro";
   <!-- Mobile Menu Dropdown -->
   <div
     id="mobile-menu"
-    class="hidden absolute top-24 left-4 right-4 glass-panel rounded-2xl p-6 flex flex-col gap-4 md:hidden bg-black/95 backdrop-blur-xl border border-white/10 shadow-2xl transform origin-top transition-all z-50"
+    class="mobile-menu-hidden absolute top-24 left-4 right-4 glass-panel rounded-2xl p-6 md:hidden bg-black/95 backdrop-blur-xl border border-white/10 shadow-2xl z-50"
   >
-    <a
-      href="/ecosystem"
-      class="text-lg font-medium text-gray-300 hover:text-white py-2 border-b border-white/5"
-      >Ecosystem</a
-    >
-    <a
-      href="/case-studies"
-      class="text-lg font-medium text-gray-300 hover:text-white py-2 border-b border-white/5"
-      >Results</a
-    >
-    <a
-      href="/creators"
-      class="text-lg font-medium text-gray-300 hover:text-white py-2 border-b border-white/5"
-      >For Creators</a
-    >
-    <a
-      href="/about"
-      class="text-lg font-medium text-gray-300 hover:text-white py-2 border-b border-white/5"
-      >Philosophy</a
-    >
+    <nav class="flex flex-col gap-1">
+      <a
+        href="/ecosystem"
+        class="block text-lg font-medium text-gray-300 hover:text-white hover:bg-white/5 py-3 px-4 rounded-lg transition-colors"
+        >Ecosystem</a
+      >
+      <a
+        href="/case-studies"
+        class="block text-lg font-medium text-gray-300 hover:text-white hover:bg-white/5 py-3 px-4 rounded-lg transition-colors"
+        >Results</a
+      >
+      <a
+        href="/creators"
+        class="block text-lg font-medium text-gray-300 hover:text-white hover:bg-white/5 py-3 px-4 rounded-lg transition-colors"
+        >For Creators</a
+      >
+      <a
+        href="/about"
+        class="block text-lg font-medium text-gray-300 hover:text-white hover:bg-white/5 py-3 px-4 rounded-lg transition-colors"
+        >Philosophy</a
+      >
+    </nav>
     <a
       href="/audit"
-      class="mt-4 w-full text-center px-6 py-3 bg-brand-purple rounded-lg text-white font-bold hover:bg-brand-purple/90"
+      class="mt-4 block w-full text-center px-6 py-3 bg-brand-purple rounded-lg text-white font-bold hover:bg-brand-purple/90 transition-colors"
       >Get Growth Audit</a
     >
   </div>
 </header>
+
+<style>
+  .mobile-menu-hidden {
+    display: none;
+  }
+  .mobile-menu-visible {
+    display: block;
+  }
+</style>
 
 <script>
   const btn = document.getElementById("mobile-menu-btn");
   const menu = document.getElementById("mobile-menu");
 
   btn?.addEventListener("click", () => {
-    menu?.classList.toggle("hidden");
-    menu?.classList.toggle("flex");
+    menu?.classList.toggle("mobile-menu-hidden");
+    menu?.classList.toggle("mobile-menu-visible");
   });
 </script>

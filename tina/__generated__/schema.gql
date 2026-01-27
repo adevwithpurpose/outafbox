@@ -107,6 +107,7 @@ type PageBlocksFeatures {
   headline: String
   id: String
   items: [PageBlocksFeaturesItems]
+  variant: String
 }
 
 type PageBlocksContent {
@@ -178,7 +179,19 @@ type PageBlocksGuarantee {
   ctaLink: String
 }
 
-union PageBlocks = PageBlocksHero | PageBlocksFeatures | PageBlocksContent | PageBlocksTestimonials | PageBlocksTrustBar | PageBlocksAuditForm | PageBlocksCreatorForm | PageBlocksTeam | PageBlocksJobs | PageBlocksFaq | PageBlocksVsl | PageBlocksComparison | PageBlocksFounder | PageBlocksResultsTeaser | PageBlocksGuarantee
+type PageBlocksRoiSimulator {
+  headline: String
+}
+
+type PageBlocksAdFatigue {
+  headline: String
+}
+
+type PageBlocksStrategyQuiz {
+  headline: String
+}
+
+union PageBlocks = PageBlocksHero | PageBlocksFeatures | PageBlocksContent | PageBlocksTestimonials | PageBlocksTrustBar | PageBlocksAuditForm | PageBlocksCreatorForm | PageBlocksTeam | PageBlocksJobs | PageBlocksFaq | PageBlocksVsl | PageBlocksComparison | PageBlocksFounder | PageBlocksResultsTeaser | PageBlocksGuarantee | PageBlocksRoiSimulator | PageBlocksAdFatigue | PageBlocksStrategyQuiz
 
 type Page implements Node & Document {
   title: String!
@@ -222,6 +235,7 @@ input PageBlocksFeaturesFilter {
   headline: StringFilter
   id: StringFilter
   items: PageBlocksFeaturesItemsFilter
+  variant: StringFilter
 }
 
 input RichTextFilter {
@@ -304,6 +318,18 @@ input PageBlocksGuaranteeFilter {
   ctaLink: StringFilter
 }
 
+input PageBlocksRoiSimulatorFilter {
+  headline: StringFilter
+}
+
+input PageBlocksAdFatigueFilter {
+  headline: StringFilter
+}
+
+input PageBlocksStrategyQuizFilter {
+  headline: StringFilter
+}
+
 input PageBlocksFilter {
   hero: PageBlocksHeroFilter
   features: PageBlocksFeaturesFilter
@@ -320,6 +346,9 @@ input PageBlocksFilter {
   founder: PageBlocksFounderFilter
   resultsTeaser: PageBlocksResultsTeaserFilter
   guarantee: PageBlocksGuaranteeFilter
+  roiSimulator: PageBlocksRoiSimulatorFilter
+  adFatigue: PageBlocksAdFatigueFilter
+  strategyQuiz: PageBlocksStrategyQuizFilter
 }
 
 input PageFilter {
@@ -377,6 +406,7 @@ input PageBlocksFeaturesMutation {
   headline: String
   id: String
   items: [PageBlocksFeaturesItemsMutation]
+  variant: String
 }
 
 input PageBlocksContentMutation {
@@ -448,6 +478,18 @@ input PageBlocksGuaranteeMutation {
   ctaLink: String
 }
 
+input PageBlocksRoiSimulatorMutation {
+  headline: String
+}
+
+input PageBlocksAdFatigueMutation {
+  headline: String
+}
+
+input PageBlocksStrategyQuizMutation {
+  headline: String
+}
+
 input PageBlocksMutation {
   hero: PageBlocksHeroMutation
   features: PageBlocksFeaturesMutation
@@ -464,6 +506,9 @@ input PageBlocksMutation {
   founder: PageBlocksFounderMutation
   resultsTeaser: PageBlocksResultsTeaserMutation
   guarantee: PageBlocksGuaranteeMutation
+  roiSimulator: PageBlocksRoiSimulatorMutation
+  adFatigue: PageBlocksAdFatigueMutation
+  strategyQuiz: PageBlocksStrategyQuizMutation
 }
 
 input PageMutation {

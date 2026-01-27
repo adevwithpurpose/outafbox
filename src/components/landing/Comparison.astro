@@ -21,50 +21,83 @@ const { data } = Astro.props;
         >
             <!-- Option 1: The Traditional Agency -->
             <div
-                class="glass-panel p-8 rounded-2xl border-t border-red-500/30 opacity-70 hover:opacity-100 transition-opacity h-full"
+                class="glass-panel p-8 rounded-2xl border-t-2 border-red-500/50 opacity-80 hover:opacity-100 transition-opacity h-full relative"
             >
-                <h3 class="text-xl font-bold text-gray-300 mb-2">
+                <div
+                    class="absolute -top-3 left-1/2 -translate-x-1/2 bg-red-500/20 border border-red-500/50 px-3 py-1 rounded-full text-xs text-red-300 uppercase tracking-widest font-bold backdrop-blur-md"
+                >
+                    High Risk
+                </div>
+                <h3 class="text-xl font-bold text-gray-300 mb-2 mt-2">
                     Traditional Agency
                 </h3>
-                <div class="text-3xl font-black text-white mb-6">
+                <div class="text-3xl font-black text-white mb-1">
                     $5k-$15k<span class="text-sm font-normal text-gray-500"
                         >/mo</span
                     >
                 </div>
+                <p class="text-xs text-gray-500 mb-6 uppercase tracking-wide">
+                    Retainer + % of Spend
+                </p>
 
                 <ul class="space-y-4 text-gray-400 text-sm">
                     <li class="flex items-start gap-3">
-                        <span class="text-red-500 text-lg">✕</span>
+                        <div
+                            class="h-6 w-6 rounded-full bg-red-500/20 flex items-center justify-center text-red-400 text-xs shrink-0"
+                        >
+                            ✕
+                        </div>
                         <span>Disconnected services ("Silos")</span>
                     </li>
                     <li class="flex items-start gap-3">
-                        <span class="text-red-500 text-lg">✕</span>
+                        <div
+                            class="h-6 w-6 rounded-full bg-red-500/20 flex items-center justify-center text-red-400 text-xs shrink-0"
+                        >
+                            ✕
+                        </div>
                         <span>Misaligned incentives (Retainer)</span>
                     </li>
                     <li class="flex items-start gap-3">
-                        <span class="text-red-500 text-lg">✕</span>
+                        <div
+                            class="h-6 w-6 rounded-full bg-red-500/20 flex items-center justify-center text-red-400 text-xs shrink-0"
+                        >
+                            ✕
+                        </div>
                         <span>Slow feedback loops</span>
                     </li>
                     <li class="flex items-start gap-3">
-                        <span class="text-red-500 text-lg">✕</span>
+                        <div
+                            class="h-6 w-6 rounded-full bg-red-500/20 flex items-center justify-center text-red-400 text-xs shrink-0"
+                        >
+                            ✕
+                        </div>
                         <span>No skin in the game</span>
                     </li>
                 </ul>
+
+                <div class="mt-8 pt-6 border-t border-white/5 text-center">
+                    <div class="text-sm text-gray-500 mb-1">
+                        Typical Results
+                    </div>
+                    <div class="text-lg font-bold text-red-400">
+                        1.5-2x ROAS
+                    </div>
+                </div>
             </div>
 
             <!-- Option 2: The In-House Team (The Anchor) -->
             <div
-                class="glass-panel p-8 rounded-2xl border-t border-yellow-500/30 opacity-70 hover:opacity-100 transition-opacity relative h-full"
+                class="glass-panel p-8 rounded-2xl border-t-2 border-yellow-500/50 opacity-80 hover:opacity-100 transition-opacity relative h-full"
             >
                 <div
                     class="absolute -top-3 left-1/2 -translate-x-1/2 bg-yellow-500/20 border border-yellow-500/50 px-3 py-1 rounded-full text-xs text-yellow-200 uppercase tracking-widest font-bold backdrop-blur-md"
                 >
                     The Expensive Way
                 </div>
-                <h3 class="text-xl font-bold text-gray-300 mb-2">
+                <h3 class="text-xl font-bold text-gray-300 mb-2 mt-2">
                     In-House Team
                 </h3>
-                <div class="text-3xl font-black text-white mb-2">
+                <div class="text-3xl font-black text-white mb-1">
                     $410k<span class="text-sm font-normal text-gray-500"
                         >/yr</span
                     >
@@ -75,22 +108,45 @@ const { data } = Astro.props;
 
                 <ul class="space-y-4 text-gray-400 text-sm">
                     <li class="flex items-start gap-3">
-                        <span class="text-yellow-500 text-lg">!</span>
+                        <div
+                            class="h-6 w-6 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 text-xs shrink-0"
+                        >
+                            !
+                        </div>
                         <span>Creative Strategist ($120k)</span>
                     </li>
                     <li class="flex items-start gap-3">
-                        <span class="text-yellow-500 text-lg">!</span>
+                        <div
+                            class="h-6 w-6 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 text-xs shrink-0"
+                        >
+                            !
+                        </div>
                         <span>Video Editor ($80k)</span>
                     </li>
                     <li class="flex items-start gap-3">
-                        <span class="text-yellow-500 text-lg">!</span>
+                        <div
+                            class="h-6 w-6 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 text-xs shrink-0"
+                        >
+                            !
+                        </div>
                         <span>Media Buyer ($100k)</span>
                     </li>
                     <li class="flex items-start gap-3">
-                        <span class="text-yellow-500 text-lg">!</span>
-                        <span>Management Headaches</span>
+                        <div
+                            class="h-6 w-6 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 text-xs shrink-0"
+                        >
+                            !
+                        </div>
+                        <span>6+ Month Ramp Time</span>
                     </li>
                 </ul>
+
+                <div class="mt-8 pt-6 border-t border-white/5 text-center">
+                    <div class="text-sm text-gray-500 mb-1">Time to ROI</div>
+                    <div class="text-lg font-bold text-yellow-400">
+                        12+ Months
+                    </div>
+                </div>
             </div>
 
             <!-- Option 3: OutAfBox Ecosystem (The Winner) -->

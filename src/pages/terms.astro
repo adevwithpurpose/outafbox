@@ -2,52 +2,214 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout>
-    <main class="min-h-screen pt-36 pb-12 px-6">
-        <div class="max-w-3xl mx-auto text-gray-300">
-            <h1 class="text-4xl font-display font-bold text-white mb-8">
-                Terms of Service
-            </h1>
-            <p class="mb-4">Last Updated: {new Date().toLocaleDateString()}</p>
+<Layout title="Terms of Engagement | OutAfBox">
+    <main class="min-h-screen pt-40 pb-24 px-6 relative overflow-hidden">
+        <!-- Background Glows -->
+        <div
+            class="absolute top-0 right-1/4 w-96 h-96 bg-brand-pink/10 rounded-full blur-[120px] pointer-events-none"
+        >
+        </div>
+        <div
+            class="absolute bottom-0 left-1/4 w-96 h-96 bg-brand-purple/10 rounded-full blur-[120px] pointer-events-none"
+        >
+        </div>
 
-            <div class="space-y-6">
-                <section>
-                    <h2 class="text-xl font-bold text-white mb-2">
-                        1. Agreement to Terms
-                    </h2>
-                    <p>
-                        By accessing our website, you agree to be bound by these
-                        Terms of Service and to comply with all applicable laws
-                        and regulations.
-                    </p>
-                </section>
+        <div class="max-w-4xl mx-auto relative z-10">
+            <div class="mb-16 text-center md:text-left">
+                <a
+                    href="/"
+                    class="text-brand-pink hover:text-white transition-colors text-sm font-bold uppercase tracking-widest mb-4 inline-block"
+                >
+                    &larr; Back to Home
+                </a>
+                <h1 class="text-4xl md:text-6xl font-black text-white mb-6">
+                    Partnership <span class="text-gradient-main">Protocol</span>
+                </h1>
+                <p class="text-gray-400 font-mono text-sm">
+                    OPERATIONAL PARAMETERS • LAST UPDATED: JAN 28, 2026
+                </p>
+            </div>
 
-                <section>
-                    <h2 class="text-xl font-bold text-white mb-2">
-                        2. Use License
-                    </h2>
-                    <p>
-                        Permission is granted to temporarily download one copy
-                        of the materials (information or software) on OutAfBox's
-                        website for personal, non-commercial transitory viewing
-                        only.
-                    </p>
-                </section>
+            <div class="grid md:grid-cols-[200px_1fr] gap-12">
+                <!-- Quick Navigation -->
+                <nav
+                    class="hidden md:block sticky top-32 h-fit border-l border-white/5 pl-6"
+                >
+                    <ul
+                        class="space-y-4 text-xs font-bold text-gray-500 uppercase tracking-widest"
+                    >
+                        <li>
+                            <a
+                                href="#acceptance"
+                                class="hover:text-brand-pink transition-colors"
+                                >Engagement</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#license"
+                                class="hover:text-brand-pink transition-colors"
+                                >Intellect</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#disclaimer"
+                                class="hover:text-brand-pink transition-colors"
+                                >Liability</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#limitations"
+                                class="hover:text-brand-pink transition-colors"
+                                >Boundaries</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#contact"
+                                class="hover:text-brand-pink transition-colors"
+                                >Legal Ops</a
+                            >
+                        </li>
+                    </ul>
+                </nav>
 
-                <section>
-                    <h2 class="text-xl font-bold text-white mb-2">
-                        3. Disclaimer
-                    </h2>
-                    <p>
-                        The materials on OutAfBox's website are provided on an
-                        'as is' basis. OutAfBox makes no warranties, expressed
-                        or implied, and hereby disclaims and negates all other
-                        warranties including, without limitation, implied
-                        warranties or conditions of merchantability, fitness for
-                        a particular purpose, or non-infringement of
-                        intellectual property or other violation of rights.
-                    </p>
-                </section>
+                <div class="space-y-16 text-gray-300 leading-relaxed">
+                    <section id="acceptance">
+                        <h2
+                            class="text-2xl font-bold text-white mb-6 flex items-center gap-3"
+                        >
+                            <span class="text-brand-pink">01.</span> Engagement Parameters
+                        </h2>
+                        <div
+                            class="glass-panel p-8 rounded-2xl border border-white/5 space-y-4 shadow-2xl"
+                        >
+                            <p>
+                                By accessing the OutAfBox digital
+                                infrastructure, you enter into a binding
+                                partnership protocol. You agree to utilize our
+                                materials and insights as intended: <strong
+                                    >to engineer growth, not to copy-paste
+                                    systems.</strong
+                                >
+                            </p>
+                            <p>
+                                We operate on a high-trust, high-performance
+                                model. If you do not agree to these operational
+                                parameters, you are prohibited from utilizing
+                                our ecosystem or assets.
+                            </p>
+                        </div>
+                    </section>
+
+                    <section id="license">
+                        <h2
+                            class="text-2xl font-bold text-white mb-6 flex items-center gap-3"
+                        >
+                            <span class="text-brand-pink">02.</span> Intellectual
+                            Property
+                        </h2>
+                        <div class="space-y-4">
+                            <p>
+                                OutAfBox grants you a limited, non-exclusive
+                                license to view our Case Studies and
+                                Methodologies for internal strategic purposes.
+                                This is a license, <strong
+                                    >not a transfer of IP.</strong
+                                >
+                                Under this protocol, you shall not:
+                            </p>
+                            <ul class="list-none space-y-4 ml-4">
+                                <li class="flex gap-3">
+                                    <span class="text-brand-pink font-bold"
+                                        >»</span
+                                    >
+                                    <span
+                                        >Reverse engineer our proprietary
+                                        "Trojan Horse" frameworks.</span
+                                    >
+                                </li>
+                                <li class="flex gap-3">
+                                    <span class="text-brand-pink font-bold"
+                                        >»</span
+                                    >
+                                    <span
+                                        >Redistribute OutAfBox proprietary
+                                        templates for commercial gain.</span
+                                    >
+                                </li>
+                                <li class="flex gap-3">
+                                    <span class="text-brand-pink font-bold"
+                                        >»</span
+                                    >
+                                    <span
+                                        >Use our assets to build a competing
+                                        "Ecosystem" agency.</span
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section id="disclaimer">
+                        <h2
+                            class="text-2xl font-bold text-white mb-6 flex items-center gap-3"
+                        >
+                            <span class="text-brand-pink">03.</span> Performance Disclaimer
+                        </h2>
+                        <div
+                            class="glass-panel p-8 rounded-2xl border border-white/5 text-sm italic border-l-4 border-l-brand-pink bg-brand-pink/5"
+                        >
+                            Growth relies on variables including market
+                            conditions, product-market fit, and supply chain
+                            logistics. While we engineer for success, OutAfBox
+                            materials are provided "as is". We make no implicit
+                            warranties beyond our verified performance
+                            guarantees for active scale partners.
+                        </div>
+                    </section>
+
+                    <section id="limitations">
+                        <h2
+                            class="text-2xl font-bold text-white mb-6 flex items-center gap-3"
+                        >
+                            <span class="text-brand-pink">04.</span> Operational Boundaries
+                        </h2>
+                        <p>
+                            We are built for scale, but we are not responsible
+                            for software failures, API outages
+                            (Meta/Google/TikTok), or external market
+                            fluctuations that impact the delivery of our digital
+                            interface. We mitigate risk; we do not own the
+                            internet.
+                        </p>
+                    </section>
+
+                    <section id="contact" class="pt-12 border-t border-white/5">
+                        <h2 class="text-2xl font-bold text-white mb-6">
+                            Legal Operations
+                        </h2>
+                        <div
+                            class="bg-brand-pink/10 border border-brand-pink/20 p-8 rounded-2xl group hover:bg-brand-pink/20 transition-all"
+                        >
+                            <p class="mb-4">
+                                For all contractual inquiries or dispute
+                                protocols, initiate contact via:
+                            </p>
+                            <a
+                                href="mailto:info@outafbox.com"
+                                class="text-xl font-bold text-white hover:text-brand-pink transition-colors flex items-center gap-2"
+                            >
+                                info@outafbox.com <span
+                                    class="group-hover:translate-x-2 transition-transform"
+                                    >&rarr;</span
+                                >
+                            </a>
+                        </div>
+                    </section>
+                </div>
             </div>
         </div>
     </main>

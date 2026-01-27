@@ -22,6 +22,7 @@ blocks:
     _template: features
   - headline: What We Need
     id: requirements
+    variant: horizontal
     items:
       - title: Direct Response UGC
         description: "Hooks, Problem-Solution scripts, Testimonials, Unboxings. If you can sell on camera, we want you."

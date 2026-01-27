@@ -1,0 +1,229 @@
+---
+
+---
+
+<section class="py-20 relative">
+    <div class="container mx-auto px-6 max-w-3xl">
+        <div
+            class="glass-panel p-10 rounded-[2.5rem] border border-white/10 relative overflow-hidden bg-black/40"
+        >
+            <div id="quiz-container" class="relative z-10">
+                <!-- Progress bar -->
+                <div
+                    class="w-full h-1 bg-white/5 rounded-full mb-10 overflow-hidden"
+                >
+                    <div
+                        id="quiz-progress"
+                        class="h-full bg-brand-purple transition-all duration-500"
+                        style="width: 33%"
+                    >
+                    </div>
+                </div>
+
+                <!-- Step 1 -->
+                <div id="quiz-step-1" class="quiz-step animate-fade-in">
+                    <h3 class="text-2xl md:text-3xl font-black text-white mb-4">
+                        What's your biggest <span class="text-brand-purple"
+                            >scaling bottleneck</span
+                        >?
+                    </h3>
+                    <p class="text-gray-400 mb-8 font-medium">
+                        Identify the primary friction point in your current
+                        ecosystem.
+                    </p>
+
+                    <div class="grid gap-4">
+                        <button
+                            class="quiz-opt p-5 rounded-2xl bg-white/5 border border-white/5 text-left hover:bg-brand-purple/10 hover:border-brand-purple/30 transition-all group"
+                            data-step="1"
+                        >
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-10 h-10 rounded-xl bg-brand-purple/20 flex items-center justify-center text-brand-purple font-bold"
+                                >
+                                    A
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold mb-1">
+                                        Creative Fatigue
+                                    </h4>
+                                    <p class="text-xs text-gray-500">
+                                        Ads die within days and CPAs are
+                                        unstable.
+                                    </p>
+                                </div>
+                            </div>
+                        </button>
+                        <button
+                            class="quiz-opt p-5 rounded-2xl bg-white/5 border border-white/5 text-left hover:bg-brand-purple/10 hover:border-brand-purple/30 transition-all group"
+                            data-step="1"
+                        >
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-10 h-10 rounded-xl bg-brand-purple/20 flex items-center justify-center text-brand-purple font-bold"
+                                >
+                                    B
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold mb-1">
+                                        Lowered Conversion Rates
+                                    </h4>
+                                    <p class="text-xs text-gray-500">
+                                        Traffic volume is high but landing pages
+                                        aren't converting.
+                                    </p>
+                                </div>
+                            </div>
+                        </button>
+                        <button
+                            class="quiz-opt p-5 rounded-2xl bg-white/5 border border-white/5 text-left hover:bg-brand-purple/10 hover:border-brand-purple/30 transition-all group"
+                            data-step="1"
+                        >
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-10 h-10 rounded-xl bg-brand-purple/20 flex items-center justify-center text-brand-purple font-bold"
+                                >
+                                    C
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold mb-1">
+                                        Attribution / Data Blindness
+                                    </h4>
+                                    <p class="text-xs text-gray-500">
+                                        Scaling spend doesn't correlate with
+                                        back-end profit.
+                                    </p>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2 (Hidden initially) -->
+                <div id="quiz-step-2" class="quiz-step hidden animate-fade-in">
+                    <h3 class="text-2xl md:text-3xl font-black text-white mb-4">
+                        Current <span class="text-brand-purple"
+                            >Monthly Revenue</span
+                        >?
+                    </h3>
+                    <p class="text-gray-400 mb-8 font-medium">
+                        We tailor our architecture based on your current data
+                        density.
+                    </p>
+
+                    <div class="grid gap-4">
+                        <button
+                            class="quiz-opt p-5 rounded-2xl bg-white/5 border border-white/5 text-left hover:bg-brand-purple/10 hover:border-brand-purple/30 transition-all group"
+                            data-step="2"
+                        >
+                            <div
+                                class="text-white font-bold uppercase tracking-widest text-sm"
+                            >
+                                $30k - $100k / mo
+                            </div>
+                        </button>
+                        <button
+                            class="quiz-opt p-5 rounded-2xl bg-white/5 border border-white/5 text-left hover:bg-brand-purple/10 hover:border-brand-purple/30 transition-all group"
+                            data-step="2"
+                        >
+                            <div
+                                class="text-white font-bold uppercase tracking-widest text-sm"
+                            >
+                                $100k - $500k / mo
+                            </div>
+                        </button>
+                        <button
+                            class="quiz-opt p-5 rounded-2xl bg-white/5 border border-white/5 text-left hover:bg-brand-purple/10 hover:border-brand-purple/30 transition-all group"
+                            data-step="2"
+                        >
+                            <div
+                                class="text-white font-bold uppercase tracking-widest text-sm"
+                            >
+                                $500k - $1M+ / mo
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Result -->
+                <div
+                    id="quiz-result"
+                    class="quiz-step hidden animate-fade-in text-center py-6"
+                >
+                    <div
+                        class="w-16 h-16 bg-brand-purple/10 rounded-full flex items-center justify-center mx-auto mb-6 text-brand-purple"
+                    >
+                        <svg
+                            class="w-8 h-8"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            stroke-width="2"
+                        >
+                            <path
+                                d="M5 13l4 4L19 7"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-3xl font-black text-white mb-4">
+                        Protocol Identified.
+                    </h3>
+                    <p class="text-gray-400 mb-10 leading-relaxed font-medium">
+                        Based on your answers, your brand requires the <strong
+                            >"High-Velocity Creative Engine"</strong
+                        > to bridge the ROAS gap. We've prepared a custom audit framework
+                        for you.
+                    </p>
+
+                    <a
+                        href="#apply"
+                        id="quiz-finish"
+                        class="inline-block px-10 py-5 bg-white text-black font-black text-lg rounded-xl hover:scale-105 transition-transform shadow-xl"
+                    >
+                        Unlock Your Full Plan &rarr;
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    const steps = [1, 2, "result"];
+    let currentStepIndex = 0;
+
+    const opts = document.querySelectorAll(".quiz-opt");
+    const quizResult = document.getElementById("quiz-result");
+    const progress = document.getElementById("quiz-progress");
+
+    opts.forEach((opt) => {
+        opt.addEventListener("click", () => {
+            const stepNum = parseInt(opt.getAttribute("data-step") || "0");
+            const currentStep = document.getElementById(`quiz-step-${stepNum}`);
+            const nextStepNum = stepNum + 1;
+            const nextStep = document.getElementById(
+                `quiz-step-${nextStepNum}`,
+            );
+
+            if (currentStep) currentStep.classList.add("hidden");
+
+            if (nextStep) {
+                nextStep.classList.remove("hidden");
+                if (progress) progress.style.width = "66%";
+            } else {
+                if (quizResult) quizResult.classList.remove("hidden");
+                if (progress) progress.style.width = "100%";
+            }
+        });
+    });
+
+    document.getElementById("quiz-finish")?.addEventListener("click", (e) => {
+        // Simple scroll to form
+        const form = document.querySelector("#apply");
+        if (form) {
+            e.preventDefault();
+            form.scrollIntoView({ behavior: "smooth" });
+        }
+    });
+</script>

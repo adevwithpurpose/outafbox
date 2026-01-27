@@ -21,42 +21,69 @@ const testimonials = [
 ];
 ---
 
-<section class="py-24 relative overflow-hidden">
+<section class="pt-16 pb-24 relative overflow-hidden">
     <div class="container mx-auto px-6 relative z-10">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-black mb-4">
-                Founder <span class="text-gray-500">Notes</span>
-            </h2>
+        <div
+            class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6"
+        >
+            <div class="max-w-xl">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-brand-purple text-[10px] font-bold uppercase tracking-widest mb-4"
+                >
+                    Verified Scaling Partners
+                </div>
+                <h2
+                    class="text-3xl md:text-5xl font-black text-white leading-tight"
+                >
+                    Founder <span class="text-gradient-main">Notes</span>
+                </h2>
+            </div>
+            <p class="text-gray-400 text-sm max-w-xs font-medium">
+                Real feedback from brand founders who integrated the OutAfBox
+                ecosystem.
+            </p>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-6 lg:gap-8 items-start">
+        <div class="grid md:grid-cols-3 gap-6">
             {
-                testimonials.map((t, index) => (
-                    <div class={`glass-panel p-8 rounded-2xl border border-white/5 hover:border-white/10 transition-colors relative group h-full ${index === 1 ? 'md:mt-12' : ''}`}>
-                         <!-- Glow background on hover -->
-                        <div class="absolute inset-0 bg-brand-purple/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
+                testimonials.map((t) => (
+                    <div class="glass-panel p-6 rounded-2xl border border-white/5 hover:border-brand-purple/20 transition-all duration-500 relative group flex flex-col justify-between hover:-translate-y-1">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-brand-purple/5 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
 
-                        <div class="absolute top-6 right-8 text-6xl text-brand-purple/20 font-serif leading-none opacity-50 font-black">
-                            "
+                        <div class="relative z-10">
+                            <div class="text-brand-purple mb-6 opacity-30 group-hover:opacity-100 transition-opacity">
+                                <svg
+                                    class="w-8 h-8"
+                                    fill="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017V14C19.017 11.7909 17.2261 10 15.017 10H14.017V8H15.017C18.3307 8 21.017 10.6863 21.017 14V21H14.017ZM3.01702 21V18C3.01702 16.8954 3.91245 16 5.01702 16H8.01702V14C8.01702 11.7909 6.22615 10 4.01702 10H3.01702V8H4.01702C7.33071 8 10.017 10.6863 10.017 14V21H3.01702Z" />
+                                </svg>
+                            </div>
+
+                            <p class="text-gray-300 text-base mb-8 leading-relaxed italic">
+                                "{t.quote}"
+                            </p>
                         </div>
 
-                        <p class="text-gray-300 text-lg mb-8 relative z-10 leading-relaxed font-medium">
-                            {t.quote}
-                        </p>
-
-                        <div class="flex items-center gap-4 relative z-10 pt-4 border-t border-white/5">
-                            <div class="w-12 h-12 rounded-full overflow-hidden bg-white/10 border border-white/10">
-                                <img
-                                    src={t.image}
-                                    alt={t.author}
-                                    class="w-full h-full object-cover"
-                                />
+                        <div class="flex items-center gap-4 relative z-10">
+                            <div class="relative">
+                                <div class="absolute inset-0 bg-brand-purple blur-sm opacity-20 group-hover:opacity-40 transition-opacity" />
+                                <div class="w-10 h-10 rounded-full overflow-hidden border border-white/20 relative z-10">
+                                    <img
+                                        src={t.image}
+                                        alt={t.author}
+                                        loading="lazy"
+                                        decoding="async"
+                                        class="w-full h-full object-cover"
+                                    />
+                                </div>
                             </div>
                             <div>
-                                <div class="text-white font-bold text-base">
+                                <div class="text-white font-bold text-sm tracking-tight">
                                     {t.author}
                                 </div>
-                                <div class="text-brand-purple text-xs font-bold tracking-wide uppercase">
+                                <div class="text-[10px] text-gray-500 font-bold tracking-widest uppercase">
                                     {t.role}
                                 </div>
                             </div>

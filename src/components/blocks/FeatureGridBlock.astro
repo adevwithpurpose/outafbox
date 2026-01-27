@@ -15,9 +15,10 @@ const mappedData = {
     problemHeadline: data.headline,
     problemCards: data.items,
 
-    // Solution component expects: solutionHeadline, solutionCards
+    // Solution component expects: solutionHeadline, solutionCards, variant
     solutionHeadline: data.headline,
     solutionCards: data.items,
+    variant: data.variant || "grid",
 };
 ---
 

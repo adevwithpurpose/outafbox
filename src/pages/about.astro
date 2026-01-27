@@ -55,10 +55,10 @@ import Testimonials from "../components/landing/Testimonials.astro";
                     </p>
                 </div>
 
-                <div class="grid md:grid-cols-3 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <!-- Value 1 -->
                     <div
-                        class="glass-panel p-8 rounded-2xl border-l-4 border-l-brand-purple hover:bg-white/5 transition-colors group"
+                        class="glass-panel p-6 md:p-8 rounded-2xl border-l-4 border-l-brand-purple hover:bg-white/5 transition-colors group"
                     >
                         <div
                             class="text-5xl mb-4 grayscale group-hover:grayscale-0 transition-all"
@@ -164,34 +164,5 @@ import Testimonials from "../components/landing/Testimonials.astro";
 
         <!-- Testimonials -->
         <Testimonials />
-
-        <!-- Final CTA -->
-        <section class="py-20 px-6">
-            <div class="container mx-auto max-w-3xl">
-                <div
-                    class="glass-panel p-12 rounded-3xl text-center border border-white/10 relative overflow-hidden"
-                >
-                    <div
-                        class="absolute inset-0 bg-gradient-to-br from-brand-purple/10 to-transparent"
-                    >
-                    </div>
-                    <div class="relative z-10">
-                        <h2 class="text-3xl md:text-4xl font-black mb-4">
-                            Ready to Scale?
-                        </h2>
-                        <p class="text-gray-400 mb-8 max-w-lg mx-auto">
-                            If you're tired of agencies that overpromise and
-                            underdeliver, let's talk.
-                        </p>
-                        <a
-                            href="/audit"
-                            class="inline-block px-8 py-4 bg-brand-purple hover:bg-brand-purple/90 text-white font-bold rounded-lg transition-all glow-purple"
-                        >
-                            Get Your Free Growth Audit
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 </Layout>

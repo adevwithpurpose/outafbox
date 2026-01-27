@@ -17,6 +17,10 @@ const { data } = Astro.props;
                 <Image
                     src={founder}
                     alt="Founder"
+                    width={400}
+                    height={400}
+                    loading="lazy"
+                    decoding="async"
                     class="relative rounded-2xl w-full grayscale group-hover:grayscale-0 transition-all duration-500 border border-white/10"
                 />
 

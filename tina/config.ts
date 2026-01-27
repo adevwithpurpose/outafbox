@@ -67,6 +67,16 @@ export default defineConfig({
                                             { type: "string", name: "icon", label: "Icon (Emoji or SVG path)" },
                                         ],
                                     },
+                                    {
+                                        type: "string",
+                                        name: "variant",
+                                        label: "Layout Variant",
+                                        options: [
+                                            { label: "Standard Grid", value: "grid" },
+                                            { label: "Vertical Steps", value: "steps" },
+                                            { label: "Horizontal Cards", value: "horizontal" }
+                                        ]
+                                    }
                                 ],
                             },
                             // 3. Content Block (Rich Text)
@@ -196,6 +206,30 @@ export default defineConfig({
                                     { type: "string", name: "subhead", label: "Subhead", ui: { component: "textarea" } },
                                     { type: "string", name: "ctaText", label: "CTA Text" },
                                     { type: "string", name: "ctaLink", label: "CTA Link" },
+                                ],
+                            },
+                            // 16. ROI Simulator
+                            {
+                                name: "roiSimulator",
+                                label: "ROI Growth Simulator",
+                                fields: [
+                                    { type: "string", name: "headline", label: "Headline" },
+                                ],
+                            },
+                            // 17. Ad Fatigue
+                            {
+                                name: "adFatigue",
+                                label: "Ad Fatigue Estimator",
+                                fields: [
+                                    { type: "string", name: "headline", label: "Headline" },
+                                ],
+                            },
+                            // 18. Strategy Quiz
+                            {
+                                name: "strategyQuiz",
+                                label: "Strategy Finder Quiz",
+                                fields: [
+                                    { type: "string", name: "headline", label: "Headline" },
                                 ],
                             },
                         ],
