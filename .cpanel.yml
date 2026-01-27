@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/dronecul/up.outafbox.com/
+    - /bin/cp -R dist/* $DEPLOYPATH

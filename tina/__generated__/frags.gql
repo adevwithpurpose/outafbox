@@ -1,0 +1,6 @@
+fragment LandingParts on Landing {
+  __typename
+  heroTitle
+  subtext
+  heroImage
+}
