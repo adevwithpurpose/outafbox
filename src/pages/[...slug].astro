@@ -3,40 +3,58 @@ import { client } from "../../tina/__generated__/client";
 import Layout from "../layouts/Layout.astro";
 import PageBuilder from "../components/PageBuilder.astro";
 
-// Disable static generation - use server-side rendering for all paths
+// Fetch all CMS-managed pages at build time for static generation
 export async function getStaticPaths() {
-    return [];
+    try {
+        const pagesResponse = await client.queries.pageConnection();
+        const pages = pagesResponse.data?.pageConnection?.edges ?? [];
+
+        return pages
+            .map((edge: any) => {
+                const slug = edge?.node?._sys?.filename;
+                if (!slug) return null;
+                // Exclude pages that have their own dedicated .astro files
+                const excludedSlugs = [
+                    "home",
+                    "about",
+                    "privacy",
+                    "terms",
+                    "case-studies",
+                    "ecosystem",
+                    "audit",
+                    "careers",
+                    "creators",
+                ];
+                if (excludedSlugs.includes(slug)) return null;
+                return {
+                    params: { slug },
+                    props: { page: edge.node },
+                };
+            })
+            .filter(Boolean);
+    } catch (e) {
+        // If TinaCMS is unavailable at build time, return empty (no dynamic pages)
+        console.warn("[...slug].astro: Could not fetch pages from TinaCMS:", e);
+        return [];
+    }
 }
-export const prerender = false;
 
 const { slug } = Astro.params;
-
-const slug_str = slug as string;
-// If slug is 'courses' or starts with 'courses/', return a 404 to let other routes handle it.
-if (slug_str && (slug_str === "courses" || slug_str.startsWith("courses/"))) {
-    return new Response(null, {
-        status: 404,
-        statusText: "Not Found",
-    });
-}
-
-// If slug is empty, return 404 (handled by index.astro)
-if (!slug) {
-    throw new Response("Not found", { status: 404 });
-}
-
-// Fetch page from TinaCMS at runtime
-const response = await client.queries.page({ relativePath: `${slug}.md` });
-const { data } = response;
-
-// If page not found in TinaCMS, return 404
-if (!data.page) {
-    throw new Response("Page not found", { status: 404 });
-}
+const { page } = Astro.props;
 ---
 
-<Layout title={data.page.title}>
-    <main class="min-h-screen">
-        <PageBuilder blocks={data.page.blocks} />
-    </main>
-</Layout>
+{
+    page ? (
+        <Layout title={page.title}>
+            <main class="min-h-screen">
+                <PageBuilder blocks={page.blocks} />
+            </main>
+        </Layout>
+    ) : (
+        <Layout title="Not Found">
+            <main class="min-h-screen flex items-center justify-center">
+                <p class="text-white text-xl">Page not found</p>
+            </main>
+        </Layout>
+    )
+}
