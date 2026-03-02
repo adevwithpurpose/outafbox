@@ -1,46 +1,69 @@
-# Astro Starter Kit: Basics
+# OutAfBox — Growth Ecosystem Site
 
-```sh
-npm create astro@latest -- --template basics
+**Stack:** Astro 5 · Tailwind CSS v4 · TinaCMS (Local) · TypeScript  
+**Hosting:** cPanel via Git Version Control  
+**Output:** `static` (pre-rendered HTML, no server required)
+
+---
+
+## ⚡ Quick Start (Development)
+
+```powershell
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+- **Site:** `http://localhost:3000`
+- **CMS Admin:** `http://localhost:3000/admin/index.html`
 
-## 🚀 Project Structure
+---
 
-Inside of your Astro project, you'll see the following folders and files:
+## 🚨 Building for Production — Two-Terminal Required
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+> TinaCMS runs a local GraphQL API that pages fetch at build time.  
+> The dev server **must be running** before you run the build.
+
+```
+Terminal 1 (keep running):   npm run dev
+Terminal 2 (run the build):  npx astro build
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+Wait for Terminal 1 to show `✅ TinaCMS Dev Server is active` before running Terminal 2.
 
-## 🧞 Commands
+---
 
-All commands are run from the root of the project, from a terminal:
+## 🚀 Push & Deploy to cPanel
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+```powershell
+git add .
+git add dist -f          # REQUIRED — cPanel deploys from dist/
+git commit -m "Deploy: your message here"
+git push origin main
+```
 
-## 👀 Want to learn more?
+Then in cPanel → **Git™ Version Control** → **Manage** → **Pull or Deploy** → **Deploy HEAD Commit**.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+---
+
+## 🔒 Before Making Risky Changes (Create a Backup Branch)
+
+```powershell
+git checkout -b backup/description-YYYY-MM-DD
+git push origin backup/description-YYYY-MM-DD
+git checkout main
+```
+
+---
+
+## 🛠 Troubleshooting
+
+| Error | Fix |
+|-------|-----|
+| `fetch failed` | Start `npm run dev` in Terminal 1 first |
+| `Cannot use server-rendered pages without an adapter` | A page has `prerender = false` — convert it to `getStaticPaths()` |
+| `EADDRINUSE :::3000` | Run `Stop-Process -Name node -Force` |
+| Site didn't update on cPanel | Run `git add dist -f` before committing |
+
+---
+
+📖 **Full documentation:** [`PROJECT_DOCUMENTATION.md`](./PROJECT_DOCUMENTATION.md)
