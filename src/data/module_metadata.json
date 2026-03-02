@@ -1,0 +1,66 @@
+{
+    "partner-discounts-resources": {
+        "description": "Exclusive deals and resources for members",
+        "icon": "Tag"
+    },
+    "retention-trainings-emailsms": {
+        "description": "Email and SMS marketing strategies",
+        "icon": "Mail"
+    },
+    "statlas-growth-data-tool": {
+        "description": "Data-driven growth insights",
+        "icon": "BarChart"
+    },
+    "google-ads-youtube-trainings": {
+        "description": "Master Google Ads and YouTube advertising",
+        "icon": "Youtube"
+    },
+    "forecasting-finance-accounting-inventory-planning": {
+        "description": "Financial planning and inventory management",
+        "icon": "Calculator"
+    },
+    "new-to-admission-start-here": {
+        "description": "Get started with your ADmission journey",
+        "icon": "Zap"
+    },
+    "alternate-platforms": {
+        "description": "Explore alternative marketing platforms",
+        "icon": "Compass"
+    },
+    "meta-ads-creative-copy": {
+        "description": "Creative strategies and copywriting frameworks",
+        "icon": "PenTool"
+    },
+    "ecommerce-growth-strategy": {
+        "description": "Strategic frameworks for scaling",
+        "icon": "TrendingUp"
+    },
+    "meta-ads-foundational-knowledge": {
+        "description": "Core Meta Ads concepts and best practices",
+        "icon": "Book"
+    },
+    "meta-ads-ad-creative-examples": {
+        "description": "Real ad examples and case studies",
+        "icon": "Image"
+    },
+    "bonus-trainings-downloads": {
+        "description": "Exclusive bonus content and resources",
+        "icon": "Download"
+    },
+    "unlocked-tactics-episodes": {
+        "description": "In-depth tactics from our podcast series",
+        "icon": "Mic"
+    },
+    "recent-trainings": {
+        "description": "Latest training content and updates",
+        "icon": "Clock"
+    },
+    "influencer-affiliate-trainings": {
+        "description": "Influencer marketing and affiliate strategies",
+        "icon": "Users"
+    },
+    "live-event-replays": {
+        "description": "Recordings from live events and AMAs",
+        "icon": "Video"
+    }
+}

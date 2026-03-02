@@ -56,10 +56,13 @@ type Query {
   document(collection: String, relativePath: String): DocumentNode!
   page(relativePath: String): Page!
   pageConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PageFilter): PageConnection!
+  course(relativePath: String): Course!
+  courseConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: CourseFilter): CourseConnection!
 }
 
 input DocumentFilter {
   page: PageFilter
+  course: CourseFilter
 }
 
 type DocumentConnectionEdges {
@@ -85,7 +88,7 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter, folder: String): DocumentConnection!
 }
 
-union DocumentNode = Page | Folder
+union DocumentNode = Page | Course | Folder
 
 type PageBlocksHero {
   headline: String
@@ -367,6 +370,34 @@ type PageConnection implements Connection {
   edges: [PageConnectionEdges]
 }
 
+type Course implements Node & Document {
+  title: String!
+  module: String!
+  cloudVideoUrl: String
+  body: JSON
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input CourseFilter {
+  title: StringFilter
+  module: StringFilter
+  cloudVideoUrl: StringFilter
+  body: RichTextFilter
+}
+
+type CourseConnectionEdges {
+  cursor: String!
+  node: Course
+}
+
+type CourseConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [CourseConnectionEdges]
+}
+
 type Mutation {
   addPendingDocument(collection: String!, relativePath: String!, template: String): DocumentNode!
   updateDocument(collection: String, relativePath: String!, params: DocumentUpdateMutation!): DocumentNode!
@@ -375,15 +406,19 @@ type Mutation {
   createFolder(collection: String, relativePath: String!): DocumentNode!
   updatePage(relativePath: String!, params: PageMutation!): Page!
   createPage(relativePath: String!, params: PageMutation!): Page!
+  updateCourse(relativePath: String!, params: CourseMutation!): Course!
+  createCourse(relativePath: String!, params: CourseMutation!): Course!
 }
 
 input DocumentUpdateMutation {
   page: PageMutation
+  course: CourseMutation
   relativePath: String
 }
 
 input DocumentMutation {
   page: PageMutation
+  course: CourseMutation
 }
 
 input PageBlocksHeroMutation {
@@ -514,6 +549,13 @@ input PageBlocksMutation {
 input PageMutation {
   title: String
   blocks: [PageBlocksMutation]
+}
+
+input CourseMutation {
+  title: String
+  module: String
+  cloudVideoUrl: String
+  body: JSON
 }
 
 schema {

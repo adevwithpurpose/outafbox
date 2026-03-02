@@ -84,6 +84,8 @@ export type Query = {
   document: DocumentNode;
   page: Page;
   pageConnection: PageConnection;
+  course: Course;
+  courseConnection: CourseConnection;
 };
 
 
@@ -122,8 +124,24 @@ export type QueryPageConnectionArgs = {
   filter?: InputMaybe<PageFilter>;
 };
 
+
+export type QueryCourseArgs = {
+  relativePath?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryCourseConnectionArgs = {
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<CourseFilter>;
+};
+
 export type DocumentFilter = {
   page?: InputMaybe<PageFilter>;
+  course?: InputMaybe<CourseFilter>;
 };
 
 export type DocumentConnectionEdges = {
@@ -163,7 +181,7 @@ export type CollectionDocumentsArgs = {
   folder?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type DocumentNode = Page | Folder;
+export type DocumentNode = Page | Course | Folder;
 
 export type PageBlocksHero = {
   __typename?: 'PageBlocksHero';
@@ -469,6 +487,37 @@ export type PageConnection = Connection & {
   edges?: Maybe<Array<Maybe<PageConnectionEdges>>>;
 };
 
+export type Course = Node & Document & {
+  __typename?: 'Course';
+  title: Scalars['String']['output'];
+  module: Scalars['String']['output'];
+  cloudVideoUrl?: Maybe<Scalars['String']['output']>;
+  body?: Maybe<Scalars['JSON']['output']>;
+  id: Scalars['ID']['output'];
+  _sys: SystemInfo;
+  _values: Scalars['JSON']['output'];
+};
+
+export type CourseFilter = {
+  title?: InputMaybe<StringFilter>;
+  module?: InputMaybe<StringFilter>;
+  cloudVideoUrl?: InputMaybe<StringFilter>;
+  body?: InputMaybe<RichTextFilter>;
+};
+
+export type CourseConnectionEdges = {
+  __typename?: 'CourseConnectionEdges';
+  cursor: Scalars['String']['output'];
+  node?: Maybe<Course>;
+};
+
+export type CourseConnection = Connection & {
+  __typename?: 'CourseConnection';
+  pageInfo: PageInfo;
+  totalCount: Scalars['Float']['output'];
+  edges?: Maybe<Array<Maybe<CourseConnectionEdges>>>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   addPendingDocument: DocumentNode;
@@ -478,6 +527,8 @@ export type Mutation = {
   createFolder: DocumentNode;
   updatePage: Page;
   createPage: Page;
+  updateCourse: Course;
+  createCourse: Course;
 };
 
 
@@ -525,13 +576,27 @@ export type MutationCreatePageArgs = {
   params: PageMutation;
 };
 
+
+export type MutationUpdateCourseArgs = {
+  relativePath: Scalars['String']['input'];
+  params: CourseMutation;
+};
+
+
+export type MutationCreateCourseArgs = {
+  relativePath: Scalars['String']['input'];
+  params: CourseMutation;
+};
+
 export type DocumentUpdateMutation = {
   page?: InputMaybe<PageMutation>;
+  course?: InputMaybe<CourseMutation>;
   relativePath?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type DocumentMutation = {
   page?: InputMaybe<PageMutation>;
+  course?: InputMaybe<CourseMutation>;
 };
 
 export type PageBlocksHeroMutation = {
@@ -664,7 +729,16 @@ export type PageMutation = {
   blocks?: InputMaybe<Array<InputMaybe<PageBlocksMutation>>>;
 };
 
+export type CourseMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  module?: InputMaybe<Scalars['String']['input']>;
+  cloudVideoUrl?: InputMaybe<Scalars['String']['input']>;
+  body?: InputMaybe<Scalars['JSON']['input']>;
+};
+
 export type PagePartsFragment = { __typename: 'Page', title: string, blocks?: Array<{ __typename: 'PageBlocksHero', headline?: string | null, subhead?: string | null, ctaText?: string | null, ctaLink?: string | null, secondaryCtaText?: string | null, secondaryCtaLink?: string | null, image?: string | null } | { __typename: 'PageBlocksFeatures', headline?: string | null, id?: string | null, variant?: string | null, items?: Array<{ __typename: 'PageBlocksFeaturesItems', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksContent', body?: any | null, centered?: boolean | null } | { __typename: 'PageBlocksTestimonials', headline?: string | null } | { __typename: 'PageBlocksTrustBar', label?: string | null } | { __typename: 'PageBlocksAuditForm', headline?: string | null } | { __typename: 'PageBlocksCreatorForm', headline?: string | null } | { __typename: 'PageBlocksTeam', headline?: string | null } | { __typename: 'PageBlocksJobs', headline?: string | null, listings?: Array<{ __typename: 'PageBlocksJobsListings', title?: string | null, type?: string | null, location?: string | null, description?: string | null } | null> | null } | { __typename: 'PageBlocksFaq', questions?: Array<{ __typename: 'PageBlocksFaqQuestions', question?: string | null, answer?: string | null } | null> | null } | { __typename: 'PageBlocksVsl', headline?: string | null } | { __typename: 'PageBlocksComparison', headline?: string | null } | { __typename: 'PageBlocksFounder', headline?: string | null } | { __typename: 'PageBlocksResultsTeaser', headline?: string | null } | { __typename: 'PageBlocksGuarantee', headline?: string | null, subhead?: string | null, ctaText?: string | null, ctaLink?: string | null } | { __typename: 'PageBlocksRoiSimulator', headline?: string | null } | { __typename: 'PageBlocksAdFatigue', headline?: string | null } | { __typename: 'PageBlocksStrategyQuiz', headline?: string | null } | null> | null };
+
+export type CoursePartsFragment = { __typename: 'Course', title: string, module: string, cloudVideoUrl?: string | null, body?: any | null };
 
 export type PageQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
@@ -684,6 +758,25 @@ export type PageConnectionQueryVariables = Exact<{
 
 
 export type PageConnectionQuery = { __typename?: 'Query', pageConnection: { __typename?: 'PageConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PageConnectionEdges', cursor: string, node?: { __typename: 'Page', id: string, title: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'PageBlocksHero', headline?: string | null, subhead?: string | null, ctaText?: string | null, ctaLink?: string | null, secondaryCtaText?: string | null, secondaryCtaLink?: string | null, image?: string | null } | { __typename: 'PageBlocksFeatures', headline?: string | null, id?: string | null, variant?: string | null, items?: Array<{ __typename: 'PageBlocksFeaturesItems', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksContent', body?: any | null, centered?: boolean | null } | { __typename: 'PageBlocksTestimonials', headline?: string | null } | { __typename: 'PageBlocksTrustBar', label?: string | null } | { __typename: 'PageBlocksAuditForm', headline?: string | null } | { __typename: 'PageBlocksCreatorForm', headline?: string | null } | { __typename: 'PageBlocksTeam', headline?: string | null } | { __typename: 'PageBlocksJobs', headline?: string | null, listings?: Array<{ __typename: 'PageBlocksJobsListings', title?: string | null, type?: string | null, location?: string | null, description?: string | null } | null> | null } | { __typename: 'PageBlocksFaq', questions?: Array<{ __typename: 'PageBlocksFaqQuestions', question?: string | null, answer?: string | null } | null> | null } | { __typename: 'PageBlocksVsl', headline?: string | null } | { __typename: 'PageBlocksComparison', headline?: string | null } | { __typename: 'PageBlocksFounder', headline?: string | null } | { __typename: 'PageBlocksResultsTeaser', headline?: string | null } | { __typename: 'PageBlocksGuarantee', headline?: string | null, subhead?: string | null, ctaText?: string | null, ctaLink?: string | null } | { __typename: 'PageBlocksRoiSimulator', headline?: string | null } | { __typename: 'PageBlocksAdFatigue', headline?: string | null } | { __typename: 'PageBlocksStrategyQuiz', headline?: string | null } | null> | null } | null } | null> | null } };
+
+export type CourseQueryVariables = Exact<{
+  relativePath: Scalars['String']['input'];
+}>;
+
+
+export type CourseQuery = { __typename?: 'Query', course: { __typename: 'Course', id: string, title: string, module: string, cloudVideoUrl?: string | null, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+
+export type CourseConnectionQueryVariables = Exact<{
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<CourseFilter>;
+}>;
+
+
+export type CourseConnectionQuery = { __typename?: 'Query', courseConnection: { __typename?: 'CourseConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'CourseConnectionEdges', cursor: string, node?: { __typename: 'Course', id: string, title: string, module: string, cloudVideoUrl?: string | null, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
 export const PagePartsFragmentDoc = gql`
     fragment PageParts on Page {
@@ -777,6 +870,15 @@ export const PagePartsFragmentDoc = gql`
   }
 }
     `;
+export const CoursePartsFragmentDoc = gql`
+    fragment CourseParts on Course {
+  __typename
+  title
+  module
+  cloudVideoUrl
+  body
+}
+    `;
 export const PageDocument = gql`
     query page($relativePath: String!) {
   page(relativePath: $relativePath) {
@@ -834,6 +936,63 @@ export const PageConnectionDocument = gql`
   }
 }
     ${PagePartsFragmentDoc}`;
+export const CourseDocument = gql`
+    query course($relativePath: String!) {
+  course(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...CourseParts
+  }
+}
+    ${CoursePartsFragmentDoc}`;
+export const CourseConnectionDocument = gql`
+    query courseConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: CourseFilter) {
+  courseConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...CourseParts
+      }
+    }
+  }
+}
+    ${CoursePartsFragmentDoc}`;
 export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R>
   export function getSdk<C>(requester: Requester<C>) {
     return {
@@ -842,6 +1001,12 @@ export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) 
       },
     pageConnection(variables?: PageConnectionQueryVariables, options?: C): Promise<{data: PageConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageConnectionQueryVariables, query: string}> {
         return requester<{data: PageConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageConnectionQueryVariables, query: string}, PageConnectionQueryVariables>(PageConnectionDocument, variables, options);
+      },
+    course(variables: CourseQueryVariables, options?: C): Promise<{data: CourseQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: CourseQueryVariables, query: string}> {
+        return requester<{data: CourseQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: CourseQueryVariables, query: string}, CourseQueryVariables>(CourseDocument, variables, options);
+      },
+    courseConnection(variables?: CourseConnectionQueryVariables, options?: C): Promise<{data: CourseConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: CourseConnectionQueryVariables, query: string}> {
+        return requester<{data: CourseConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: CourseConnectionQueryVariables, query: string}, CourseConnectionQueryVariables>(CourseConnectionDocument, variables, options);
       }
     };
   }
@@ -890,7 +1055,7 @@ export const ExperimentalGetTinaClient = () =>
   getSdk(
     generateRequester(
       createClient({
-        url: "http://localhost:4001/graphql",
+        url: "http://localhost:3001/graphql",
         queries,
       })
     )

@@ -1,0 +1,279 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import moduleMetadata from "../../data/module_metadata.json";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+    const modulesRaw = await import("../../../output/modules.json");
+    const modulesData = Array.isArray(modulesRaw.default)
+        ? modulesRaw.default
+        : [modulesRaw.default];
+
+    return (modulesData as any[]).map((module) => ({
+        params: { module: module.slug },
+        props: { module },
+    }));
+}
+
+const { module: moduleSlug } = Astro.params;
+let module = Astro.props.module;
+
+// If module is not in props (happens in SSR mode if not prerendered), fetch it
+if (!module) {
+    const modulesRaw = await import("../../../output/modules.json");
+    const modulesData = Array.isArray(modulesRaw.default)
+        ? modulesRaw.default
+        : [modulesRaw.default];
+    module = (modulesData as any[]).find((m) => m.slug === moduleSlug);
+}
+
+if (!module) {
+    throw new Error(`Module not found: ${moduleSlug}`);
+}
+
+// Helper function to group courses by subcategory
+function groupCoursesBySubcategory(courses: any[]) {
+    return courses.reduce(
+        (acc, course) => {
+            const subcategory = course.subcategory || "General";
+            if (!acc[subcategory]) {
+                acc[subcategory] = [];
+            }
+            acc[subcategory].push(course);
+            return acc;
+        },
+        {} as Record<string, any[]>,
+    );
+}
+
+const groupedCourses = groupCoursesBySubcategory(module.courses);
+const generalCourses = groupedCourses["General"] || [];
+const otherSubcategories = Object.keys(groupedCourses).filter(
+    (s) => s !== "General",
+);
+
+function getModuleInfo(slug: string) {
+    const meta = (moduleMetadata as Record<string, any>)[slug];
+    return {
+        description: meta?.description || "Explore our training content",
+        icon: meta?.icon || "BookOpen",
+    };
+}
+
+const { description } = getModuleInfo(moduleSlug!);
+
+let globalLessonIndex = 0;
+---
+
+<Layout title={`${module.name} | Training Library`}>
+    <main class="min-h-screen bg-[#0A0A0B] pb-24">
+        <!-- Module Header -->
+        <div
+            class="relative pt-32 pb-20 overflow-hidden border-b border-white/5"
+        >
+            <div class="absolute inset-0 bg-brand-purple/5 blur-[120px] -z-10">
+            </div>
+            <div class="max-w-5xl mx-auto px-6">
+                <nav
+                    class="flex items-center gap-2 text-sm font-bold text-gray-500 uppercase tracking-widest mb-8"
+                >
+                    <a
+                        href="/courses"
+                        class="hover:text-brand-purple transition-colors"
+                        >Library</a
+                    >
+                    <svg
+                        class="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M9 5l7 7-7 7"></path>
+                    </svg>
+                    <span class="text-white">Module</span>
+                </nav>
+
+                <div
+                    class="flex flex-col md:flex-row md:items-end justify-between gap-8"
+                >
+                    <div class="max-w-3xl">
+                        <h1
+                            class="text-4xl md:text-6xl font-display font-black text-white mb-6 tracking-tight"
+                        >
+                            {module.name}
+                        </h1>
+                        <p
+                            class="text-gray-400 text-xl font-medium leading-relaxed"
+                        >
+                            {description}
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-4 pb-2">
+                        <div
+                            class="bg-white/5 border border-white/10 rounded-2xl p-4 text-center min-w-[120px]"
+                        >
+                            <div class="text-2xl font-black text-white">
+                                {module.courses.length}
+                            </div>
+                            <div
+                                class="text-[10px] font-black text-gray-500 uppercase tracking-widest"
+                            >
+                                Lessons
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-5xl mx-auto px-6 pt-16">
+            <!-- Subcategories Filter / Jump Links -->
+            {
+                otherSubcategories.length > 0 && (
+                    <div class="flex flex-wrap gap-3 mb-16">
+                        {generalCourses.length > 0 && (
+                            <a
+                                href="#general"
+                                class="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-sm font-bold text-gray-400 hover:text-white hover:border-brand-purple/50 transition-all"
+                            >
+                                General
+                            </a>
+                        )}
+                        {otherSubcategories.map((sub) => (
+                            <a
+                                href={`#${sub.toLowerCase().replace(/\s+/g, "-")}`}
+                                class="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-sm font-bold text-gray-400 hover:text-white hover:border-brand-purple/50 transition-all"
+                            >
+                                {sub}
+                            </a>
+                        ))}
+                    </div>
+                )
+            }
+
+            {/* General Lessons */}
+            {
+                generalCourses.length > 0 && (
+                    <section id="general" class="mb-20 scroll-mt-32">
+                        <div class="flex items-center gap-4 mb-8">
+                            <h2 class="text-xl font-display font-black text-white uppercase tracking-[0.2em]">
+                                General Lessons
+                            </h2>
+                            <div class="h-px flex-1 bg-white/5" />
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            {generalCourses.map((course: any) => {
+                                globalLessonIndex++;
+                                return (
+                                    <a
+                                        href={`/courses/${moduleSlug}/${course.slug}`}
+                                        class="group flex items-center gap-8 bg-white/[0.03] border border-white/10 rounded-2xl p-6 hover:bg-white/[0.06] hover:border-brand-purple/30 transition-all duration-300"
+                                    >
+                                        <div class="flex-shrink-0 text-5xl font-display font-black text-white/10 group-hover:text-brand-purple/20 transition-colors w-16">
+                                            {globalLessonIndex
+                                                .toString()
+                                                .padStart(2, "0")}
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="flex items-center gap-3 mb-2">
+                                                <span
+                                                    class={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-widest border ${course.type === "Video" ? "bg-brand-purple/10 border-brand-purple/20 text-brand-purple" : "bg-white/5 border-white/10 text-gray-500"}`}
+                                                >
+                                                    {course.type}
+                                                </span>
+                                            </div>
+                                            <h3 class="text-xl font-bold text-white group-hover:text-brand-purple transition-colors line-clamp-1">
+                                                {course.title}
+                                            </h3>
+                                        </div>
+                                        <div class="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity translate-x-4 group-hover:translate-x-0 duration-300">
+                                            <svg
+                                                class="w-6 h-6 text-brand-purple"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                                                />
+                                            </svg>
+                                        </div>
+                                    </a>
+                                );
+                            })}
+                        </div>
+                    </section>
+                )
+            }
+
+            {/* Grouped Lessons */}
+            {
+                otherSubcategories.map((subcategory) => (
+                    <section
+                        id={subcategory.toLowerCase().replace(/\s+/g, "-")}
+                        class="mb-20 scroll-mt-32"
+                    >
+                        <div class="flex items-center gap-4 mb-8">
+                            <h2 class="text-xl font-display font-black text-white uppercase tracking-[0.2em]">
+                                {subcategory}
+                            </h2>
+                            <div class="h-px flex-1 bg-white/5" />
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            {groupedCourses[subcategory].map((course: any) => {
+                                globalLessonIndex++;
+                                return (
+                                    <a
+                                        href={`/courses/${moduleSlug}/${course.slug}`}
+                                        class="group flex items-center gap-8 bg-white/[0.03] border border-white/10 rounded-2xl p-6 hover:bg-white/[0.06] hover:border-brand-purple/30 transition-all duration-300"
+                                    >
+                                        <div class="flex-shrink-0 text-5xl font-display font-black text-white/10 group-hover:text-brand-purple/20 transition-colors w-16">
+                                            {globalLessonIndex
+                                                .toString()
+                                                .padStart(2, "0")}
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="flex items-center gap-3 mb-2">
+                                                <span
+                                                    class={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-widest border ${course.type === "Video" ? "bg-brand-purple/10 border-brand-purple/20 text-brand-purple" : "bg-white/5 border-white/10 text-gray-500"}`}
+                                                >
+                                                    {course.type}
+                                                </span>
+                                            </div>
+                                            <h3 class="text-xl font-bold text-white group-hover:text-brand-purple transition-colors line-clamp-1">
+                                                {course.title}
+                                            </h3>
+                                        </div>
+                                        <div class="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity translate-x-4 group-hover:translate-x-0 duration-300">
+                                            <svg
+                                                class="w-6 h-6 text-brand-purple"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                                                />
+                                            </svg>
+                                        </div>
+                                    </a>
+                                );
+                            })}
+                        </div>
+                    </section>
+                ))
+            }
+        </div>
+    </main>
+</Layout>

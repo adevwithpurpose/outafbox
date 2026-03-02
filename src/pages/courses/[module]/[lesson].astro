@@ -1,0 +1,433 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import CloudVideo from "../../../components/blocks/CloudVideo.astro";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+    const modulesRaw = await import("../../../../output/modules.json");
+    const coursesRaw = await import("../../../../output/courses.json");
+
+    const allModules = Array.isArray(modulesRaw.default)
+        ? modulesRaw.default
+        : [modulesRaw.default];
+    const allCourses = Array.isArray(coursesRaw.default)
+        ? coursesRaw.default
+        : [coursesRaw.default];
+
+    const paths: any[] = [];
+
+    allModules.forEach((module: any) => {
+        module.courses.forEach((course: any, index: number) => {
+            // Find full course data for video links
+            const fullCourse = allCourses.find(
+                (c: any) =>
+                    c.slug?.toLowerCase() === course.slug?.toLowerCase(),
+            );
+
+            paths.push({
+                params: {
+                    module: module.slug,
+                    lesson: course.slug,
+                },
+                props: {
+                    module,
+                    course: { ...course, ...fullCourse },
+                    index,
+                    total: module.courses.length,
+                    prevLesson: index > 0 ? module.courses[index - 1] : null,
+                    nextLesson:
+                        index < module.courses.length - 1
+                            ? module.courses[index + 1]
+                            : null,
+                },
+            });
+        });
+    });
+
+    return paths;
+}
+
+const { module: moduleSlug, lesson: lessonSlug } = Astro.params;
+let { module, course, index, total, prevLesson, nextLesson } = Astro.props;
+
+// Load all MDX files from the output directory
+const allMdx = import.meta.glob("../../../../output/**/*.mdx", { eager: true });
+const mdxPath = `../../../../output/${moduleSlug}/${lessonSlug}.mdx`;
+const mdxModule = allMdx[mdxPath] as any;
+const MdxContent = mdxModule ? mdxModule.Content : null;
+
+// If we are in SSR mode, props might be empty, so we fetch data
+if (!module || !course) {
+    const modulesRaw = await import("../../../../output/modules.json");
+    const coursesRaw = await import("../../../../output/courses.json");
+
+    const allModules = Array.isArray(modulesRaw.default)
+        ? modulesRaw.default
+        : [modulesRaw.default];
+    const allCourses = Array.isArray(coursesRaw.default)
+        ? coursesRaw.default
+        : [coursesRaw.default];
+
+    module = allModules.find((m: any) => m.slug === moduleSlug);
+    if (module) {
+        const courseIndex = module.courses.findIndex(
+            (c: any) => c.slug === lessonSlug,
+        );
+        if (courseIndex !== -1) {
+            const basicCourse = module.courses[courseIndex];
+            const fullCourse = allCourses.find(
+                (c: any) => c.slug?.toLowerCase() === lessonSlug?.toLowerCase(),
+            );
+
+            course = { ...basicCourse, ...fullCourse };
+            index = courseIndex;
+            total = module.courses.length;
+            prevLesson = index > 0 ? module.courses[index - 1] : null;
+            nextLesson =
+                index < module.courses.length - 1
+                    ? module.courses[index + 1]
+                    : null;
+        }
+    }
+}
+
+if (!module || !course) {
+    throw new Error(
+        `Module or Lesson not found: ${moduleSlug} / ${lessonSlug}`,
+    );
+}
+
+// Helper function to extract Google Drive video ID
+function getGoogleDriveVideoId(link: string): string | null {
+    if (!link || link === "Error" || link === "N/A") return null;
+    const match = link.match(/[?&]id=([a-zA-Z0-9_-]+)|\/d\/([a-zA-Z0-9_-]+)/);
+    return match ? match[1] || match[2] : null;
+}
+
+const driveVideoId = getGoogleDriveVideoId(course.cloudVideoLink);
+const wistiaId =
+    course.wistiaId && course.wistiaId !== "None" ? course.wistiaId : null;
+---
+
+<Layout title={`${course.title} | ${module.name}`} hideFooter={true}>
+    <main class="min-h-screen bg-[#0A0A0B] text-white pt-24">
+        <div
+            class="flex flex-col lg:flex-row h-[calc(100vh-6rem)] overflow-hidden"
+        >
+            <!-- Sidebar - Desktop only for now, mobile will have a different view -->
+            <aside
+                class="hidden lg:flex flex-col w-[400px] border-r border-white/5 bg-[#0D0D0E] z-10"
+            >
+                <div class="p-8 border-b border-white/5">
+                    <a
+                        href={`/courses/${moduleSlug}`}
+                        class="inline-flex items-center gap-2 text-brand-purple hover:text-white text-xs font-black uppercase tracking-widest mb-6 transition-colors"
+                    >
+                        <svg
+                            class="w-4 h-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="3"
+                                d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                        Back to Module
+                    </a>
+                    <h2 class="text-xl font-display font-black line-clamp-2">
+                        {module.name}
+                    </h2>
+                    <div
+                        class="mt-4 flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-gray-600"
+                    >
+                        <span>{index + 1} of {total} Lessons</span>
+                        <span class="text-brand-purple"
+                            >{Math.round(((index + 1) / total) * 100)}% Complete</span
+                        >
+                    </div>
+                    <div
+                        class="mt-2 h-1 w-full bg-white/5 rounded-full overflow-hidden"
+                    >
+                        <div
+                            class="h-full bg-brand-purple transition-all duration-500"
+                            style={`width: ${((index + 1) / total) * 100}%`}
+                        >
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-2"
+                >
+                    {
+                        module.courses.map((mCourse: any, idx: number) => {
+                            const isActive = mCourse.slug === lessonSlug;
+                            return (
+                                <a
+                                    href={`/courses/${moduleSlug}/${mCourse.slug}`}
+                                    class={`flex items-start gap-4 p-4 rounded-2xl transition-all duration-300 ${isActive ? "bg-brand-purple/10 border border-brand-purple/20 shadow-[0_0_20px_rgba(168,85,247,0.1)]" : "hover:bg-white/5 border border-transparent"}`}
+                                >
+                                    <div
+                                        class={`mt-1 flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center border text-[10px] font-black ${isActive ? "bg-brand-purple border-brand-purple text-white" : "bg-white/5 border-white/10 text-gray-600"}`}
+                                    >
+                                        {idx + 1}
+                                    </div>
+                                    <div class="flex-1">
+                                        <div
+                                            class={`text-xs font-bold leading-tight mb-1 ${isActive ? "text-white" : "text-gray-400"}`}
+                                        >
+                                            {mCourse.title}
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-[9px] font-black uppercase tracking-widest text-gray-600">
+                                                {mCourse.type}
+                                            </span>
+                                            {isActive && (
+                                                <span class="w-1 h-1 rounded-full bg-brand-purple animate-pulse" />
+                                            )}
+                                        </div>
+                                    </div>
+                                </a>
+                            );
+                        })
+                    }
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <div class="flex-1 flex flex-col overflow-y-auto">
+                <div class="p-8 lg:p-12 max-w-5xl mx-auto w-full">
+                    <!-- Title & Metadata Section -->
+                    <div
+                        class="flex flex-col md:flex-row md:items-start justify-between gap-8 mb-12"
+                    >
+                        <div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <span
+                                    class="px-3 py-1 rounded-lg bg-brand-purple/10 border border-brand-purple/20 text-brand-purple text-[10px] font-black uppercase tracking-widest"
+                                >
+                                    {course.type}
+                                </span>
+                                <span
+                                    class="text-gray-600 text-[10px] font-black uppercase tracking-widest"
+                                >
+                                    {course.subcategory || "General"}
+                                </span>
+                            </div>
+                            <h1
+                                class="text-4xl lg:text-5xl font-display font-black tracking-tight leading-tight mb-4"
+                            >
+                                {course.title}
+                            </h1>
+                            <p class="text-gray-500 font-medium italic">
+                                Part of the <a
+                                    href={`/courses/${moduleSlug}`}
+                                    class="text-gray-400 hover:text-brand-purple transition-colors not-italic font-bold"
+                                    >"{module.name}"</a
+                                > module.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Video Player Section (Now after title) -->
+                    {
+                        (wistiaId || driveVideoId) && (
+                            <div class="mb-16">
+                                <CloudVideo
+                                    videoId={wistiaId}
+                                    embedUrl={course.cloudVideoLink}
+                                />
+                            </div>
+                        )
+                    }
+
+                    <!-- MDX Content -->
+                    {
+                        MdxContent && (
+                            <div class="prose prose-invert prose-brand max-w-none mb-16 pb-16 border-b border-white/5 lesson-content">
+                                <MdxContent components={{ CloudVideo }} />
+                            </div>
+                        )
+                    }
+
+                    <!-- Actions / Buttons -->
+                    <div class="flex flex-wrap gap-4 mb-16">
+                        {
+                            course.cloudVideoLink && (
+                                <a
+                                    href={course.cloudVideoLink}
+                                    target="_blank"
+                                    class="inline-flex items-center gap-3 px-8 py-4 bg-brand-purple/20 border border-brand-purple/30 rounded-2xl text-brand-purple font-black uppercase tracking-widest text-xs hover:bg-brand-purple/30 transition-all shadow-2xl shadow-brand-purple/10"
+                                >
+                                    <svg
+                                        class="w-5 h-5"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                                        />
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                        />
+                                    </svg>
+                                    View in Drive
+                                </a>
+                            )
+                        }
+
+                        {
+                            driveVideoId && (
+                                <a
+                                    href={`https://drive.google.com/uc?export=download&id=${driveVideoId}`}
+                                    class="inline-flex items-center gap-3 px-8 py-4 bg-white/5 border border-white/10 rounded-2xl text-gray-400 font-black uppercase tracking-widest text-xs hover:bg-white/10 hover:text-white transition-all"
+                                >
+                                    <svg
+                                        class="w-5 h-5"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                                        />
+                                    </svg>
+                                    Download Lesson
+                                </a>
+                            )
+                        }
+
+                        <button
+                            class="inline-flex items-center gap-3 px-8 py-4 bg-white/5 border border-white/10 rounded-2xl text-white font-black uppercase tracking-widest text-xs hover:bg-white/10 transition-all ml-auto"
+                        >
+                            Mark Complete
+                        </button>
+                    </div>
+
+                    <!-- Bottom Navigation -->
+                    <div
+                        class="grid md:grid-cols-2 gap-6 pt-12 border-t border-white/5"
+                    >
+                        {
+                            prevLesson ? (
+                                <a
+                                    href={`/courses/${moduleSlug}/${prevLesson.slug}`}
+                                    class="group flex items-center gap-6 p-6 bg-white/[0.02] border border-white/5 rounded-3xl hover:bg-white/[0.04] transition-all"
+                                >
+                                    <div class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-gray-500 group-hover:text-white transition-colors">
+                                        <svg
+                                            class="w-6 h-6"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M15 19l-7-7 7-7"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="text-[10px] font-black uppercase tracking-widest text-gray-600 mb-1">
+                                            Previous Lesson
+                                        </div>
+                                        <div class="text-sm font-bold text-gray-400 group-hover:text-white transition-colors line-clamp-1">
+                                            {prevLesson.title}
+                                        </div>
+                                    </div>
+                                </a>
+                            ) : (
+                                <div />
+                            )
+                        }
+
+                        {
+                            nextLesson ? (
+                                <a
+                                    href={`/courses/${moduleSlug}/${nextLesson.slug}`}
+                                    class="group flex items-center justify-between gap-6 p-6 bg-brand-purple/5 border border-brand-purple/10 rounded-3xl hover:bg-brand-purple/10 transition-all text-right"
+                                >
+                                    <div class="flex-1">
+                                        <div class="text-[10px] font-black uppercase tracking-widest text-brand-purple/60 mb-1">
+                                            Next Lesson
+                                        </div>
+                                        <div class="text-sm font-bold text-white line-clamp-1">
+                                            {nextLesson.title}
+                                        </div>
+                                    </div>
+                                    <div class="w-12 h-12 rounded-2xl bg-brand-purple text-white flex items-center justify-center shadow-lg shadow-brand-purple/20">
+                                        <svg
+                                            class="w-6 h-6"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M9 5l7 7-7 7"
+                                            />
+                                        </svg>
+                                    </div>
+                                </a>
+                            ) : (
+                                <div />
+                            )
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <style is:global>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Hide unwanted MDX typography but keep actual content */
+        .lesson-content > h1:first-of-type,
+        .lesson-content > h1:first-of-type + p,
+        .lesson-content > h1:first-of-type + p + p,
+        .lesson-content > h1:first-of-type + p + p + p,
+        .lesson-content > h1:first-of-type + p + p + p + p,
+        .lesson-content > h2:first-of-type,
+        .lesson-content .video-container,
+        .lesson-content [data-testid="cloud-video"] {
+            display: none !important;
+        }
+
+        /* Specificially hide any CloudVideo component inside the MDX to avoid duplicates */
+        .lesson-content iframe[src*="drive.google.com/file"],
+        .lesson-content iframe[src*="fast.wistia.net/embed"] {
+            display: none !important;
+        }
+    </style>
+</Layout>

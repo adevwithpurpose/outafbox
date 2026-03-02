@@ -3,17 +3,24 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "tinacms dev -c \"astro dev\"",
+    "dev": "tinacms dev --port 3001 -c \"astro dev\"",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/mdx": "^4.3.13",
+    "@astrojs/node": "^9.5.4",
     "@tailwindcss/vite": "^4.1.18",
     "@tinacms/cli": "^2.1.2",
     "astro": "^5.16.15",
     "marked": "^17.0.1",
     "tailwindcss": "^4.1.18",
     "tinacms": "^3.3.2"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "csv-parse": "^6.1.0"
   }
 }

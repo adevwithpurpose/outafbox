@@ -3,6 +3,14 @@ import "../styles/global.css";
 import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
 import GrowthTicker from "../components/layout/GrowthTicker.astro";
+
+interface Props {
+	title?: string;
+	hideFooter?: boolean;
+}
+
+const { title = "OutAfBox - Growth Ecosystem", hideFooter = false } =
+	Astro.props;
 ---
 
 <!doctype html>
@@ -13,7 +21,7 @@ import GrowthTicker from "../components/layout/GrowthTicker.astro";
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>OutAfBox - Growth Ecosystem</title>
+		<title>{title}</title>
 
 		<!-- Font Optimization -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -28,7 +36,7 @@ import GrowthTicker from "../components/layout/GrowthTicker.astro";
 	>
 		<Header />
 		<slot />
-		<Footer />
+		{!hideFooter && <Footer />}
 		<GrowthTicker />
 	</body>
 </html>

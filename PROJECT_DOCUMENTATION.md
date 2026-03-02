@@ -2,7 +2,7 @@
 
 **Project:** OutAfBox Growth Ecosystem  
 **Technology Stack:** Astro 5.x, Tailwind CSS v4, TinaCMS, TypeScript  
-**Repository:** git@github.com:adevwithpurpose/outafbox.git
+**Repository:** <git@github.com>:adevwithpurpose/outafbox.git
 
 ---
 
@@ -24,6 +24,7 @@
 OutAfBox is a performance-driven growth ecosystem for DTC brands scaling from $1M to $50M. The site uses a block-based architecture powered by TinaCMS for content editing, allowing non-technical users to build and modify pages visually.
 
 ### Core Value Proposition
+
 - High-volume UGC creative production
 - Scientific media buying
 - Destination optimization (high-converting landing pages)
@@ -81,6 +82,7 @@ outafbox/
 | Vite | Latest | Build tool (via Astro) |
 
 ### Key Dependencies
+
 ```json
 {
   "dependencies": {
@@ -95,6 +97,7 @@ outafbox/
 ```
 
 ### Available Scripts
+
 ```bash
 npm run dev          # Start dev server with TinaCMS
 npm run build        # Build production site
@@ -113,6 +116,7 @@ Pages are composed of reusable "blocks" defined in Markdown files:
 **Content Source:** `content/pages/*.md`
 
 Example home.md block structure:
+
 ```yaml
 ---
 title: Home 
@@ -160,18 +164,21 @@ blocks:
 ### Layout Components (`src/components/layout/`)
 
 **Header.astro**
+
 - Fixed glass-panel navigation bar
 - Mobile hamburger menu with dropdown
 - Logo component integration
 - CTA button for "Get Audit"
 
 **Footer.astro**
+
 - Multi-column link structure
 - Pre-footer CTA section with animated effects
 - Social media links (LinkedIn, Instagram)
 - Ecosystem, Intelligence, and Frameworks navigation
 
 **GrowthTicker.astro**
+
 - Animated ticker showing social proof/metrics
 
 ### Block Components (`src/components/blocks/`)
@@ -221,6 +228,7 @@ background-color: #0a0a0a        /* Dark theme base */
 ### UI Components
 
 **Glass Panel**
+
 ```css
 .glass-panel {
   backdrop-blur-xl;
@@ -231,10 +239,12 @@ background-color: #0a0a0a        /* Dark theme base */
 ```
 
 **Glow Effects**
+
 - `.glow-purple` - Purple glow for CTAs
 - `.glow-blue` - Blue glow for accents
 
 **Gradient Text**
+
 - `.text-gradient-main` - Blue→Purple→Pink gradient
 
 ### Animations
@@ -248,20 +258,25 @@ background-color: #0a0a0a        /* Dark theme base */
 ## Development Workflow
 
 ### Starting Development
+
 ```bash
 cd outafbox
 npm install
 npm run dev
 ```
+
 This starts TinaCMS dev mode with Astro, enabling visual content editing.
 
 ### Building for Production
+
 ```bash
 npm run build
 ```
+
 Output: `./dist/`
 
 ### Preview Build Locally
+
 ```bash
 npm run preview
 ```
@@ -294,6 +309,30 @@ npm run preview
 | Privacy | `/privacy` | privacy.md |
 | Terms | `/terms` | terms.md |
 
+### Video Course System
+
+The site includes a comprehensive video course system accessible at `/courses/*` routes, using a high-performance SSG (Static Site Generation) architecture:
+
+- **Routing Architecture**:
+  - `/courses`: Main index with client-side search.
+  - `/courses/[module]`: Module index page featuring sequential lesson numbering (01, 02...) and horizontal layout.
+  - `/courses/[module]/[lesson]`: Advanced lesson player with persistent sidebar navigation and MDX content rendering.
+- **Content Synchronization**:
+  - **MDX Integration**: Lessons are rendered using MDX, combining frontmatter metadata with rich text and video components.
+  - **Drive Sync**: Supplemental text content is synced from Google Drive via `rclone` and programmatically merged into MDX files.
+  - **Frontmatter Sanitization**: Automated scripts ensure YAML compliance for special characters in titles.
+- **Player Features**:
+  - **Hybrid Layout**: Video player is positioned directly below the header for immediate access, followed by MDX content.
+  - **Sidebar Navigation**: Real-time progress indicators and quick access to all lessons within the module.
+  - **Action Buttons**: Integrated "View in Drive" and "Download Lesson" buttons for all videos.
+- **Data Pipeline**:
+  - **Source**: `mega_course_database.csv` serves as the master source of truth.
+  - **Build Script**: `build_content.js` transforms the CSV into optimized JSON files (`output/courses.json` and `output/modules.json`).
+- **UI & Performance**:
+  - **SSG Core**: Pages are pre-rendered (`prerender = true`) for sub-second load times.
+  - **Tailwind v4**: Modern utility-first styling with custom CSS for MDX content containment.
+  - **Accessibility**: ARIA labels and semantic structure for sidebar and navigation.
+
 ---
 
 ## Git Repository
@@ -301,6 +340,7 @@ npm run preview
 **Remote URL:** `git@github.com:adevwithpurpose/outafbox.git`
 
 ### Push to Repository
+
 ```bash
 cd outafbox
 git add .

@@ -236,6 +236,44 @@ export default defineConfig({
                     },
                 ],
             },
+            // New Course Collection for LMS
+            {
+                name: "course",
+                label: "Courses",
+                path: "content/course",
+                format: "mdx",
+                ui: {
+                    router: ({ document }) => `/course/${document._sys.filename}`
+                },
+                fields: [
+                    {
+                        type: "string",
+                        name: "title",
+                        label: "Course Title",
+                        isTitle: true,
+                        required: true,
+                    },
+                    {
+                        type: "string",
+                        name: "module",
+                        label: "Module Name",
+                        ui: { component: "textarea" },
+                        required: true,
+                    },
+                    {
+                        type: "string",
+                        name: "cloudVideoUrl",
+                        label: "Google Drive Video URL (Preview Link)",
+                        ui: { component: "textarea" },
+                    },
+                    {
+                        type: "rich-text",
+                        name: "body",
+                        label: "Course Content",
+                        isBody: true,
+                    },
+                ],
+            },
         ],
     },
 });

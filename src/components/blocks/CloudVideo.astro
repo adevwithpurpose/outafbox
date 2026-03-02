@@ -1,0 +1,68 @@
+---
+interface Props {
+  videoId?: string;
+  embedUrl?: string;
+}
+
+const { videoId, embedUrl } = Astro.props;
+
+// Convert Google Drive sharing URL to preview/embed URL
+const convertDriveUrl = (url: string): string => {
+  if (!url) return "";
+
+  // Replace /view or /view?usp=sharing with /preview
+  let previewUrl = url.replace(/\/view\?usp=[a-z=]+/, "/preview");
+  previewUrl = previewUrl.replace(/\/view$/, "/preview");
+
+  return previewUrl;
+};
+
+const previewUrl = embedUrl ? convertDriveUrl(embedUrl) : "";
+---
+
+<div
+  class="relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl border border-white/10 bg-black/50 backdrop-blur-sm"
+>
+  {
+    videoId ? (
+      <iframe
+        src={`https://fast.wistia.net/embed/iframe/${videoId}`}
+        class="absolute inset-0 w-full h-full"
+        title="Course Video"
+        frameborder="0"
+        scrolling="no"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      />
+    ) : previewUrl ? (
+      <iframe
+        src={previewUrl}
+        class="absolute inset-0 w-full h-full"
+        title="Course Video"
+        frameborder="0"
+        scrolling="no"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      />
+    ) : (
+      <div class="absolute inset-0 flex items-center justify-center text-white/50">
+        <p class="text-lg">No video available</p>
+      </div>
+    )
+  }
+</div>
+
+<style is:global>
+  .aspect-video {
+    position: relative;
+    padding-top: 56.25%;
+  }
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>

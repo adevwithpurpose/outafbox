@@ -1,0 +1,100 @@
+---
+import Layout from "./Layout.astro";
+
+interface Props {
+  course?: {
+    title?: string;
+    module?: string;
+    subcategory?: string;
+    type?: string;
+  };
+  module?: {
+    slug?: string;
+    name?: string;
+  };
+}
+
+const { course, module } = Astro.props;
+
+let moduleName = "Unknown";
+let courseTitle = "Course";
+let courseType = "Video";
+let courseSubcategory = "General";
+let moduleSlug = "";
+
+if (module) {
+  moduleName = module.name || "Unknown";
+  moduleSlug = module.slug || "";
+}
+
+if (course) {
+  if (course.title) courseTitle = course.title;
+  if (course.type) courseType = course.type;
+  if (course.subcategory) courseSubcategory = course.subcategory;
+}
+
+const data = {
+  title: courseTitle,
+  module: moduleName,
+  subcategory: courseSubcategory,
+  type: courseType,
+};
+---
+
+<Layout>
+  <main class="min-h-screen px-6 py-12">
+    <div class="max-w-4xl mx-auto">
+      <nav class="text-sm text-gray-400 mb-8">
+        <a href="/courses" class="hover:text-brand-purple transition-colors"
+          >Courses</a
+        >
+        <span class="mx-2 text-gray-600">/</span>
+        <a
+          href={`/courses/${moduleSlug}`}
+          class="hover:text-brand-purple transition-colors"
+        >
+          {data.module}
+        </a>
+        <span class="mx-2 text-gray-600">/</span>
+        <span class="text-gray-300">{data.title}</span>
+      </nav>
+
+      <header class="mb-8">
+        <div class="flex gap-3 mb-4">
+          <span
+            class="px-3 py-1 bg-white/10 border border-white/10 rounded-full text-xs font-medium uppercase tracking-wider"
+          >
+            {data.type}
+          </span>
+          <span
+            class="px-3 py-1 bg-white/10 border border-white/10 rounded-full text-xs font-medium text-gray-300"
+          >
+            {data.subcategory}
+          </span>
+        </div>
+
+        <h1
+          class="text-4xl md:text-5xl font-display font-black mb-4 leading-tight"
+        >
+          {data.title}
+        </h1>
+
+        <p class="text-gray-400 text-sm">
+          Module: <span class="text-white">{data.module}</span>
+        </p>
+      </header>
+
+      {/* Slot for course content (video embed, text content, etc.) */}
+      <slot />
+
+      <section class="mt-12">
+        <a
+          href={`/courses/${moduleSlug}`}
+          class="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+        >
+          ← Back to {data.module}
+        </a>
+      </section>
+    </div>
+  </main>
+</Layout>

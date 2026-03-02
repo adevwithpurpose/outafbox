@@ -1,0 +1,96 @@
+---
+import CourseLayout from "../../layouts/CourseLayout.astro";
+
+interface CourseFrontmatter {
+  title: string;
+  module: string;
+  cloudVideoUrl: string;
+  body: string;
+}
+
+// Get all course files for static generation
+export async function getStaticPaths() {
+  const courses = import.meta.glob('/content/course/*.mdx');
+  
+  return Object.entries(courses).map(([path]: [string, any]) => {
+    const filename = path.split('/').pop()?.replace('.mdx', '') || '';
+    return {
+      params: { filename },
+      props: { filename }
+    };
+  });
+}
+
+interface Params {
+  filename: string;
+}
+
+interface Props {
+  params: Params;
+  props: { filename: string };
+}
+
+// Dummy course data for testing since we can't import from mdx files directly at runtime
+const dummyCourses: Record<string, CourseFrontmatter> = {
+  'module-1-introduction-to-growth': {
+    title: "Introduction to Ecommerce Growth Strategy",
+    module: "Module 1: Ecommerce Growth Strategy",
+    cloudVideoUrl: "https://drive.google.com/file/d/1abc123xyz/view?usp=sharing",
+    body: "Welcome to Module 1! Learn the foundations of ecommerce growth."
+  },
+  'module-2-brand-positioning': {
+    title: "Mastering Brand Positioning",
+    module: "Module 2: Brand Positioning",
+    cloudVideoUrl: "https://drive.google.com/file/d/1def456uvw/view?usp=sharing",
+    body: "Welcome to Module 2! Master your brand positioning strategy."
+  },
+  'module-3-conversion-optimization': {
+    title: "Conversion Optimization Mastery",
+    module: "Module 3: Conversion Optimization",
+    cloudVideoUrl: "https://drive.google.com/file/d/1ghi789rst/view?usp=sharing",
+    body: "Welcome to Module 3! Learn conversion optimization."
+  },
+};
+
+const { props } = Astro.props;
+const courseSlug = props?.filename || 'module-1-introduction-to-growth';
+
+let courseData: CourseFrontmatter = {
+  title: "Course Not Found",
+  module: "OutAfBox LMS",
+  cloudVideoUrl: "",
+  body: "",
+};
+
+const matchedCourse = dummyCourses[courseSlug];
+if (matchedCourse) {
+  courseData = matchedCourse;
+}
+---
+
+<CourseLayout course={courseData}>
+  {/* Course Header Section */}
+  <div class="mb-8 text-center">
+    <span class="inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-2 rounded-full text-xs font-semibold tracking-wider uppercase">{courseData.module}</span>
+    <h1 class="text-4xl font-extrabold mt-4 bg-gradient-to-r from-purple-300 via-blue-300 to-pink-300 bg-clip-text text-transparent leading-tight">{courseData.title}</h1>
+  </div>
+
+  {/* Course Body Content */}
+  <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">About This Module</h2>
+    <p class="text-white/70 text-lg leading-relaxed">{courseData.body}</p>
+    
+    {/* Placeholder for actual markdown content */}
+    <div class="mt-8 p-6 bg-purple-500/10 border border-purple-500/30 rounded-xl">
+      <p class="text-purple-300 mb-2">📚 Content will be loaded from {courseSlug}.mdx file</p>
+      <p class="text-purple-300 mb-2">🎥 Video player above will display your Google Drive content</p>
+      <p class="text-purple-300">📝 CSV data ready to import - just provide the file!</p>
+    </div>
+  </div>
+
+  {/* Course Footer / Next Module */}
+  <div class="flex gap-4 justify-center pt-8 border-t border-white/10">
+    <button class="bg-white/5 border border-white/10 text-white px-8 py-3 rounded-xl text-lg hover:bg-purple-500/30 hover:border-purple-500 transition-all">← Previous Module</button>
+    <button class="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-3 rounded-xl text-lg hover:opacity-90 hover:-translate-y-0.5 shadow-lg shadow-purple-500/40 transition-all">Next Module →</button>
+  </div>
+</CourseLayout>

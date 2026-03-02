@@ -88,3 +88,11 @@ fragment PageParts on Page {
     }
   }
 }
+
+fragment CourseParts on Course {
+  __typename
+  title
+  module
+  cloudVideoUrl
+  body
+}
